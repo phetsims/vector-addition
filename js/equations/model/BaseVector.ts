@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2025, University of Colorado Boulder
 
 /**
  * BaseVector is the abstract base class for base vectors in the Equations screens.
@@ -18,11 +18,11 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import Graph from '../../common/model/Graph.js';
+import Vector, { VectorOptions } from '../../common/model/Vector.js';
+import VectorSet from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
-import { ComponentVectorStyle } from './ComponentVectorStyle.js';
-import Graph from './Graph.js';
-import Vector, { VectorOptions } from './Vector.js';
-import VectorSet from './VectorSet.js';
 
 type SelfOptions = EmptySelfOptions;
 

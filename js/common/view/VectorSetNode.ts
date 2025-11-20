@@ -22,9 +22,9 @@ import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListen
 import Node from '../../../../scenery/js/nodes/Node.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BaseVector from '../../equations/model/BaseVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import BaseVector from '../model/BaseVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';

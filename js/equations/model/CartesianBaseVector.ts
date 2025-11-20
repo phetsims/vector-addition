@@ -16,13 +16,13 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import BaseVector, { BaseVectorOptions } from '../../common/model/BaseVector.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import Graph from '../../common/model/Graph.js';
 import Vector from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
+import BaseVector, { BaseVectorOptions } from './BaseVector.js';
 
 type SelfOptions = EmptySelfOptions;
 

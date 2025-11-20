@@ -12,10 +12,10 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import LocalizedStringProperty from '../../../../chipper/js/browser/LocalizedStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import BaseVector from '../../equations/model/BaseVector.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import BaseVector from '../model/BaseVector.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
