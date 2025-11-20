@@ -1,10 +1,13 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * BaseVector is the abstract base class for base vectors.  It disables tip dragging and removal of vectors.
- * Base vectors are created at the start of the sim, and are never disposed.
- * See https://github.com/phetsims/vector-addition/issues/63 for an overview of how BaseVectors fit into the class
- * hierarchy.
+ * BaseVector is the abstract base class for base vectors in the Equations screens.
+ * A non-base vector (EquationVector) is derived by multiplying its associated base vector by its coefficient.
+ * In the view, base vectors can be directly positioned but are indirectly scaled and rotated using NumberPickers.
+ * Like the other vectors in the Equations screen, they are permanently on the graph, and cannot be removed.
+ *
+ * See https://github.com/phetsims/vector-addition/blob/main/doc/implementation-notes.md for an overview of how
+ * BaseVectors fit into the vector class hierarchy.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
