@@ -7,7 +7,7 @@
  * 1. In OO programming, the topmost class in an inheritance hierarchy is often referred to as the "root" class.
  * 2. The term "base vector" has another meaning in this simulation - see BaseVector.ts.
  *
- * For an overview of the class hierarchy, see
+ * For an overview of the vector class hierarchy, see
  * https://github.com/phetsims/vector-addition/blob/main/doc/implementation-notes.md
  *
  * Responsibilities are:
