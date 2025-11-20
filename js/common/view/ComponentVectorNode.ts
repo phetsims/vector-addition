@@ -86,8 +86,6 @@ export default class ComponentVectorNode extends RootVectorNode {
         componentVector.isOnGraphProperty,
         componentVector.xyComponentsProperty
       ],
-
-      // TODO: CM: 2 parameters unused, see https://github.com/phetsims/vector-addition/issues/376
       ( selectedVector, modelViewTransform, componentVectorStyle, isOnGraph, xyComponents ) => {
         this.updateComponentVectorNode( componentVector, selectedVector, modelViewTransform, componentVectorStyle );
       } );
