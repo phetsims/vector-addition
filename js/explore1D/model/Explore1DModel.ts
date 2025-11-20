@@ -18,6 +18,14 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore1DHorizontalScene from './Explore1DHorizontalScene.js';
 import Explore1DVerticalScene from './Explore1DVerticalScene.js';
 
+// Origin is at the center, which is different from the default in VectorAdditionModel.
+const GRAPH_BOUNDS = Object.freeze<Bounds2>( new Bounds2(
+  -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
+  -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2,
+  VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
+  VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2
+) );
+
 export default class Explore1DModel extends VectorAdditionModel<ExploreScene> {
 
   // Specific scenes are needed in some view code.
@@ -26,20 +34,12 @@ export default class Explore1DModel extends VectorAdditionModel<ExploreScene> {
 
   public constructor( tandem: Tandem ) {
 
-    // Origin is at the center.
-    const graphBounds = new Bounds2(
-      -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
-      -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2,
-      VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
-      VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2
-    );
-
     super( {
       componentVectorStylePropertyInstrumented: false,
       createScenes: ( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, scenesTandem: Tandem ) => {
         return [
-          new Explore1DHorizontalScene( componentVectorStyleProperty, graphBounds, scenesTandem.createTandem( 'horizontalScene' ) ),
-          new Explore1DVerticalScene( componentVectorStyleProperty, graphBounds, scenesTandem.createTandem( 'verticalScene' ) )
+          new Explore1DHorizontalScene( componentVectorStyleProperty, GRAPH_BOUNDS, scenesTandem.createTandem( 'horizontalScene' ) ),
+          new Explore1DVerticalScene( componentVectorStyleProperty, GRAPH_BOUNDS, scenesTandem.createTandem( 'verticalScene' ) )
         ];
       },
       tandem: tandem

@@ -21,10 +21,10 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 
 // xy-components for the vector icons, in model coordinates.
-const ICON_XY_COMPONENTS = new Vector2( 3.2, 2.5 );
+const ICON_XY_COMPONENTS = Object.freeze<Vector2>( new Vector2( 3.2, 2.5 ) );
 
 // Use identical dilation for mouseArea and touchArea.
-const POINTER_AREA_DILATION = new Vector2( 10, 10 );
+const POINTER_AREA_DILATION = Object.freeze<Vector2>( new Vector2( 10, 10 ) );
 
 export default class LabVectorToolboxSlot extends VectorToolboxSlot {
 

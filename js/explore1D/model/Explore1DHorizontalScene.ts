@@ -20,9 +20,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // Properties common to all vectors in this scene.
 const TAIL_POSITION = Vector2.ZERO;
-
-//TODO https://github.com/phetsims/vector-addition/issues/399 Make constants immutable
-const XY_COMPONENTS = new Vector2( 5, 0 ); // horizontal vector
+const XY_COMPONENTS = Object.freeze<Vector2>( new Vector2( 5, 0 ) ); // horizontal vector
 
 // Describes the non-resultant vectors in the vector set for the horizontal scene.
 const HORIZONTAL_VECTOR_DESCRIPTIONS: ExploreVectorDescription[] = [

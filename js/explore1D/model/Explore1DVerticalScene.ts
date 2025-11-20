@@ -20,7 +20,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // Properties common to all vectors in this scene.
 const TAIL_POSITION = Vector2.ZERO;
-const XY_COMPONENTS = new Vector2( 0, 5 ); // vertical vector
+const XY_COMPONENTS = Object.freeze<Vector2>( new Vector2( 0, 5 ) ); // vertical vector
 
 // Describes the non-resultant vectors in the vector set for the horizontal scene.
 const VERTICAL_VECTOR_DESCRIPTIONS: ExploreVectorDescription[] = [

@@ -52,10 +52,10 @@ export default class Graph extends PhetioObject {
   // Since the origin is being dragged, modelViewTransform is in the model. That being said, it is necessary to know the
   // view coordinates of the scene node's bottom-left to calculate the model view transform.
   // Calculate the default for the grid's bottom-left, in view coordinates.
-  public static readonly DEFAULT_BOTTOM_LEFT = new Vector2(
+  public static readonly DEFAULT_BOTTOM_LEFT = Object.freeze<Vector2>( new Vector2(
     VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minX + VectorAdditionConstants.AXES_ARROW_X_EXTENSION + 10,
     VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxY - VectorAdditionConstants.AXES_ARROW_Y_EXTENSION - 45
-  );
+  ) );
 
   public constructor( providedOptions: GraphOptions ) {
 

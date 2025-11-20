@@ -161,7 +161,7 @@ export default class VectorAdditionConstants {
   //----------------------------------------------------------------------------------------
   // Graphs
 
-  public static readonly DEFAULT_GRAPH_BOUNDS = new Bounds2( -5, -5, 45, 25 );
+  public static readonly DEFAULT_GRAPH_BOUNDS = Object.freeze<Bounds2>( new Bounds2( -5, -5, 45, 25 ) );
   public static readonly AXES_ARROW_X_EXTENSION = 20; // how far the x-axis arrow extends past the edge of the graph's grid
   public static readonly AXES_ARROW_Y_EXTENSION = 15; // how far the y-axis arrow extends past the edge of the graph's grid
   public static readonly AXES_ARROW_OPTIONS: ArrowNodeOptions = {
