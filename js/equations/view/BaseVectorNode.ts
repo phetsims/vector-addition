@@ -12,14 +12,14 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import BaseVector from '../../equations/model/BaseVector.js';
+import Vector from '../../common/model/Vector.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import { RootVectorArrowNodeOptions } from '../../common/view/RootVectorNode.js';
+import VectorNode, { VectorNodeOptions } from '../../common/view/VectorNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import Vector from '../model/Vector.js';
-import VectorColorPalette from '../model/VectorColorPalette.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
-import VectorNode, { VectorNodeOptions } from './VectorNode.js';
+import BaseVector from '../model/BaseVector.js';
 
 type SelfOptions = EmptySelfOptions;
 
