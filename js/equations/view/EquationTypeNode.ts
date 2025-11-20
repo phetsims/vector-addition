@@ -44,7 +44,7 @@ export default class EquationTypeNode extends Node {
     }, providedOptions );
 
     // Create all pieces of the equation
-    const equationChildren = [];
+    const equationChildren: Node[] = [];
     let maxVectorSymbolHeight = 0;
 
     // Left side

@@ -453,7 +453,7 @@ export default class VectorAdditionIconFactory {
  */
 function createTipToTailArrowNodes( tipPositions: Vector2[], startingTailPosition: Vector2, arrowNodeOptions?: ArrowNodeOptions ): ArrowNode[] {
 
-  const arrowNodes = [];
+  const arrowNodes: ArrowNode[] = [];
   for ( let i = 0; i < tipPositions.length; i++ ) {
     const tailPosition = ( i === 0 ) ? startingTailPosition : tipPositions[ i - 1 ];
     const tipPosition = tipPositions[ i ];

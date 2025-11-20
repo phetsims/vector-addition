@@ -300,7 +300,7 @@ class TicksNode extends Node {
 
       const viewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
       const tickMarksShape = new Shape();
-      const tickLabels = [];
+      const tickLabels: Node[] = [];
 
       if ( graph.orientation !== 'vertical' ) {
 

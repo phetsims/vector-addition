@@ -166,7 +166,7 @@ export default class VectorAdditionSceneNode extends Node {
     this.vectorSetNodesParent.pdomOrder = this.vectorSetNodes;
 
     // Add children in the correct z-order.
-    const children = [];
+    const children: Node[] = [];
     this.vectorToolbox && children.push( this.vectorToolbox );
     this.eraserButton && children.push( this.eraserButton );
     children.push( this.graphNode );

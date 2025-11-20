@@ -30,6 +30,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Font from '../../../../scenery/js/util/Font.js';
@@ -107,7 +108,7 @@ export default class VectorSymbolNode extends HBox {
       }
 
       // Add the pieces that are relevant for the current configuration.
-      const children = [];
+      const children: Node[] = [];
       this.includeAbsoluteValueBars && children.push( leftBar );
       ( this.coefficient !== null ) && children.push( coefficientText );
       this.symbolProperty && children.push( symbolNode );
