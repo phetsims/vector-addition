@@ -475,10 +475,10 @@
     "keyboardHelpDialog": {
       "vectors": {
         "removeFromGraphDescription": {
-          "value": "Remove from graph area with delete or backspace keys."
+          "value": "Remove from graph area with Delete or Backspace keys."
         },
         "selectOrDeselectDescription": {
-          "value": "Select or deselect with space or enter keys."
+          "value": "Select or deselect with Space or Enter keys."
         },
         "moveDescription": {
           "value": "Move with arrow keys or W, A, S, or D keys."
