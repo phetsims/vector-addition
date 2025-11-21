@@ -22,8 +22,7 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
                       sceneNode: VectorAdditionSceneNode,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
-      //TODO https://github.com/phetsims/vector-addition/issues/373 keys will be replaced by activateOnClick: true
-      keys: [ 'space', 'enter' ],
+      fireOnClick: true,
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
 
