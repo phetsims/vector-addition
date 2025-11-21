@@ -133,10 +133,9 @@ export default class ComponentVectorNode extends RootVectorNode {
     // Update leader lines only if they are visible (with ComponentVectorStyle 'projection')
     if ( this.leaderLinesPath.visible ) {
 
-      // Since the leader lines are a child of this view, the origin of the view is at the tail of the component
-      // vector. Get the tip position relative to the tail of the component vector (which is the components)
-      //TODO https://github.com/phetsims/vector-addition/issues/405 Something is confusing here since the tip position should add the origin, I'm not sure where that is accommodated or if this is misnamed?
-      const tipPosition = modelViewTransform.modelToViewDelta( componentVector.xyComponents );
+      // Since the leader lines are a child of this view, the origin of the view is at the tail of the component vector.
+      // So get the tip position relative to the tail of the component vector.
+      const relativeTipPosition = modelViewTransform.modelToViewDelta( componentVector.tip.minus( componentVector.tail ) );
 
       // Get the parent tail position relative to the origin of the view (the tail of the component vector)
       const parentTailPosition = modelViewTransform.modelToViewDelta( componentVector.parentTail.minus( componentVector.tail ) );
@@ -148,7 +147,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       this.leaderLinesPath.shape = new Shape()
         .moveToPoint( Vector2.ZERO )
         .lineToPoint( parentTailPosition )
-        .moveToPoint( tipPosition )
+        .moveToPoint( relativeTipPosition )
         .lineToPoint( parentTipPosition );
 
       if ( selectedVector && componentVector.parentVector === selectedVector ) {
