@@ -267,7 +267,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   }
 
   /**
-   * Queues an accessible object response when the vector has been moved.
+   * Queues an accessible object response that describes the vector's position.
    * This Node has full responsibility for the content of the response, while input listeners are responsible for
    * when to trigger the response based on user interaction with the Node.
    */
