@@ -478,7 +478,7 @@
           "value": "Remove from graph area with delete or backspace keys."
         },
         "selectOrDeselectDescription": {
-          "value": "Select or deselect with space or enter key."
+          "value": "Select or deselect with space or enter keys."
         },
         "moveDescription": {
           "value": "Move with arrow keys or W, A, S, or D keys."
