@@ -114,7 +114,6 @@ export default class DashedArrowNode extends Node {
 
   /**
    * Sets the tip position.
-   * TODO: CM: Unused, see https://github.com/phetsims/vector-addition/issues/376
    */
   public setTip( tipX: number, tipY: number ): void {
     this.setTailAndTip( this.tailX, this.tailY, tipX, tipY );
