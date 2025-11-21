@@ -107,7 +107,7 @@ export default class VectorLabelNode extends Node {
   /**
    * Updates the label and background rectangle.
    */
-  public update(): void {
+  private update(): void {
 
     // Get the label display information
     const labelDisplayData = this.rootVector.getLabelDisplayData( this.valuesVisibleProperty.value );
