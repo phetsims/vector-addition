@@ -127,7 +127,8 @@ export default class EquationsVector extends Vector {
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
     const labelDisplayData = super.getLabelDisplayData( valuesVisible );
 
-    //TODO https://github.com/phetsims/vector-addition/issues/404 Will coefficient become stale?
+    // We only need the coefficient value here because getLabelDisplayData is called whenever the vector's tip position
+    // changes, and changing the coefficient value will change the vector's tip position. See VectorLabelNode.update.
     labelDisplayData.coefficient = this.coefficientProperty.value;
 
     return labelDisplayData;
