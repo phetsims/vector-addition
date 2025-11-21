@@ -5,10 +5,15 @@
  * It creates NumberProperties for the x and y components that are controlled by NumberPickers, and
  * adjusts its xyComponentsProperty based on the values of those Properties.
  *
+ * In the Equations screen, xComponentProperty and yComponentProperty are the "ground truth" for the vector's
+ * x and y components. xyComponentsProperty cannot be changed via the UI. Changes are made to x and y components
+ * individually using NumberPickers.
+ *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -29,10 +34,6 @@ type SelfOptions = EmptySelfOptions;
 type CartesianBaseVectorOptions = SelfOptions & BaseVectorOptions;
 
 export default class CartesianBaseVector extends BaseVector {
-
-  // NOTE: In the Equations screen, xComponentProperty and yComponentProperty are the "ground truth" for the
-  // vector's x and y components. xyComponentsProperty cannot be changed via the UI. Changes are made to x and y
-  // components individually using NumberPickers.
 
   // Base vector's x-component, which can be changed in the Equations screen's Cartesian scene via a NumberPicker.
   public readonly xComponentProperty: NumberProperty;
@@ -67,21 +68,16 @@ export default class CartesianBaseVector extends BaseVector {
       phetioFeatured: true
     } );
 
-    // When the x-component changes, update xyComponentsProperty. In the Equations screen, vectors can only be moved,
-    // not scaled and rotated. So xyComponentsProperty cannot be changed and 2-way binding is not needed.
-    this.xComponentProperty.link( xComponent => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.xyComponentsProperty.value = new Vector2( xComponent, this.yComponent );
-      }
-    } );
-
-    // When the y-component changes, update xyComponentsProperty. In the Equations screen, vectors can only be moved,
-    // not scaled and rotated. So xyComponentsProperty cannot be changed and 2-way binding is not needed.
-    this.yComponentProperty.link( yComponent => {
-      if ( !isSettingPhetioStateProperty.value ) {
-        this.xyComponentsProperty.value = new Vector2( this.xComponent, yComponent );
-      }
-    } );
+    // When the x-component or y-component changes, update xyComponentsProperty.
+    // In the Equations screen, xyComponentsProperty cannot be changed via the UI, so we do not need to listen to it
+    // to update xComponentProperty and yComponentProperty.
+    Multilink.multilink(
+      [ this.xComponentProperty, this.yComponentProperty ],
+      ( xComponent, yComponent ) => {
+        if ( !isSettingPhetioStateProperty.value ) {
+          this.xyComponentsProperty.value = new Vector2( xComponent, yComponent );
+        }
+      } );
   }
 
   public override reset(): void {
