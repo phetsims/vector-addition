@@ -38,27 +38,35 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
         vector.setSelected( true );
 
         // Move the vector.
-        //TODO https://github.com/phetsims/vector-addition/issues/406 Duplicated in MoveVectorKeyboardListener and ScaleRotateVectorKeyboardListener.
-        let dx = 0;
-        let dy = 0;
-        if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
-          dx = -1;
-        }
-        else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
-          dx = 1;
-        }
-        else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-          dy = 1;
-        }
-        else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-          dy = -1;
-        }
+        const { dx, dy } = MoveVectorKeyboardListener.keysPressedToDeltaXY( keysPressed );
         vector.moveTailToPositionWithInvariants( vector.tail.plusXY( dx, dy ) );
 
         // Describe the new position of the vector.
         vectorNode.doAccessibleObjectResponse();
       }
     } );
+  }
+
+  /**
+   * Converts keysPressed into dx and dy. This converts the arrow keys and WASD keys to a change in 1 grid unit.
+   * Other keys result in no change and return { dx: 0, dy: 0 }.
+   */
+  public static keysPressedToDeltaXY( keysPressed: OneKeyStroke ): { dx: number; dy: number } {
+    let dx = 0;
+    let dy = 0;
+    if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
+      dx = -1;
+    }
+    else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
+      dx = 1;
+    }
+    else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
+      dy = 1;
+    }
+    else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
+      dy = -1;
+    }
+    return { dx: dx, dy: dy };
   }
 }
 

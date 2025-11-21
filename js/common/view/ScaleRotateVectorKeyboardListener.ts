@@ -19,10 +19,10 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import VectorTipNode from './VectorTipNode.js';
 
-const DX = 1;
-const DY = 1;
+// Deltas for polar coordinates.
 const DELTA_MAGNITUDE = 1;
 const DELTA_ANGLE = toRadians( VectorAdditionConstants.POLAR_ANGLE_INTERVAL );
 
@@ -69,22 +69,7 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
   affirm( vector.coordinateSnapMode === 'cartesian', 'wrong coordinateSnapMode' );
 
   // Compute delta for xy-components.
-  //TODO https://github.com/phetsims/vector-addition/issues/406 Duplicated in MoveVectorKeyboardListener and ScaleRotateVectorKeyboardListener.
-  let dx = 0;
-  let dy = 0;
-  if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
-    dx = -DX;
-  }
-  else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
-    dx = DX;
-  }
-  else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-    dy = DY;
-  }
-  else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-    dy = -DY;
-  }
-
+  const { dx, dy } = MoveVectorKeyboardListener.keysPressedToDeltaXY( keysPressed );
   const tipPosition = vector.tip.plusXY( dx, dy );
 
   // Skip over zero-magnitude vector.
