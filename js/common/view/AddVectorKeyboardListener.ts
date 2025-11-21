@@ -22,6 +22,10 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
                       sceneNode: VectorAdditionSceneNode,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
+
+      // This is a listener for VectorToolboxSlot, which has tagName: 'button'. That causes problems with NVDA,
+      // because 'button' does not switch to NVDA 'Focus' mode, and this listener is therefore ignored. So we
+      // add the fireOnClick option to address this. See https://github.com/phetsims/vector-addition/issues/373.
       fireOnClick: true,
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
