@@ -38,7 +38,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
         vector.setSelected( true );
 
         // Move the vector.
-        // TODO: CM: Suggestion: This code is a near-duplicate of code in ScaleRotateVectorKeyboardListener. Should we share it? See https://github.com/phetsims/vector-addition/issues/376
+        //TODO https://github.com/phetsims/vector-addition/issues/406 Duplicated in MoveVectorKeyboardListener and ScaleRotateVectorKeyboardListener.
         let dx = 0;
         let dy = 0;
         if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
