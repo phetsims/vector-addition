@@ -17,7 +17,7 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
 
   // Keystrokes and metadata
   public static readonly HOTKEY_DATA = new HotkeyData( {
-    keys: [ 'space' ], //TODO https://github.com/phetsims/vector-addition/issues/401 should this also support enter?
+    keys: [ 'space', 'enter' ],
     repoName: vectorAddition.name,
     keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.selectOrDeselectStringProperty,
     keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.selectOrDeselectDescriptionStringProperty
