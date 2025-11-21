@@ -30,8 +30,14 @@ type CartesianBaseVectorOptions = SelfOptions & BaseVectorOptions;
 
 export default class CartesianBaseVector extends BaseVector {
 
-  // x and y components of the vector, which can be changed in the Equations screen's Cartesian scene.
+  // NOTE: In the Equations screen, xComponentProperty and yComponentProperty are the "ground truth" for the
+  // vector's x and y components. xyComponentsProperty cannot be changed via the UI. Changes are made to x and y
+  // components individually using NumberPickers.
+
+  // Base vector's x-component, which can be changed in the Equations screen's Cartesian scene via a NumberPicker.
   public readonly xComponentProperty: NumberProperty;
+
+  // Base vctor's y-component, which can be changed in the Equations screen's Cartesian scene via a NumberPicker.
   public readonly yComponentProperty: NumberProperty;
 
   public constructor( tailPosition: Vector2,
@@ -61,15 +67,16 @@ export default class CartesianBaseVector extends BaseVector {
       phetioFeatured: true
     } );
 
-    // TODO https://github.com/phetsims/vector-addition/issues/400 Is this a 2-way binding? If so, where is the other direction handled?
-    // When x-component changes, update xy-components.
+    // When the x-component changes, update xyComponentsProperty. In the Equations screen, vectors can only be moved,
+    // not scaled and rotated. So xyComponentsProperty cannot be changed and 2-way binding is not needed.
     this.xComponentProperty.link( xComponent => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.xyComponentsProperty.value = new Vector2( xComponent, this.yComponent );
       }
     } );
 
-    // When y-component changes, update xy-components.
+    // When the y-component changes, update xyComponentsProperty. In the Equations screen, vectors can only be moved,
+    // not scaled and rotated. So xyComponentsProperty cannot be changed and 2-way binding is not needed.
     this.yComponentProperty.link( yComponent => {
       if ( !isSettingPhetioStateProperty.value ) {
         this.xyComponentsProperty.value = new Vector2( this.xComponent, yComponent );

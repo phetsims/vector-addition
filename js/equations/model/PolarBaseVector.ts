@@ -35,11 +35,16 @@ type PolarBaseVectorOptions = SelfOptions & BaseVectorOptions;
 
 export default class PolarBaseVector extends BaseVector {
 
-  // Magnitude and angle of the vector, which can be changed in the Equations screen's polar scene.
-  // NOTE: Do not confuse with this._magnitudeProperty which is defined in the parent class and exists at runtime
+  // NOTE: In the Equations screen, magnitudeProperty and angleDegreesProperty are the "ground truth" used to derive
+  // the vector's xy-components. xyComponentsProperty cannot be changed via the UI. Changes are made to magnitude and
+  // angle individually using NumberPickers.
+
+  // Base vector's magnitude, which can be changed in the Equations screen's polar scene via a NumberPicker.
+  // Do not confuse with this._magnitudeProperty which is defined in superclass RootVector.
   public readonly magnitudeProperty: NumberProperty;
 
-  // NOTE: Do not confuse with this._angleDegreesProperty which is defined in the parent class and exists at runtime
+  // Base vector's angle, which can be changed in the Equations screen's polar scene via a NumberPicker.
+  // Do not confuse with this._angleDegreesProperty which is defined in superclass RootVector.
   public readonly angleDegreesProperty: NumberProperty;
 
   public constructor( tailPosition: Vector2,

@@ -74,27 +74,23 @@ export type RootVectorOptions = SelfOptions &
 
 export default abstract class RootVector extends PhetioObject {
 
-  // the vector's xy-components
+  // The vector's xy-components.
+  // NOTE: xyComponentsProperty and tailPositionProperty are the "ground truth" from which other values are derived.
   public readonly xyComponentsProperty: Property<Vector2>;
 
-  // the tail position of the vector on the graph
+  // The vector's tail position.
+  // NOTE: xyComponentsProperty and tailPositionProperty are the "ground truth" from which other values are derived.
   public readonly tailPositionProperty: Property<Vector2>;
 
-  // the tip position of the vector on the graph
+  // The vector's tip position.
   public readonly tipPositionProperty: TReadOnlyProperty<Vector2>;
 
-  // the color palette used to render the vector
+  // Color palette used to render the vector.
   public readonly vectorColorPalette: VectorColorPalette;
 
-  // This Property was introduced for the PhET-iO API only. Do not use this Property ANYWHERE.
-  // Listeners to xyComponentsProperty will get a stale value.
-  // Subclass PolarBaseVector defines magnitudeProperty, so make this private with an underscore prefix.
-  private readonly _magnitudeProperty: TReadOnlyProperty<number>;
-
+  // These Properties were introduced for the PhET-iO API only. Do not use these Properties ANYWHERE.
   // See https://github.com/phetsims/vector-addition/issues/380.
-  // This Property was introduced for the PhET-iO API only. Do not use this Property ANYWHERE.
-  // Listeners to xyComponentsProperty will get a stale value.
-  // Subclass PolarBaseVector defines angleDegreesProperty, so make this private with an underscore prefix.
+  private readonly _magnitudeProperty: TReadOnlyProperty<number>;
   private readonly _angleRadiansProperty: TReadOnlyProperty<number | null>;
   private readonly _angleDegreesProperty: TReadOnlyProperty<number | null>;
 
