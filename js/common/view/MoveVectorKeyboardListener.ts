@@ -50,6 +50,9 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
   /**
    * Converts keysPressed into dx and dy. This converts the arrow keys and WASD keys to a change in 1 grid unit.
    * Other keys result in no change and return { dx: 0, dy: 0 }.
+   *
+   * Note that this method is also used by ScaleRotateVectorKeyboardListener for Cartesian scenes, where the
+   * vector tip moves in increments of 1 grid unit.
    */
   public static keysPressedToDeltaXY( keysPressed: OneKeyStroke ): { dx: number; dy: number } {
     let dx = 0;
