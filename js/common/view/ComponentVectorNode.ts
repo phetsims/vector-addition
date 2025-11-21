@@ -139,12 +139,10 @@ export default class ComponentVectorNode extends RootVectorNode {
       const tipPosition = modelViewTransform.modelToViewDelta( componentVector.xyComponents );
 
       // Get the parent tail position relative to the origin of the view (the tail of the component vector)
-      const parentTailPosition = modelViewTransform.modelToViewDelta( componentVector.parentTail
-        .minus( componentVector.tail ) );
+      const parentTailPosition = modelViewTransform.modelToViewDelta( componentVector.parentTail.minus( componentVector.tail ) );
 
       // Get the parent tip position relative to the origin of the view (the tail of the component vector)
-      const parentTipPosition = modelViewTransform.modelToViewDelta( componentVector.parentTip
-        .minus( componentVector.tail ) );
+      const parentTipPosition = modelViewTransform.modelToViewDelta( componentVector.parentTip.minus( componentVector.tail ) );
 
       // Create the new shape for the leader lines.
       this.leaderLinesPath.shape = new Shape()
