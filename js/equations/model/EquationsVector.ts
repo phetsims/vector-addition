@@ -127,7 +127,7 @@ export default class EquationsVector extends Vector {
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
     const labelDisplayData = super.getLabelDisplayData( valuesVisible );
 
-    // TODO: CM: Question: Will this become stale? It seems like it plucks a value of the coefficientProperty at one moment in time. and I can't tell if it is recomputed when the coefficientProperty changes. see https://github.com/phetsims/vector-addition/issues/376
+    //TODO https://github.com/phetsims/vector-addition/issues/404 Will coefficient become stale?
     labelDisplayData.coefficient = this.coefficientProperty.value;
 
     return labelDisplayData;
