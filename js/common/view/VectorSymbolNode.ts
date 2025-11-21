@@ -126,15 +126,6 @@ export default class VectorSymbolNode extends HBox {
   }
 
   /**
-   * Determines whether absolute value bars are displayed to indicate 'magnitude'.
-   * TODO: CM: Unused, see https://github.com/phetsims/vector-addition/issues/376
-   */
-  public setIncludeAbsoluteValueBars( includeAbsoluteValueBars: boolean ): void {
-    this.includeAbsoluteValueBars = includeAbsoluteValueBars;
-    this.updateVectorSymbolNode();
-  }
-
-  /**
    * Sets the symbol.
    * @param symbolProperty - the symbol to display. Null means no symbol is displayed.
    */
