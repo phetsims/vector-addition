@@ -47,7 +47,7 @@ export default class LabelEqualsAnglePicker extends Node {
     } );
 
     // Keep the signed and unsigned angle Properties synchronized.
-    // TODO: CM: A better way? see https://github.com/phetsims/vector-addition/issues/376
+    //TODO https://github.com/phetsims/vector-addition/issues/403 Is there a better way?
     let isSetting = false;
     signedAngleDegreesProperty.lazyLink( signedAngle => {
       if ( !isSetting ) {
