@@ -140,6 +140,8 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
   /**
    * Queues an accessible object response when the vector has been scaled or rotated.
+   * This Node has full responsibility for the content of the response, while input listeners are responsible for
+   * when to trigger the response based on user interaction with the Node.
    */
   public doAccessibleObjectResponse(): void {
     if ( this.vector.coordinateSnapMode === 'cartesian' ) {
