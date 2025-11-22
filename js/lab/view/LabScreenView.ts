@@ -28,7 +28,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     super( model.sceneProperty, {
       resetModel: () => model.reset(),
-      screenSummaryContent: new LabScreenSummaryContent( model.sceneProperty, model.scenes ),
+      screenSummaryContent: new LabScreenSummaryContent( model.sceneProperty ),
       tandem: tandem
     } );
 

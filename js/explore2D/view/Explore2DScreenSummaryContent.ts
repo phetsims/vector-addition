@@ -9,8 +9,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
@@ -20,17 +19,17 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore2DScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>, scenes: ExploreScene[] ) {
+  public constructor( sceneProperty: TReadOnlyProperty<ExploreScene> ) {
 
     // Number of vectors on the graph.
-    const numberOfVectorsProperty = DerivedProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.numberOfVectorsOnGraphProperty ) ],
-      () => sceneProperty.value.vectorSet.numberOfVectorsOnGraphProperty.value );
+    const numberOfVectorsProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet.numberOfVectorsOnGraphProperty
+    } );
 
-    // Name of the selected scene.
-    const accessibleSceneNameStringProperty = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.accessibleSceneNameStringProperty ) ],
-      () => sceneProperty.value.accessibleSceneNameStringProperty.value );
+    // Accessible name of the selected scene.
+    const accessibleSceneNameStringProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.accessibleSceneNameStringProperty
+    } );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.explore2DScreen.screenSummary.currentDetailsStringProperty, {
       numberOfVectors: numberOfVectorsProperty,

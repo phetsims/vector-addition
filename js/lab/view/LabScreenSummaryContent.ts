@@ -6,8 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
@@ -17,32 +16,32 @@ import LabScene from '../model/LabScene.js';
 
 export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor( sceneProperty: TReadOnlyProperty<LabScene>, scenes: LabScene[] ) {
+  public constructor( sceneProperty: TReadOnlyProperty<LabScene> ) {
 
     // Number of vectors on the graph that belong to vector set 1.
-    const vectorSet1SizeProperty = DerivedProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.numberOfVectorsOnGraphProperty ) ],
-      () => sceneProperty.value.vectorSet1.numberOfVectorsOnGraphProperty.value );
+    const vectorSet1SizeProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet1.numberOfVectorsOnGraphProperty
+    } );
 
     // Number of vectors on the graph that belong to vector set 2.
-    const vectorSet2SizeProperty = DerivedProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet2.numberOfVectorsOnGraphProperty ) ],
-      () => sceneProperty.value.vectorSet2.numberOfVectorsOnGraphProperty.value );
+    const vectorSet2SizeProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet2.numberOfVectorsOnGraphProperty
+    } );
 
     // Symbol for vector set 1.
-    const vectorSet1AccessibleSymbolProperty = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.accessibleSymbolProperty ) ],
-      () => sceneProperty.value.vectorSet1.accessibleSymbolProperty.value );
+    const vectorSet1AccessibleSymbolProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet1.accessibleSymbolProperty
+    } );
 
     // Symbol for vector set 2.
-    const vectorSet2AccessibleSymbolProperty = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.accessibleSymbolProperty ) ],
-      () => sceneProperty.value.vectorSet2.accessibleSymbolProperty.value );
+    const vectorSet2AccessibleSymbolProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet2.accessibleSymbolProperty
+    } );
 
     // Name of the selected scene.
-    const sceneAccessibleNameStringProperty = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.accessibleSceneNameStringProperty ) ],
-      () => sceneProperty.value.accessibleSceneNameStringProperty.value );
+    const sceneAccessibleNameStringProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.accessibleSceneNameStringProperty
+    } );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
       vectorSet1Size: vectorSet1SizeProperty,

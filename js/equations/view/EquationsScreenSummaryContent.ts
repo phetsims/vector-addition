@@ -7,6 +7,7 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
@@ -24,32 +25,35 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
     affirm( _.every( scenes, scene => scene.vectorSet.baseVectors.length === 2 ), 'Unexpected number of baseVectors.' );
     affirm( _.every( scenes, scene => scene.vectorSet.allVectors.length === 2 ), 'Unexpected number of allVectors.' );
 
-    //TODO https://github.com/phetsims/vector-addition/issues/400 Consider whether DynamicProperty for the DerivedProperties below.
+    // The selected equation type.
+    const equationTypeProperty = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.equationTypeProperty
+    } );
 
-    // DerivedProperties that appear in the description sections.
-    const equationTypeProperty = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.equationTypeProperty ) ],
-      () => sceneProperty.value.equationTypeProperty.value );
+    // Coefficient for the first term in the equation.
+    const coefficient1Property = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet.allVectors[ 0 ].coefficientProperty
+    } );
 
-    const coefficient1Property = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.allVectors[ 0 ].coefficientProperty ) ],
-      () => sceneProperty.value.vectorSet.allVectors[ 0 ].coefficientProperty.value );
+    // Coefficient for the second term in the equation.
+    const coefficient2Property = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet.allVectors[ 1 ].coefficientProperty
+    } );
 
-    const coefficient2Property = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.allVectors[ 1 ].coefficientProperty ) ],
-      () => sceneProperty.value.vectorSet.allVectors[ 1 ].coefficientProperty.value );
+    // Accessible symbol for the first term in the equation.
+    const accessibleSymbol1Property = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty
+    } );
 
-    const accessibleSymbol1Property = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty ) ],
-      () => sceneProperty.value.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty.value );
+    // Accessible symbol for the second term in the equation.
+    const accessibleSymbol2Property = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty
+    } );
 
-    const accessibleSymbol2Property = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty ) ],
-      () => sceneProperty.value.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty.value );
-
-    const accessibleSymbol3Property = DerivedStringProperty.deriveAny(
-      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.resultantVector.accessibleSymbolProperty ) ],
-      () => sceneProperty.value.vectorSet.resultantVector.accessibleSymbolProperty.value );
+    // Accessible symbol for the third (resultant) term in the equation.
+    const accessibleSymbol3Property = new DynamicProperty( sceneProperty, {
+      derive: scene => scene.vectorSet.resultantVector.accessibleSymbolProperty
+    } );
 
     // Control Area description
     const controlAreaStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
@@ -60,28 +64,27 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
 
     // Current Details description
     const currentDetailsStringProperty = new DerivedStringProperty( [
-        sceneProperty,
         equationTypeProperty,
         coefficient1Property,
-        coefficient2Property,
         accessibleSymbol1Property,
+        coefficient2Property,
         accessibleSymbol2Property,
         accessibleSymbol3Property
       ],
-      () => {
+      ( equationType, coefficient1, accessibleSymbol1, coefficient2, accessibleSymbol2, accessibleSymbol3 ) => {
 
         // Note that all of these string patterns must have the same placeholders.
-        const patternStringProperty = ( equationTypeProperty.value === 'addition' ) ?
+        const patternStringProperty = ( equationType === 'addition' ) ?
                                       VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsAdditionStringProperty :
-                                      ( equationTypeProperty.value === 'subtraction' ) ?
+                                      ( equationType === 'subtraction' ) ?
                                       VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsSubtractionStringProperty :
                                       VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty;
         return StringUtils.fillIn( patternStringProperty, {
-          coefficient1: coefficient1Property.value,
-          symbol1: accessibleSymbol1Property.value,
-          coefficient2: coefficient2Property.value,
-          symbol2: accessibleSymbol2Property.value,
-          symbol3: accessibleSymbol3Property.value
+          coefficient1: coefficient1,
+          symbol1: accessibleSymbol1,
+          coefficient2: coefficient2,
+          symbol2: accessibleSymbol2,
+          symbol3: accessibleSymbol3
         } );
       } );
 

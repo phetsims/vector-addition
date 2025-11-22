@@ -29,7 +29,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     super( model.sceneProperty, {
       resetModel: () => model.reset(),
-      screenSummaryContent: new Explore2DScreenSummaryContent( model.sceneProperty, model.scenes ),
+      screenSummaryContent: new Explore2DScreenSummaryContent( model.sceneProperty ),
       tandem: tandem
     } );
 
