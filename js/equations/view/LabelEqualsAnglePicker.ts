@@ -46,8 +46,8 @@ export default class LabelEqualsAnglePicker extends Node {
       range: VectorAdditionConstants.UNSIGNED_ANGLE_RANGE
     } );
 
-    // Keep the signed and unsigned angle Properties synchronized.
-    //TODO https://github.com/phetsims/vector-addition/issues/403 Is there a better way?
+    // This implementation is unfortunate. But a DynamicProperty or MappedProperty will not work here because
+    // NumberPicker requires a Property<number>. See https://github.com/phetsims/vector-addition/issues/403.
     let isSetting = false;
     signedAngleDegreesProperty.lazyLink( signedAngle => {
       if ( !isSetting ) {
