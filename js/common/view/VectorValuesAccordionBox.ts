@@ -162,7 +162,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       children: [ noVectorSelectedText, vectorQuantitiesHBox ]
     } );
 
-    const coefficientListener = ( coefficient: number ) => {
+    const coefficientListener = ( coefficient: number | null ) => {
       magnitudeSymbolNode.setCoefficient( coefficient );
       xComponentSymbolNode.setCoefficient( coefficient );
       yComponentSymbolNode.setCoefficient( coefficient );
@@ -189,6 +189,11 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
         affirm( !selectedVector.coefficientProperty.hasListener( coefficientListener ),
           `vector ${selectedVector.accessibleSymbolProperty.value} coefficientProperty already has coefficientListener.` );
         selectedVector.coefficientProperty.link( coefficientListener ); // unlink required when selected vector changes
+      }
+      else {
+
+        // Clear the coefficient for resultant and base vectors, since they don't have a coefficientProperty.
+        coefficientListener( null );
       }
 
       if ( selectedVector !== null ) {
