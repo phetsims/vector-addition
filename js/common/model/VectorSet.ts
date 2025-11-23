@@ -12,7 +12,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -166,6 +166,14 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
       tandem: options.activeVectorsInstrumented ? options.tandem.createTandem( 'activeVectors' ) : Tandem.OPT_OUT,
       phetioType: createObservableArray.ObservableArrayIO( Vector.VectorIO ),
       phetioDocumentation: 'Vectors that are not in the toolbox.'
+    } );
+
+    // Sanity checks for activeVectors.
+    isAffirmEnabled() && this.activeVectors.lengthProperty.link( length => {
+      affirm( length <= this.allVectors.length,
+        `activeVectors.length (${length}) exceeds allVectors.length (${this.allVectors.length}).` );
+      affirm( _.every( this.allVectors, vector => this.allVectors.includes( vector ) ),
+        'activeVectors includes a vector that does not belong to this vector set.' );
     } );
 
     this.projectionXOffsetStart = options.projectionXOffsetStart;

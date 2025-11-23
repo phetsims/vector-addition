@@ -15,7 +15,7 @@
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
@@ -70,6 +70,10 @@ export default class VectorSetNode extends Node {
 
   // Focus moves here when all vectors have been removed from this VectorSetNode.
   private vectorToolboxSlot: Node | null;
+
+  // Number of vectors registered with this VectorSetNode. This is used to sanity check the register method, by
+  // verifying that the number of vectors registered does not exceed the number of vectors in the vector set.
+  private numberOfVectorsRegistered = 0;
 
   public constructor( vectorSet: VectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
@@ -175,6 +179,19 @@ export default class VectorSetNode extends Node {
    */
   public registerVector( vector: Vector, forwardingEvent?: PressListenerEvent ): void {
 
+    this.numberOfVectorsRegistered++;
+
+    // Sanity checks for the vector being registered.
+    if ( isAffirmEnabled() ) {
+      affirm( this.vectorSet.allVectors.includes( vector ), 'Vector does not belong to this vector set.' );
+      affirm( this.vectorSet.activeVectors.includes( vector ), 'Vector is not in activeVectors.' );
+      affirm( !this.vectorNodes.map( vectorNode => vectorNode.vector ).includes( vector ), 'Vector already has a VectorNode.' );
+      affirm( this.numberOfVectorsRegistered <= this.vectorSet.allVectors.length,
+        `More vectors registered (${this.numberOfVectorsRegistered}) than there are in the vectorSet (${this.vectorSet.allVectors.length}).` );
+      affirm( this.numberOfVectorsRegistered <= this.vectorSet.activeVectors.length,
+        `More vectors registered (${this.numberOfVectorsRegistered}) than there are active vectors (${this.vectorSet.activeVectors.length}).` );
+    }
+
     // Create the view for the vector and its component vectors
     const vectorNode = new VectorNode( vector, this.modelViewTransformProperty, this.selectedVectorProperty,
       this.valuesVisibleProperty, this.anglesVisibleProperty, this.graphBoundsProperty );
@@ -232,6 +249,8 @@ export default class VectorSetNode extends Node {
       const vectorRemovedListener = ( removedVector: Vector ) => {
 
         if ( removedVector === vector ) {
+          this.numberOfVectorsRegistered--;
+          affirm( this.numberOfVectorsRegistered >= 0, `Number of registered vectors is negative: ${this.numberOfVectorsRegistered}` );
 
           // Remove vectorNode from this.vectorNodes.
           const index = this.vectorNodes.indexOf( vectorNode );
