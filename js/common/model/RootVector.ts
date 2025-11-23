@@ -23,7 +23,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -333,20 +332,6 @@ export default abstract class RootVector extends PhetioObject {
       }
     }
     return angleDegrees;
-  }
-
-  /**
-   * Gets the angle of the vector in degrees as a string, using the specified angle convention (signed or unsigned).
-   * If the vector has zero magnitude, the empty string is returned.
-   * TODO: CM: Unused, see https://github.com/phetsims/vector-addition/issues/376
-   */
-  public getAngleDegreesString( angleConvention: AngleConvention ): string {
-    let angleDegreesString = '';
-    const angleDegrees = this.getAngleDegrees( angleConvention );
-    if ( angleDegrees !== null ) {
-      angleDegreesString = toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
-    }
-    return angleDegreesString;
   }
 }
 
