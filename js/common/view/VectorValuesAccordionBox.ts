@@ -210,8 +210,6 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
       if ( oldSelectedVector && oldSelectedVector instanceof EquationsVector ) {
         oldSelectedVector.coefficientProperty.unlink( coefficientListener );
-        // reset
-        coefficientListener( ( selectedVector && selectedVector instanceof EquationsVector ) ? selectedVector.coefficientProperty.value : 1 );
       }
     } );
 
