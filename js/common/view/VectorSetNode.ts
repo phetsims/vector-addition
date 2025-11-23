@@ -71,8 +71,8 @@ export default class VectorSetNode extends Node {
   // Focus moves here when all vectors have been removed from this VectorSetNode.
   private vectorToolboxSlot: Node | null;
 
-  // Number of vectors registered with this VectorSetNode. This is used to sanity check the register method, by
-  // verifying that the number of vectors registered does not exceed the number of vectors in the vector set.
+  // Number of vectors registered with this VectorSetNode. This is used to sanity check registerVector,
+  // by verifying that the number of vectors registered does not exceed the number of vectors in the vector set.
   private numberOfVectorsRegistered = 0;
 
   public constructor( vectorSet: VectorSet,
