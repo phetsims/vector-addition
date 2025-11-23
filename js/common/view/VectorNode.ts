@@ -61,6 +61,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   // Drag listener for moving the vector with the pointer, for drag forwarding.
   private readonly moveVectorDragListener: DragListener;
 
+  //TODO https://github.com/phetsims/scenery/issues/1729 Revisit this when response cueing is revised.
   // We need to use a separate utterance queue for the doAccessibleObjectResponse method because it was interrupting
   // important context responses ('Vector added to graph area', 'Vector removed from graph area') that occur over
   // in VectorSetNode. It seems backwards to have to use a separate queue for the thing doing the interrupting, but
