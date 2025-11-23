@@ -179,6 +179,18 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       yComponentSymbolProperty && yComponentSymbolProperty.dispose();
       yComponentSymbolProperty = null;
 
+      // Stop observing coefficient of old vector, if any.
+      if ( oldSelectedVector && oldSelectedVector instanceof EquationsVector ) {
+        oldSelectedVector.coefficientProperty.unlink( coefficientListener );
+      }
+
+      // Start observing coefficient of new vector, if any.
+      if ( selectedVector && selectedVector instanceof EquationsVector ) {
+        affirm( !selectedVector.coefficientProperty.hasListener( coefficientListener ),
+          `vector ${selectedVector.accessibleSymbolProperty.value} coefficientProperty already has coefficientListener.` );
+        selectedVector.coefficientProperty.link( coefficientListener ); // unlink required when selected vector changes
+      }
+
       if ( selectedVector !== null ) {
 
         // Get the vector symbol.
@@ -200,16 +212,6 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
           ( vectorSymbol, yString ) => `${vectorSymbol}<sub>${yString}</sub>`
         );
         yComponentSymbolNode.setSymbolProperty( yComponentSymbolProperty );
-      }
-
-      if ( selectedVector && selectedVector instanceof EquationsVector ) {
-        affirm( !selectedVector.coefficientProperty.hasListener( coefficientListener ),
-          `vector ${selectedVector.accessibleSymbolProperty.value} coefficientProperty already has coefficientListener.` );
-        selectedVector.coefficientProperty.link( coefficientListener ); // unlink required when selected vector changes
-      }
-
-      if ( oldSelectedVector && oldSelectedVector instanceof EquationsVector ) {
-        oldSelectedVector.coefficientProperty.unlink( coefficientListener );
       }
     } );
 
