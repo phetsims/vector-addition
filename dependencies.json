@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.2.0-dev.9 Sun Nov 23 2025 11:14:11 GMT-0700 (Mountain Standard Time)",
+  "comment": "# vector-addition 1.2.0-dev.10 Tue Nov 25 2025 12:18:21 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "1a4637cfff70e7e8b0844dc43848a86ae89b4cf5",
     "branch": "main"
@@ -13,7 +13,7 @@
     "branch": "main"
   },
   "chipper": {
-    "sha": "6570817fc34c4a6a76cca45c757c2e335108c6ac",
+    "sha": "d53abe78a897fd45930957714899792a22d1a5aa",
     "branch": "main"
   },
   "dot": {
@@ -29,7 +29,7 @@
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "bdcd28f3bec6c3543190aa3e932c57ea695f8379",
+    "sha": "ff332d80b9406a11677826e7428f56dc1a4c8ab5",
     "branch": "main"
   },
   "phet-core": {
@@ -97,7 +97,7 @@
     "branch": "main"
   },
   "vector-addition": {
-    "sha": "d307278468b2806f9137eca73169ff5808b6d229",
+    "sha": "b28731d01c169a077228b305abebf89f4f21a66d",
     "branch": "main"
   }
 }
