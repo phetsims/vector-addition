@@ -27,8 +27,6 @@ import { EquationType, EquationTypeValues } from '../model/EquationType.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
 
-const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
-
 type SelfOptions = EmptySelfOptions;
 
 type EquationAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
@@ -60,7 +58,10 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
     }, providedOptions );
 
     // 'Equation' title
-    const titleText = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
+    const titleText = new Text( VectorAdditionStrings.equationStringProperty, {
+      font: VectorAdditionConstants.TITLE_FONT,
+      maxWidth: 450
+    } );
 
     // Radio buttons for selecting equation type
     const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup(
