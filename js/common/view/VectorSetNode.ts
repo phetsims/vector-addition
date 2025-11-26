@@ -163,9 +163,15 @@ export default class VectorSetNode extends Node {
     this.addLinkedElement( vectorSet );
 
     // After PhET-iO state has been restored, register all active vectors to build their view.
+    // Any vectors that are not removable from the graph (as in the Equations screen) should be skipped
+    // because they will be permanently registered.
     if ( Tandem.PHET_IO_ENABLED ) {
       phetioStateSetEmitter.addListener( () => {
-        vectorSet.activeVectors.forEach( activeVector => this.registerVector( activeVector ) );
+        vectorSet.activeVectors.forEach( activeVector => {
+          if ( activeVector.isRemovableFromGraph ) {
+            this.registerVector( activeVector );
+          }
+        } );
       } );
     }
   }
