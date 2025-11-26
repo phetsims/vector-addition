@@ -47,7 +47,7 @@ export default class ArrowOverSymbolNode extends Node {
     const symbolText = new RichText( symbolProperty, {
       font: options.font,
       boundsMethod: 'accurate', // so that options.spacing is effective
-      maxWidth: 20
+      maxWidth: 25
     } );
 
     const rightArrowNode = new Text( '\u2192', {
