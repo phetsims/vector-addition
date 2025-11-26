@@ -183,9 +183,9 @@ export default class VectorSetNode extends Node {
 
     // Sanity checks for the vector being registered.
     if ( isAffirmEnabled() ) {
-      affirm( this.vectorSet.allVectors.includes( vector ), 'Vector does not belong to this vector set.' );
-      affirm( this.vectorSet.activeVectors.includes( vector ), 'Vector is not in activeVectors.' );
-      affirm( !this.vectorNodes.map( vectorNode => vectorNode.vector ).includes( vector ), 'Vector already has a VectorNode.' );
+      affirm( this.vectorSet.allVectors.includes( vector ), `Vector does not belong to this vector set: ${vector.tandemNameSymbol}` );
+      affirm( this.vectorSet.activeVectors.includes( vector ), `Vector is not in activeVectors: ${vector.tandemNameSymbol}` );
+      affirm( !this.vectorNodes.map( vectorNode => vectorNode.vector ).includes( vector ), `Vector already has a VectorNode: ${vector.tandemNameSymbol}` );
       affirm( this.numberOfVectorsRegistered <= this.vectorSet.allVectors.length,
         `More vectors registered (${this.numberOfVectorsRegistered}) than there are in the vectorSet (${this.vectorSet.allVectors.length}).` );
       affirm( this.numberOfVectorsRegistered <= this.vectorSet.activeVectors.length,
