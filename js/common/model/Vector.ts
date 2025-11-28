@@ -20,6 +20,7 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -160,8 +161,22 @@ export default class Vector extends RootVector {
     // When the scene's origin changes, update the tail position.
     this.graph.modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
       if ( !isSettingPhetioStateProperty.value ) {
+
+        // Get the new tail position in model coordinates.
         const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
-        this.tailPositionProperty.value = newModelViewTransform.viewToModelPosition( tailPositionView );
+        const tailPositionModel = newModelViewTransform.viewToModelPosition( tailPositionView );
+
+        // Workaround for https://github.com/phetsims/vector-addition/issues/412.
+        // Round the tail position to 8 decimal places to ensure that the tail position is not affected by
+        // floating-point errors. This is most obvious in Cartesian scenes, where the tail position should be
+        // on integer xy-coordinates.
+        tailPositionModel.x = toFixedNumber( tailPositionModel.x, 8 );
+        tailPositionModel.y = toFixedNumber( tailPositionModel.y, 8 );
+
+        // We cannot use moveTailToPositionWithInvariants here because it would adversely affect polar scenes,
+        // where tail positions may not be on integer xy-coordinates, and it is not possible to reposition all
+        // vectors atomically.
+        this.tailPositionProperty.value = tailPositionModel;
       }
     } );
   }
