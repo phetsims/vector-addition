@@ -19,6 +19,7 @@ import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
+import IndexedNodeIO from '../../../../scenery/js/nodes/IndexedNodeIO.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -114,7 +115,10 @@ export default class VectorSetNode extends Node {
       isDisposable: false,
       children: [ xResultantComponentVectorNode, yResultantComponentVectorNode, resultantVectorNode ],
       tandem: tandem,
-      phetioVisiblePropertyInstrumented: false
+      phetioVisiblePropertyInstrumented: false,
+
+      // VectorSetNode moves to front when selecting a vector, see https://github.com/phetsims/vector-addition/issues/414.
+      phetioType: IndexedNodeIO
     } );
 
     this.vectorSet = vectorSet;
@@ -296,8 +300,7 @@ export default class VectorSetNode extends Node {
     // Node for the base vector
     const baseVectorNode = new BaseVectorNode( baseVector, vectorColorPalette, this.modelViewTransformProperty,
       this.selectedVectorProperty, this.valuesVisibleProperty, this.anglesVisibleProperty, this.graphBoundsProperty, {
-        visibleProperty: baseVectorsVisibleProperty,
-        tandem: this.tandem.createTandem( `${baseVector.tandemNameSymbol}BaseVectorNode` )
+        visibleProperty: baseVectorsVisibleProperty
       } );
     this.addChild( baseVectorNode );
     this.baseVectorNodes.push( baseVectorNode );

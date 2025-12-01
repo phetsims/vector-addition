@@ -27,7 +27,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
@@ -150,9 +149,7 @@ export default class VectorAdditionSceneNode extends Node {
         viewProperties.anglesVisibleProperty,
         scene.graph.boundsProperty,
         componentVectorStyleProperty,
-        // There is nothing interesting under here for PhET-iO, so we decided to uninstrument. If it needs to be
-        // instrumented in the future, use options.tandem.createTandem( `${vectorSet.tandem.name}Node` ).
-        Tandem.OPT_OUT );
+        options.tandem.createTandem( `${vectorSet.tandem.name}Node` ) );
 
       this.vectorSetNodesParent.addChild( vectorSetNode );
       this.vectorSetNodes.push( vectorSetNode );
