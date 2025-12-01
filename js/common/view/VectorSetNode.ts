@@ -134,10 +134,11 @@ export default class VectorSetNode extends Node {
     selectedVectorProperty.link( selectedVector => {
       if ( selectedVector === resultantVectorNode.vector ) {
 
-        // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
+        // Move the entire vector set to the front, see https://github.com/phetsims/vector-addition/issues/94.
         this.moveToFront();
 
-        // order is important - resultant vector should be in front of its components
+        // Move the resultant vector and its components to the front within the vector set.
+        // Order is important - resultant vector should be in front of its components
         xResultantComponentVectorNode.moveToFront();
         yResultantComponentVectorNode.moveToFront();
         resultantVectorNode.moveToFront();
@@ -239,10 +240,10 @@ export default class VectorSetNode extends Node {
     const selectedVectorListener = ( selectedVector: Vector | null ) => {
       if ( selectedVector === vectorNode.vector ) {
 
-        // Move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
+        // Move the entire vector set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
 
-        // Move the selected vector and its components to the front.
+        // Move the selected vector and its components to the front within the vector set.
         vectorAndComponentsNode.moveToFront();
       }
     };
@@ -309,10 +310,10 @@ export default class VectorSetNode extends Node {
     this.selectedVectorProperty.link( selectedVector => {
       if ( selectedVector === baseVectorNode.vector ) {
 
-        // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
+        // Move the entire vector set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
 
-        // move the base vector to the front
+        // Move the base vector to the front within the vector set.
         baseVectorNode.moveToFront();
       }
     } );
