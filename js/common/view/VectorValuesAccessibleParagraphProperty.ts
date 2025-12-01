@@ -17,6 +17,7 @@ import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
+import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export class VectorValuesAccessibleParagraphProperty extends PatternStringProperty<IntentionalAny> {
@@ -26,10 +27,16 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
     // DerivedProperties shared by all descriptions.
     const magnitudeProperty = new DerivedProperty( [ vector.xyComponentsProperty ],
       () => toFixed( vector.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const directionProperty = new DerivedProperty( [ vector.xyComponentsProperty ],
-      () => toFixed( vector.getAngleDegrees() || 0, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+
+    const directionProperty = new DerivedProperty(
+      [ vector.xyComponentsProperty, VectorAdditionPreferences.instance.angleConventionProperty ],
+      ( xyComponents, angleConvention ) =>
+        toFixed( vector.getAngleDegrees( angleConvention ) || 0, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )
+    );
+
     const xComponentProperty = new DerivedProperty( [ vector.xyComponentsProperty ],
       xyComponents => toFixed( xyComponents.x, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+
     const yComponentProperty = new DerivedProperty( [ vector.xyComponentsProperty ],
       xyComponents => toFixed( xyComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
 
