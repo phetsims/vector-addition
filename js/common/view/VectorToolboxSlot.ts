@@ -119,7 +119,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
       iconNode.opacity = slotIsEmpty ? 0 : 1; // Workaround: hiding the icon causes the size of the focus highlight to change.
       this.pickable = !slotIsEmpty;
-      this.pdomVisible = !slotIsEmpty; // Remove from both focus order and the PDOM, so it will no longer appear in A11y View.
+      this.accessibleVisible = !slotIsEmpty; // Remove from both focus order and the PDOM, so it will no longer appear in A11y View.
     } );
 
     // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.
