@@ -201,8 +201,8 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
   }
 
   public reset(): void {
-    this.erase();
     this.resultantVector.reset();
+    this.erase();
   }
 
   /**
