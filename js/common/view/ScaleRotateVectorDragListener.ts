@@ -43,6 +43,8 @@ export default class ScaleRotateVectorDragListener extends SoundDragListener {
         selectedVectorProperty.value = vector;
       },
       end: () => {
+
+        //TODO https://github.com/phetsims/vector-addition/issues/422 Provide previousTipPosition for object response.
         this.tipNode.doAccessibleObjectResponse( null );
       }
     } );
