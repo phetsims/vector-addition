@@ -28,7 +28,7 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
     keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.checkVectorValuesStringProperty,
     keyboardHelpDialogPDOMLabelStringProperty:
       new PatternStringProperty( VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.checkVectorValuesDescriptionStringProperty, {
-        modifierKey: TextKeyNode.getAltKeyString()
+        altKey: TextKeyNode.getAltKeyString() // platform-specific
       } )
   } );
 

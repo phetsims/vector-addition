@@ -478,7 +478,7 @@
           "value": "Remove from graph area with Delete or Backspace keys."
         },
         "selectOrDeselectDescription": {
-          "value": "Select or deselect with Space or Enter keys."
+          "value": "Select or deselect with Space or {{enterKey}} keys."
         },
         "moveDescription": {
           "value": "Move with arrow keys or W, A, S, or D keys."
@@ -487,7 +487,7 @@
           "value": "Scale and rotate via tip with arrow keys or W, A, S, or D keys."
         },
         "checkVectorValuesDescription": {
-          "value": "Read vector values with {{modifierKey}} plus C key."
+          "value": "Read vector values with {{altKey}} plus C key."
         }
       }
     }
