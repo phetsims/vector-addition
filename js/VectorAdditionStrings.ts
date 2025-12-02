@@ -88,6 +88,10 @@ type StringsType = {
       'availableVectorsStringProperty': LocalizedStringProperty;
       'graphAreaHeadingStringProperty': LocalizedStringProperty;
     };
+    'graphArea': {
+      'accessibleParagraphExploreStringProperty': LocalizedStringProperty;
+      'accessibleParagraphLabStringProperty': LocalizedStringProperty;
+    };
     'horizontalSceneNameStringProperty': LocalizedStringProperty;
     'verticalSceneNameStringProperty': LocalizedStringProperty;
     'cartesianSceneNameStringProperty': LocalizedStringProperty;

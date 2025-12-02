@@ -96,22 +96,22 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     // Graph Area heading for the Cartesian scene.
     const cartesianGraphAreaHeading = new Node( {
+      visibleProperty: cartesianSceneNode.visibleProperty,
       pdomOrder: [
         cartesianSceneNode.graphNode,
         cartesianSceneNode.vectorSetNodesParent
       ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      visibleProperty: cartesianSceneNode.visibleProperty
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty
     } );
 
     // Graph Area heading for the polar scene.
     const polarGraphAreaHeading = new Node( {
+      visibleProperty: polarSceneNode.visibleProperty,
       pdomOrder: [
         polarSceneNode.graphNode,
         polarSceneNode.vectorSetNodesParent
       ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      visibleProperty: polarSceneNode.visibleProperty
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty
     } );
 
     const screenViewRootNode = new Node( {

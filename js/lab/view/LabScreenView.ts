@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -79,22 +80,34 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // Graph Area heading for the Cartesian scene.
     const cartesianGraphAreaHeading = new Node( {
+      visibleProperty: cartesianSceneNode.visibleProperty,
       pdomOrder: [
         cartesianSceneNode.graphNode,
         cartesianSceneNode.vectorSetNodesParent
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      visibleProperty: cartesianSceneNode.visibleProperty
+      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphLabStringProperty, {
+        vectorSet1Size: model.cartesianScene.vectorSet1.numberOfVectorsOnGraphProperty,
+        vectorSet1Symbol: model.cartesianScene.vectorSet1.accessibleSymbolProperty,
+        vectorSet2Size: model.cartesianScene.vectorSet2.numberOfVectorsOnGraphProperty,
+        vectorSet2Symbol: model.cartesianScene.vectorSet2.accessibleSymbolProperty
+      } )
     } );
 
     // Graph Area heading for the polar scene.
     const polarGraphAreaHeading = new Node( {
+      visibleProperty: polarSceneNode.visibleProperty,
       pdomOrder: [
         polarSceneNode.graphNode,
         polarSceneNode.vectorSetNodesParent
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      visibleProperty: polarSceneNode.visibleProperty
+      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphLabStringProperty, {
+        vectorSet1Size: model.polarScene.vectorSet1.numberOfVectorsOnGraphProperty,
+        vectorSet1Symbol: model.polarScene.vectorSet1.accessibleSymbolProperty,
+        vectorSet2Size: model.polarScene.vectorSet2.numberOfVectorsOnGraphProperty,
+        vectorSet2Symbol: model.polarScene.vectorSet2.accessibleSymbolProperty
+      } )
     } );
 
     const screenViewRootNode = new Node( {

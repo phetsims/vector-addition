@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -82,22 +83,28 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     // Graph Area heading for the horizontal scene.
     const horizontalGraphAreaHeading = new Node( {
+      visibleProperty: horizonalSceneNode.visibleProperty,
       pdomOrder: [
         horizonalSceneNode.graphNode,
         horizonalSceneNode.vectorSetNodesParent
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      visibleProperty: horizonalSceneNode.visibleProperty
+      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
+        numberOfVectors: model.horizontalScene.vectorSet.numberOfVectorsOnGraphProperty
+      } )
     } );
 
     // Graph Area heading for the vertical scene.
     const verticalGraphAreaHeading = new Node( {
+      visibleProperty: verticalSceneNode.visibleProperty,
       pdomOrder: [
         verticalSceneNode.graphNode,
         verticalSceneNode.vectorSetNodesParent
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      visibleProperty: verticalSceneNode.visibleProperty
+      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
+        numberOfVectors: model.verticalScene.vectorSet.numberOfVectorsOnGraphProperty
+      } )
     } );
 
     const screenViewRootNode = new Node( {

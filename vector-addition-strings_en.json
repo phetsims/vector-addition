@@ -165,6 +165,14 @@
         "value": "Graph Area"
       }
     },
+    "graphArea": {
+      "accessibleParagraphExplore": {
+        "value": "{{numberOfVectors}} vectors in graph area."
+      },
+      "accessibleParagraphLab": {
+        "value": "{{vectorSet1Size}} vectors from set {{vectorSet1Symbol}} and {{vectorSet2Size}} vectors from set {{vectorSet2Symbol}} in graph area."
+      }
+    },
     "horizontalSceneName": {
         "value": "Horizontal"
     },
