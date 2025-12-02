@@ -202,15 +202,20 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
 
   public reset(): void {
     this.resultantVector.reset();
+    this.allVectors.forEach( vector => vector.reset() );
     this.erase();
   }
 
   /**
-   * Makes all vectors inactive, returning them to the toolbox. Called when the eraser button is pressed.
+   * Returns all erasable vectors to the toolbox and resets them. Called by reset and when the eraser button is pressed.
    */
   public erase(): void {
-    this.activeVectors.clear();
-    this.allVectors.forEach( vector => vector.reset() );
+    this.activeVectors.getArrayCopy().forEach( vector => {
+      if ( vector.isRemovableFromGraph ) {
+        this.activeVectors.remove( vector );
+        vector.reset();
+      }
+    } );
   }
 }
 
