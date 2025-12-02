@@ -374,7 +374,7 @@ export default class VectorSetNode extends Node {
     else {
       // Ensure that the toolbox slot is focusable before moving focus to it.
       // This is a workaround for https://github.com/phetsims/vector-addition/issues/387.
-      this.vectorToolboxSlot.pdomVisible = true;
+      this.vectorToolboxSlot.accessibleVisible = true;
       this.vectorToolboxSlot.focus();
     }
   }
