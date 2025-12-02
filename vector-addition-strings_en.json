@@ -447,6 +447,9 @@
         },
         "accessibleObjectResponse": {
           "value": "tail at {{tailX}} {{tailY}}, tip at {{tipX}} {{tipY}}"
+        },
+        "accessibleObjectResponseTipOutsideGraphArea": {
+          "value": "tail at {{tailX}} {{tailY}}, tip at {{tipX}} {{tipY}}, tip outside graph area"
         }
       },
       "tip": {
@@ -459,8 +462,14 @@
         "accessibleObjectResponseCartesian": {
           "value": "tip at {{tipX}} {{tipY}}"
         },
+        "accessibleObjectResponseCartesianTipReturnedToGraphArea": {
+          "value": "tip at {{tipX}} {{tipY}}, tip returned to graph area"
+        },
         "accessibleObjectResponsePolar": {
           "value": "magnitude {{magnitude}}, direction {{angle}} degrees"
+        },
+        "accessibleObjectResponsePolarTipReturnedToGraphArea": {
+          "value": "magnitude {{magnitude}}, direction {{angle}} degrees, tip returned to graph area"
         }
       }
     },

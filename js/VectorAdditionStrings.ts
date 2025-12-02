@@ -229,12 +229,15 @@ type StringsType = {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseTipOutsideGraphAreaStringProperty': LocalizedStringProperty;
       };
       'tip': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseCartesianStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty': LocalizedStringProperty;
         'accessibleObjectResponsePolarStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty': LocalizedStringProperty;
       }
     };
     'equationsVectorNode': {

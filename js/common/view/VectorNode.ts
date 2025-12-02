@@ -58,6 +58,9 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   // The associated vector model element.
   public readonly vector: Vector;
 
+  // Bounds of the graph.
+  private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
+
   // Drag listener for moving the vector with the pointer, for drag forwarding.
   private readonly moveVectorDragListener: DragListener;
 
@@ -113,6 +116,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     super( vector, modelViewTransformProperty, valuesVisibleIfOnGraphProperty, selectedVectorProperty, options );
 
     this.vector = vector;
+    this.graphBoundsProperty = graphBoundsProperty;
 
     //----------------------------------------------------------------------------------------
     // Create Nodes
@@ -273,7 +277,18 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
    * when to trigger the response based on user interaction with the Node.
    */
   public doAccessibleObjectResponse(): void {
-    this.objectResponseUtterance.alert = StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {
+
+    // If the tip is outside the graph area, the response is different.
+    let patternStringProperty: TReadOnlyProperty<string>;
+    if ( this.graphBoundsProperty.value.containsPoint( this.vector.tip ) ) {
+      patternStringProperty = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty;
+    }
+    else {
+      patternStringProperty = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphAreaStringProperty;
+    }
+
+    // Both of the possible values for patternStringProperty above must have the same placeholders!
+    this.objectResponseUtterance.alert = StringUtils.fillIn( patternStringProperty, {
       tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
