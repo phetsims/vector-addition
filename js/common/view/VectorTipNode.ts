@@ -10,6 +10,7 @@
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -34,11 +35,15 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
   // The associated vector model element.
   private readonly vector: Vector;
 
+  // Bounds of the graph.
+  private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
+
   // Disposes of things that are specific to this class.
   private readonly disposeVectorTipNode: () => void;
 
   public constructor( vectorNode: VectorNode,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       tipWidth: number,
                       tipHeight: number,
                       fractionalTipHeight: number ) {
@@ -65,6 +70,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     super( tipShape, options );
 
     this.vector = vector;
+    this.graphBoundsProperty = graphBoundsProperty;
 
     //----------------------------------------------------------------------------------------
     // Transform the tip and its pointer areas when the xy-components change.
@@ -123,7 +129,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
     this.focusedProperty.lazyLink( focused => {
       if ( focused ) {
-        this.doAccessibleObjectResponse();
+        this.doAccessibleObjectResponse( null );
       }
     } );
 
@@ -143,15 +149,33 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
    * or magnitude and angle (for polar scenes). This Node has full responsibility for the content of the response,
    * while input listeners are responsible for when to trigger the response based on user interaction with the Node.
    */
-  public doAccessibleObjectResponse(): void {
+  public doAccessibleObjectResponse( previousTipPosition: Vector2 | null ): void {
+
+    console.log( `VectorTipNode.doAccessibleObjectResponse: previousTipPosition=${previousTipPosition}` );
+
+    // Did the tip move from outside the graph area to inside the graph area?
+    const tipReturnedToGraphArea = previousTipPosition &&
+                                   !this.graphBoundsProperty.value.containsPoint( previousTipPosition ) &&
+                                   this.graphBoundsProperty.value.containsPoint( this.vector.tip );
+
     if ( this.vector.coordinateSnapMode === 'cartesian' ) {
-      this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty, {
+
+      // Cartesian scene reports the tip's xy-coordinates.
+      const patternString = tipReturnedToGraphArea ?
+                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty.value :
+                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty.value;
+      this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
         tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
         tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
       } ) );
     }
     else {
-      this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty, {
+
+      // Polar scene reports the vector's magnitude and angle.
+      const patternString = tipReturnedToGraphArea ?
+                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty.value :
+                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty.value;
+      this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
         angle: toFixedNumber( this.vector.getAngleDegrees()!, 1 )
       } ) );

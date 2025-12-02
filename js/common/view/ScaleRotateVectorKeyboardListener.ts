@@ -37,6 +37,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
   } );
 
   public constructor( vector: Vector, tipNode: VectorTipNode ) {
+
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ ScaleRotateVectorKeyboardListener.HOTKEY_DATA ] ),
@@ -47,6 +48,8 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
         // Select the vector.
         vector.setSelected( true );
 
+        const previousTipPosition = vector.tip;
+
         // Compute the new tip position.
         const tipPosition = ( vector.coordinateSnapMode === 'cartesian' ) ?
                             computeTipPositionCartesian( vector, keysPressed ) :
@@ -56,7 +59,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
         vector.moveTipToPositionWithInvariants( tipPosition );
 
         // Describe the new position of the vector tip.
-        tipNode.doAccessibleObjectResponse();
+        tipNode.doAccessibleObjectResponse( previousTipPosition );
       }
     } );
   }

@@ -22,8 +22,8 @@ import VectorTipNode from './VectorTipNode.js';
 export default class ScaleRotateVectorDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
-  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
   private readonly tipNode: VectorTipNode;
+  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
 
   public constructor( vector: Vector,
                       tipNode: VectorTipNode,
@@ -43,13 +43,13 @@ export default class ScaleRotateVectorDragListener extends SoundDragListener {
         selectedVectorProperty.value = vector;
       },
       end: () => {
-        this.tipNode.doAccessibleObjectResponse();
+        this.tipNode.doAccessibleObjectResponse( null );
       }
     } );
 
     this.vector = vector;
-    this.modelViewTransformProperty = modelViewTransformProperty;
     this.tipNode = tipNode;
+    this.modelViewTransformProperty = modelViewTransformProperty;
 
     // Move the tip to match the vector model.
     tipPositionViewProperty.lazyLink( tipPositionView => this.updateTipPosition( tipPositionView ) );

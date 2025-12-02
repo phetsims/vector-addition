@@ -169,7 +169,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     let scaleRotateVectorKeyboardListener: ScaleRotateVectorKeyboardListener;
     if ( vector.isTipDraggable ) {
 
-      tipNode = new VectorTipNode( this, modelViewTransformProperty, headWidth, headHeight, fractionalHeadHeight );
+      tipNode = new VectorTipNode( this, modelViewTransformProperty, graphBoundsProperty, headWidth, headHeight, fractionalHeadHeight );
       this.addChild( tipNode );
 
       // Pointer drag listener to scale/rotate by dragging the vector's tip.
@@ -279,16 +279,16 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   public doAccessibleObjectResponse(): void {
 
     // If the tip is outside the graph area, the response is different.
-    let patternStringProperty: TReadOnlyProperty<string>;
+    let patternString: string;
     if ( this.graphBoundsProperty.value.containsPoint( this.vector.tip ) ) {
-      patternStringProperty = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty;
+      patternString = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty.value;
     }
     else {
-      patternStringProperty = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphAreaStringProperty;
+      patternString = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphAreaStringProperty.value;
     }
 
     // Both of the possible values for patternStringProperty above must have the same placeholders!
-    this.objectResponseUtterance.alert = StringUtils.fillIn( patternStringProperty, {
+    this.objectResponseUtterance.alert = StringUtils.fillIn( patternString, {
       tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
