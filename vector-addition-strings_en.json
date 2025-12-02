@@ -336,10 +336,10 @@
         "value": "Graph Area Origin"
       },
       "accessibleHelpText": {
-        "value": "Move to relocate graph area origin, which changes graph area bounds. Value is x y limits of graph area, from bottom left to top right."
+        "value": "Move to relocate graph area origin, which changes x axis and y axis spans."
       },
       "accessibleObjectResponse": {
-        "value": "from {{minX}} {{minY}} to {{maxX}} {{maxY}}"
+        "value": "x axis spans {{minX}} to {{maxX}}, y axis spans {{minY}} {{maxY}}"
       }
     },
     "eraserButton": {
