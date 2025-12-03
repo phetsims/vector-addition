@@ -151,8 +151,6 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
    */
   public doAccessibleObjectResponse( previousTipPosition: Vector2 | null ): void {
 
-    console.log( `VectorTipNode.doAccessibleObjectResponse: previousTipPosition=${previousTipPosition}` );
-
     // Did the tip move from outside the graph area to inside the graph area?
     const tipReturnedToGraphArea = previousTipPosition &&
                                    !this.graphBoundsProperty.value.containsPoint( previousTipPosition ) &&
