@@ -33,19 +33,23 @@ export default class ScaleRotateVectorDragListener extends SoundDragListener {
     // Position of the vector tip, relative to the tail, in view coordinates.
     const tipPositionViewProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents ) );
 
+    // Position of the vector tip in model coordinates when a drag starts, before tipPositionViewProperty has been changed.
+    let previousTipPositionModel = vector.tip;
+
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       targetNode: tipNode,
       positionProperty: tipPositionViewProperty,
+      press: () => {
+        previousTipPositionModel = vector.tip;
+      },
       start: () => {
         affirm( !vector.animateToToolboxProperty.value && !vector.isAnimating(),
           'ScaleRotateVectorDragListener should be removed when the vector is animating to the toolbox.' );
         selectedVectorProperty.value = vector;
       },
       end: () => {
-
-        //TODO https://github.com/phetsims/vector-addition/issues/422 Provide previousTipPosition for object response.
-        this.tipNode.doAccessibleObjectResponse( null );
+        this.tipNode.doAccessibleObjectResponse( previousTipPositionModel );
       }
     } );
 
