@@ -111,9 +111,14 @@ export default class VectorSetNode extends Node {
       valuesVisibleProperty,
       resultantVectorVisibleProperty );
 
+    // To keep the resultant vector in front of its components when we move the selected vector to the front.
+    const resultantVectorAndComponentsNode = new Node( {
+      children: [ xResultantComponentVectorNode, yResultantComponentVectorNode, resultantVectorNode ]
+    } );
+
     super( {
       isDisposable: false,
-      children: [ xResultantComponentVectorNode, yResultantComponentVectorNode, resultantVectorNode ],
+      children: [ resultantVectorAndComponentsNode ],
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false,
 
@@ -136,16 +141,13 @@ export default class VectorSetNode extends Node {
 
     // When the resultant vector becomes selected, move it and its component vectors to the front.
     selectedVectorProperty.link( selectedVector => {
-      if ( selectedVector === resultantVectorNode.vector ) {
+      if ( selectedVector === resultantVector ) {
 
         // Move the entire vector set to the front, see https://github.com/phetsims/vector-addition/issues/94.
         this.moveToFront();
 
         // Move the resultant vector and its components to the front within the vector set.
-        // Order is important - resultant vector should be in front of its components
-        xResultantComponentVectorNode.moveToFront();
-        yResultantComponentVectorNode.moveToFront();
-        resultantVectorNode.moveToFront();
+        resultantVectorAndComponentsNode.moveToFront();
       }
     } );
 
@@ -181,8 +183,8 @@ export default class VectorSetNode extends Node {
   }
 
   /**
-   * Registers a Vector by creating its associated VectorNode and the ComponentVectorNodes.
-   * The Nodes are deleted if Vector is ever removed from its VectorSet.
+   * Registers a Vector by creating its associated VectorNode and the ComponentVectorNodes, then wiring up listeners
+   * to manage the lifecycle of the nodes that are created.
    * @param vector - the vector model
    * @param [forwardingEvent] - if provided, it will forward this event to the Vector body drag listener. This is used
    *   to forward the click event from the VectorToolbox to the VectorNode. If not provided, no event is forwarded.
