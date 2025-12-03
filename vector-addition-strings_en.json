@@ -434,7 +434,7 @@
         "value": "Vector Set {{symbol}}"
       },
       "accessibleHelpText": {
-        "value": "Add vectors from set {{symbol}} to graph area."
+        "value": "Add vector from set {{symbol}} to graph area."
       }
     },
     "vectorNode": {
