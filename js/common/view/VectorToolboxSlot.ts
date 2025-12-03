@@ -20,6 +20,7 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import AddVectorKeyboardListener from './AddVectorKeyboardListener.js';
@@ -119,7 +120,16 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
       iconNode.opacity = slotIsEmpty ? 0 : 1; // Workaround: hiding the icon causes the size of the focus highlight to change.
       this.pickable = !slotIsEmpty;
-      this.accessibleVisible = !slotIsEmpty; // Remove from both focus order and the PDOM, so it will no longer appear in A11y View.
+
+      // Use a11y design pattern similar to the buckets in Build an Atom.
+      // See https://github.com/phetsims/vector-addition/issues/427.
+      this.setPDOMAttribute( 'aria-disabled', slotIsEmpty );
+      if ( slotIsEmpty ) {
+        this.setAccessibleHelpText( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextEmptyStringProperty );
+      }
+      else {
+        this.setAccessibleHelpText( options.accessibleHelpText );
+      }
     } );
 
     // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.

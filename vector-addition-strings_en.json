@@ -435,6 +435,9 @@
       },
       "accessibleHelpText": {
         "value": "Add vector from set {{symbol}} to graph area."
+      },
+      "accessibleHelpTextEmpty": {
+        "value": "Disabled when empty."
       }
     },
     "vectorNode": {
