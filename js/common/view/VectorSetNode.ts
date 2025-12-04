@@ -21,7 +21,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import IndexedNodeIO from '../../../../scenery/js/nodes/IndexedNodeIO.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVector from '../../equations/model/BaseVector.js';
 import BaseVectorNode from '../../equations/view/BaseVectorNode.js';
@@ -169,17 +169,15 @@ export default class VectorSetNode extends Node {
 
     this.addLinkedElement( vectorSet );
 
-    // After PhET-iO state has been restored, register active vectors to build their view. Any vectors that are not
-    // removable from the graph (as in the Equations screen) should be skipped because they are permanently registered.
-    if ( Tandem.PHET_IO_ENABLED ) {
-      phetioStateSetEmitter.addListener( () => {
-        vectorSet.activeVectors.forEach( activeVector => {
-          if ( activeVector.isRemovableFromGraph ) {
-            this.registerVector( activeVector );
-          }
-        } );
-      } );
-    }
+    // When a vector is added to activeVectors as the result of setting PhET-iO state, register that vector.
+    // This ensures that the associated Nodes are created for these vectors. Any vectors that are not
+    // removable from the graph (as in the Equations screen) should be skipped because they are permanently
+    // registered and their Nodes will not be disposed.
+    vectorSet.activeVectors.addItemAddedListener( activeVector => {
+      if ( isSettingPhetioStateProperty.value && activeVector.isRemovableFromGraph ) {
+        this.registerVector( activeVector );
+      }
+    } );
   }
 
   /**
