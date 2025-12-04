@@ -311,7 +311,7 @@ export default class VectorSetNode extends Node {
     this.updatePDOMOrder();
 
     // When the base vector becomes selected, move it (and the entire vector set) to the front.
-    // unlink is unnecessary because VectorSetNode exists for the lifetime of the sim.
+    // unlink is unnecessary because VectorSetNode and BaseVectorNode exist for the lifetime of the sim.
     this.selectedVectorProperty.link( selectedVector => {
       if ( selectedVector === baseVectorNode.vector ) {
 
