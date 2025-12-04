@@ -241,10 +241,10 @@ export default class VectorSetNode extends Node {
     // Move focus to the new vectorNode.
     vectorNode.focus();
 
-    // When the vector becomes selected, move it and its components to the front.
+    // When vector becomes selected, move it and its components to the front.
     // unlink is required when the vector is removed.
     const selectedVectorListener = ( selectedVector: Vector | null ) => {
-      if ( selectedVector === vectorNode.vector ) {
+      if ( selectedVector === vector ) {
 
         // Move the entire vector set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
@@ -313,7 +313,7 @@ export default class VectorSetNode extends Node {
     // When the base vector becomes selected, move it (and the entire vector set) to the front.
     // unlink is unnecessary because VectorSetNode and BaseVectorNode exist for the lifetime of the sim.
     this.selectedVectorProperty.link( selectedVector => {
-      if ( selectedVector === baseVectorNode.vector ) {
+      if ( selectedVector === baseVector ) {
 
         // Move the entire vector set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
