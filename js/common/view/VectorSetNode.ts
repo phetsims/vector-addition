@@ -231,6 +231,10 @@ export default class VectorSetNode extends Node {
 
     this.addChild( vectorAndComponentsNode );
 
+    // So that we do not add a vector in front of the selected vector when restoring PhET-iO state.
+    // See https://github.com/phetsims/vector-addition/issues/414.
+    vectorAndComponentsNode.moveToBack();
+
     // Optional event forwarding
     if ( forwardingEvent ) {
       vectorNode.forwardEvent( forwardingEvent );
@@ -304,6 +308,10 @@ export default class VectorSetNode extends Node {
       } );
     this.addChild( baseVectorNode );
     this.baseVectorNodes.push( baseVectorNode );
+
+    // So that we do not add a vector in front of the selected vector when restoring PhET-iO state.
+    // See https://github.com/phetsims/vector-addition/issues/414.
+    baseVectorNode.moveToBack();
 
     // Insert baseVectorNode into the pdomOrder at the correct position.
     this.updatePDOMOrder();
