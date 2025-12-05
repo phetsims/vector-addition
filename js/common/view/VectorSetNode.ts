@@ -42,7 +42,9 @@ export default class VectorSetNode extends Node {
   // The associated vector set
   public readonly vectorSet: VectorSet;
 
-  // Non-resultant VectorNode for active vectors
+  // Non-resultant VectorNode for active vectors. Note that the order of this array, and the order of VectorSetNode's
+  // children, is NOT stateful.  The only ordering that is stateful is the selected vector, which will always be in
+  // front. See https://github.com/phetsims/vector-addition/issues/414#issuecomment-3617125147.
   private readonly vectorNodes: VectorNode[];
 
   // Node for the vector set's resultant vector.

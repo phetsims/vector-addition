@@ -239,7 +239,8 @@ Properties are `phetioReadOnly: true` because making them editable via PhET-iO w
 to configure vectors.  For more about vector instantiation in the view, see VectorSetOptions `createAllVectors` and `createResultantVector`.
 
 All vectors in the view (`VectorNode` and `ComponentVectorNode`) are allocated dynamically, so they are not instrumented. For more about
-vector instantiation in the view, see VectorSetNode's `registerVector` method and its usage.
+vector instantiation in the view, see VectorSetNode's `registerVector` method and its usage. Note that the rendering order of vectors is 
+not stateful. The only ordering that is stateful is the selected vector, which will always be in front.
 
 `VectorAdditionScene.VectorAdditionSceneIO` is a custom IOType that implements reference-type serialization for the selected scene.
 See VectorAdditionModel `sceneProperty`.
