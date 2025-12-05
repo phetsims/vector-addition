@@ -1,11 +1,11 @@
 {
-  "comment": "# vector-addition 1.2.0-dev.11 Tue Nov 25 2025 18:20:02 GMT-0700 (Mountain Standard Time)",
+  "comment": "# vector-addition 1.2.0-rc.0 Fri Dec 05 2025 11:27:16 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "1a4637cfff70e7e8b0844dc43848a86ae89b4cf5",
     "branch": "main"
   },
   "axon": {
-    "sha": "58900c338a374e7909d5d0d73e2efe48a0b0e193",
+    "sha": "eb375db9e99ab4b104e99badc492059c5a1c6ccf",
     "branch": "main"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "main"
   },
   "chipper": {
-    "sha": "d53abe78a897fd45930957714899792a22d1a5aa",
+    "sha": "2b65779fc15e72b9895db2b1b959427f671b065a",
     "branch": "main"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "main"
   },
   "joist": {
-    "sha": "90e58f64ed1ab5e888e6f59524aea28e58f389d6",
+    "sha": "80b45ab66797c145194af683d521a054adad03b1",
     "branch": "main"
   },
   "kite": {
@@ -33,7 +33,7 @@
     "branch": "main"
   },
   "phet-core": {
-    "sha": "fa037e58d2127946996c85f5f3d6cbc9ffc9adb7",
+    "sha": "baf98423a2d17dd7993bc502f21bc12658c0dca6",
     "branch": "main"
   },
   "phet-io": {
@@ -41,7 +41,7 @@
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "8e63847f380d6231c0716428e75f9775127b5935",
+    "sha": "8c2f9f4b534d6c17afbe388dbc071d241c9f884c",
     "branch": "main"
   },
   "phet-io-wrappers": {
@@ -61,23 +61,23 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "dedf99fcf76e5888adc562b4ffd78053f622f2fe",
+    "sha": "e061f0cc28be8ee7667878bda53106e48dac2b11",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "24631ade066dbe719f1583b6549947435bf8ed84",
+    "sha": "de9e6533541b874326b540099a677c6e0eedf197",
     "branch": "main"
   },
   "sherpa": {
-    "sha": "231a1b25c7651013f476180654220c5507d53e9c",
+    "sha": "c1f6b01a53a0caa02f4d5e09303d078772db2050",
     "branch": "main"
   },
   "studio": {
-    "sha": "0802550723b40d908127f2f1bff6bcde137ec05c",
+    "sha": "48279c0a5b20f59072bdad8b8cfbd20c76193141",
     "branch": "main"
   },
   "sun": {
-    "sha": "ceec21bbeac9e9fc88a40cf5ae84df984f8ba64d",
+    "sha": "e3bbc3858a43268bc273d673916a1a9ee9816f67",
     "branch": "main"
   },
   "tambo": {
@@ -97,7 +97,7 @@
     "branch": "main"
   },
   "vector-addition": {
-    "sha": "a467360fb85420074001bd535b5d3a06b05009d2",
-    "branch": "main"
+    "sha": "6865d04dd818ef6da182a51d024baf5064d2c81c",
+    "branch": "1.2"
   }
 }
