@@ -13,6 +13,7 @@ import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
+import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
@@ -48,6 +49,8 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
 
         // Describe what the Vector Values' accordion box is displaying.
         vectorNode.addAccessibleObjectResponse( accessibleParagraphProperty.value );
+
+        sharedSoundPlayers.get( 'generalOpen' ).play();
       }
     } );
 

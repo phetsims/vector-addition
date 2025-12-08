@@ -9,6 +9,7 @@
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
+import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
@@ -31,6 +32,7 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `RemoveVectorKeyboardListener: keysPressed=${keysPressed}` );
         vector.returnToToolbox();
+        sharedSoundPlayers.get( 'erase' ).play();
       }
     } );
   }
