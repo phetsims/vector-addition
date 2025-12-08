@@ -11,9 +11,13 @@ import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
+import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
+
+const SELECTED_SOUND = sharedSoundPlayers.get( 'checkboxChecked' );
+const DESELECTED_SOUND = sharedSoundPlayers.get( 'checkboxUnchecked' );
 
 export default class SelectVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -36,6 +40,9 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
 
         // Toggle selection.
         vector.setSelected( !vector.getSelected() );
+
+        // Play sound
+        vector.getSelected() ? SELECTED_SOUND.play() : DESELECTED_SOUND.play();
       }
     } );
   }
