@@ -10,6 +10,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
+import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
@@ -50,6 +51,9 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
 
           // Notify the sceneNode to create an associated vector node and give it focus.
           sceneNode.registerVector( vector, vectorSet );
+
+          // Play pushButton sound, since toolbox slots are tagName: 'button'.
+          sharedSoundPlayers.get( 'pushButton' ).play();
         }
       }
     } );

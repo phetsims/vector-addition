@@ -10,6 +10,7 @@
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
+import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
@@ -31,6 +32,8 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ MoveVectorKeyboardListener.HOTKEY_DATA ] ),
       fireOnHold: true,
+      press: () => sharedSoundPlayers.get( 'grab' ).play(),
+      release: () => sharedSoundPlayers.get( 'release' ).play(),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `MoveVectorKeyboardListener: keysPressed=${keysPressed}` );
 
