@@ -324,7 +324,7 @@ export default abstract class RootVector extends PhetioObject {
    * Gets the angle of the vector in degrees, measured clockwise from the horizontal.
    * If the vector has zero magnitude, null is returned.
    */
-  public getAngleDegrees( angleConvention: AngleConvention = 'signed' ): number | null {
+  public getAngleDegrees( angleConvention: AngleConvention ): number | null {
     return radiansToDegrees( this.angle, angleConvention );
   }
 }
