@@ -9,6 +9,7 @@
  */
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
@@ -25,6 +26,8 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import ScaleRotateVectorDragListener from './ScaleRotateVectorDragListener.js';
+import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
 import VectorNode from './VectorNode.js';
 
 // xy-dilation of vector tip pointer areas
@@ -44,6 +47,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
   public constructor( vectorNode: VectorNode,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       tipWidth: number,
                       tipHeight: number,
@@ -72,6 +76,15 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
     this.vector = vector;
     this.graphBoundsProperty = graphBoundsProperty;
+
+    // Pointer drag listener to scale/rotate by dragging the vector's tip.
+    const scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, this, modelViewTransformProperty,
+      selectedVectorProperty );
+    this.addInputListener( scaleRotateVectorDragListener );
+
+    // Keyboard listener to scale/rotate by moving the vector's tip.
+    const scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector, this );
+    this.addInputListener( scaleRotateVectorKeyboardListener );
 
     //----------------------------------------------------------------------------------------
     // Transform the tip and its pointer areas when the xy-components change.
@@ -137,6 +150,8 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     this.disposeVectorTipNode = () => {
       accessibleNameProperty.dispose();
       vector.xyComponentsProperty.unlink( xyComponentsListener );
+      scaleRotateVectorDragListener.dispose();
+      scaleRotateVectorKeyboardListener.dispose();
     };
   }
 
