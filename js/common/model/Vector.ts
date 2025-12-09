@@ -244,7 +244,10 @@ export default class Vector extends RootVector {
       const roundedMagnitude = roundSymmetric( xyComponents.magnitude );
 
       const angleInRadians = toRadians( POLAR_ANGLE_INTERVAL );
-      const roundedAngle = angleInRadians * roundSymmetric( xyComponents.angle / angleInRadians );
+      let roundedAngle = angleInRadians * roundSymmetric( xyComponents.angle / angleInRadians );
+
+      // Ensure that the angle is positive. See https://github.com/phetsims/vector-addition/issues/429#issuecomment-3634205905.
+      while ( roundedAngle < 0 ) { roundedAngle += 2 * Math.PI; }
 
       // Calculate the rounded polar vector
       const polarVector = xyComponents.setPolar( roundedMagnitude, roundedAngle );
