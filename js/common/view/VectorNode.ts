@@ -34,8 +34,6 @@ import { MoveVectorDragListener } from './MoveVectorDragListener.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
-import ScaleRotateVectorDragListener from './ScaleRotateVectorDragListener.js';
-import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import VectorAngleNode from './VectorAngleNode.js';
 import VectorTipNode from './VectorTipNode.js';
@@ -167,21 +165,10 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.addInputListener( checkVectorValuesKeyboardShortcut );
 
     // Optional scaling and rotation by dragging the vector tip.
-    let scaleRotateVectorDragListener: ScaleRotateVectorDragListener;
-    let scaleRotateVectorKeyboardListener: ScaleRotateVectorKeyboardListener;
     if ( vector.isTipDraggable ) {
-
-      this.tipNode = new VectorTipNode( this, modelViewTransformProperty, graphBoundsProperty, headWidth, headHeight, fractionalHeadHeight );
+      this.tipNode = new VectorTipNode( this, modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty,
+        headWidth, headHeight, fractionalHeadHeight );
       this.addChild( this.tipNode );
-
-      // Pointer drag listener to scale/rotate by dragging the vector's tip.
-      scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, this.tipNode, modelViewTransformProperty,
-        selectedVectorProperty );
-      this.tipNode.addInputListener( scaleRotateVectorDragListener );
-
-      // Keyboard listener to scale/rotate by moving the vector's tip.
-      scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector, this.tipNode );
-      this.tipNode.addInputListener( scaleRotateVectorKeyboardListener );
     }
 
     //----------------------------------------------------------------------------------------
@@ -251,8 +238,6 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       selectVectorKeyboardListener.dispose();
       removeVectorKeyboardListener && removeVectorKeyboardListener.dispose();
       checkVectorValuesKeyboardShortcut.dispose();
-      scaleRotateVectorDragListener && scaleRotateVectorDragListener.dispose();
-      scaleRotateVectorKeyboardListener && scaleRotateVectorKeyboardListener.dispose();
 
       // Dispose of Property listeners
       shadowMultilink.dispose();
