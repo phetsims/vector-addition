@@ -37,6 +37,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { signedToUnsignedDegrees } from '../VectorAdditionUtils.js';
 import { AngleConvention } from './AngleConvention.js';
+import VectorAdditionPreferences from './VectorAdditionPreferences.js';
 import VectorColorPalette from './VectorColorPalette.js';
 
 export type LabelDisplayData = {
@@ -150,8 +151,9 @@ export default abstract class RootVector extends PhetioObject {
         phetioFeatured: true
       } );
 
-    this._angleDegreesProperty = new DerivedProperty( [ this._angleRadiansProperty ],
-      angleRadians => ( angleRadians === null ) ? null : toDegrees( angleRadians ), {
+    this._angleDegreesProperty = new DerivedProperty(
+      [ this._angleRadiansProperty, VectorAdditionPreferences.instance.angleConventionProperty ],
+      ( angleRadians, angleConvention ) => radiansToDegrees( angleRadians, angleConvention ), {
         tandem: options.angleDegreesPropertyInstrumented ? options.tandem.createTandem( 'angleDegreesProperty' ) : Tandem.OPT_OUT,
         phetioValueType: NullableIO( NumberIO ),
         units: degreesUnit,
@@ -323,16 +325,22 @@ export default abstract class RootVector extends PhetioObject {
    * If the vector has zero magnitude, null is returned.
    */
   public getAngleDegrees( angleConvention: AngleConvention = 'signed' ): number | null {
-    const angleRadians = this.angle;
-    let angleDegrees = null;
-    if ( angleRadians !== null ) {
-      angleDegrees = toDegrees( angleRadians );
-      if ( angleConvention === 'unsigned' ) {
-        angleDegrees = signedToUnsignedDegrees( angleDegrees );
-      }
-    }
-    return angleDegrees;
+    return radiansToDegrees( this.angle, angleConvention );
   }
+}
+
+/**
+ * Converts an angle in radians to degrees, using the specified angle convention.
+ */
+function radiansToDegrees( angleRadians: number | null, angleConvention: AngleConvention ): number | null {
+  let angleDegrees = null;
+  if ( angleRadians !== null ) {
+    angleDegrees = toDegrees( angleRadians );
+    if ( angleConvention === 'unsigned' ) {
+      angleDegrees = signedToUnsignedDegrees( angleDegrees );
+    }
+  }
+  return angleDegrees;
 }
 
 vectorAddition.register( 'RootVector', RootVector );
