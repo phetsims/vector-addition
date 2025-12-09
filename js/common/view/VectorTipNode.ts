@@ -23,6 +23,7 @@ import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
+import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorNode from './VectorNode.js';
 
@@ -173,9 +174,10 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       const patternString = tipReturnedToGraphArea ?
                             VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty.value :
                             VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty.value;
+      const angle = this.vector.getAngleDegrees( VectorAdditionPreferences.instance.angleConventionProperty.value ) || 0;
       this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
-        angle: toFixedNumber( this.vector.getAngleDegrees()!, 1 )
+        angle: toFixedNumber( angle, 1 )
       } ) );
     }
   }
