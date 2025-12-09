@@ -58,6 +58,9 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   // The associated vector model element.
   public readonly vector: Vector;
 
+  // Optional tipNode, for vectors that can be scaled and rotated.
+  public readonly tipNode?: VectorTipNode;
+
   // Bounds of the graph.
   private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
 
@@ -164,22 +167,21 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.addInputListener( checkVectorValuesKeyboardShortcut );
 
     // Optional scaling and rotation by dragging the vector tip.
-    let tipNode: VectorTipNode;
     let scaleRotateVectorDragListener: ScaleRotateVectorDragListener;
     let scaleRotateVectorKeyboardListener: ScaleRotateVectorKeyboardListener;
     if ( vector.isTipDraggable ) {
 
-      tipNode = new VectorTipNode( this, modelViewTransformProperty, graphBoundsProperty, headWidth, headHeight, fractionalHeadHeight );
-      this.addChild( tipNode );
+      this.tipNode = new VectorTipNode( this, modelViewTransformProperty, graphBoundsProperty, headWidth, headHeight, fractionalHeadHeight );
+      this.addChild( this.tipNode );
 
       // Pointer drag listener to scale/rotate by dragging the vector's tip.
-      scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, tipNode, modelViewTransformProperty,
+      scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, this.tipNode, modelViewTransformProperty,
         selectedVectorProperty );
-      tipNode.addInputListener( scaleRotateVectorDragListener );
+      this.tipNode.addInputListener( scaleRotateVectorDragListener );
 
       // Keyboard listener to scale/rotate by moving the vector's tip.
-      scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector, tipNode );
-      tipNode.addInputListener( scaleRotateVectorKeyboardListener );
+      scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector, this.tipNode );
+      this.tipNode.addInputListener( scaleRotateVectorKeyboardListener );
     }
 
     //----------------------------------------------------------------------------------------
@@ -218,9 +220,11 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
         this.focusable = false;
 
         // Make the tip non-interactive.
-        tipNode.cursor = null;
-        tipNode.pickable = false;
-        tipNode.focusable = false;
+        if ( this.tipNode ) {
+          this.tipNode.cursor = null;
+          this.tipNode.pickable = false;
+          this.tipNode.focusable = false;
+        }
       }
     };
     this.vector.animateToToolboxProperty.lazyLink( animateBackListener );
@@ -239,7 +243,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
       // Dispose of nodes
       angleNode.dispose();
-      tipNode && tipNode.dispose();
+      this.tipNode && this.tipNode.dispose();
 
       // Dispose of input listeners.
       this.moveVectorDragListener.dispose();
