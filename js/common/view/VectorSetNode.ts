@@ -342,7 +342,17 @@ export default class VectorSetNode extends Node {
     // Sort the VectorNodes in the same order as vectorSet.allVectors.
     const sortedVectorNodes = _.sortBy( this.vectorNodes, vectorNode => this.vectorSet.allVectors.indexOf( vectorNode.vector ) );
 
-    this.pdomOrder = [ ...sortedVectorNodes, this.resultantVectorNode, ...this.baseVectorNodes ];
+    // Put each VectorTipNode after its associated VectorNode in the pdomOrder.
+    // See https://github.com/phetsims/vector-addition/issues/430.
+    const sortedVectorAndTipNodes: Node[] = [];
+    sortedVectorNodes.forEach( vectorNode => {
+      sortedVectorAndTipNodes.push( vectorNode );
+      if ( vectorNode.tipNode ) {
+        sortedVectorAndTipNodes.push( vectorNode.tipNode );
+      }
+    } );
+
+    this.pdomOrder = [ ...sortedVectorAndTipNodes, this.resultantVectorNode, ...this.baseVectorNodes ];
   }
 
   /**
