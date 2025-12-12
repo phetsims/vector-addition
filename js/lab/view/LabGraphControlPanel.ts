@@ -142,7 +142,6 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       spacing: VectorAdditionConstants.GRAPH_CONTROLS_Y_SPACING,
       align: 'left',
       stretch: true,
-      resize: false, // because the height of the Sum checkboxes will change depending on which scene is selected.
       children: [
 
         // Checkboxes
