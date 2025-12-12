@@ -96,7 +96,13 @@ export default class SumCheckbox extends Checkbox {
     } );
 
     const arrowOverSymbolNode = new ArrowOverSymbolNode( options.sumSymbolProperty, {
-      maxWidth: 95 // determined empirically
+      maxWidth: 95, // determined empirically
+
+      // Workaround for https://github.com/phetsims/vector-addition/issues/437.
+      // arrowOverSymbolNode has different heights for different scenes due to the subscript that indicates the
+      // name of the vector set.  That causes the entire control panel to resize.  So limit the height of
+      // arrowOverSymbolNode to match the height of its surrounding parentheses.
+      maxHeight: leftParenNode.height
     } );
 
     // The label is all of the text elements
