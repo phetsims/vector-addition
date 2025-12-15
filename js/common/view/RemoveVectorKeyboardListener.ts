@@ -31,6 +31,7 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ RemoveVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `RemoveVectorKeyboardListener: keysPressed=${keysPressed}` );
+        vector.popOffOfGraph();
         vector.returnToToolbox();
         sharedSoundPlayers.get( 'erase' ).play();
       }
