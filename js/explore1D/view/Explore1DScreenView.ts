@@ -6,16 +6,14 @@
  * @author Martin Veillette
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import ExploreGraphAreaHeading from '../../common/view/ExploreGraphAreaHeading.js';
 import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
@@ -85,42 +83,20 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
 
     // Graph Area heading for the horizontal scene.
-    const horizontalGraphAreaHeading = new Node( {
-      visibleProperty: horizonalSceneNode.visibleProperty,
-      pdomOrder: [
-        horizonalSceneNode.graphNode,
-        horizonalSceneNode.vectorSetNodesParent
-      ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
-        numberOfVectors: new DerivedProperty(
-          [ viewProperties.sumVisibleProperty,
-            model.horizontalScene.vectorSet.resultantVector.isDefinedProperty,
-            model.horizontalScene.vectorSet.numberOfVectorsOnGraphProperty
-          ],
-          ( sumVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
-            ( sumVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
-      } )
-    } );
+    const horizontalGraphAreaHeading = new ExploreGraphAreaHeading(
+      horizonalSceneNode.graphNode,
+      horizonalSceneNode.vectorSetNodesParent,
+      horizonalSceneNode.visibleProperty,
+      viewProperties.sumVisibleProperty,
+      model.horizontalScene.vectorSet );
 
     // Graph Area heading for the vertical scene.
-    const verticalGraphAreaHeading = new Node( {
-      visibleProperty: verticalSceneNode.visibleProperty,
-      pdomOrder: [
-        verticalSceneNode.graphNode,
-        verticalSceneNode.vectorSetNodesParent
-      ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
-        numberOfVectors: new DerivedProperty(
-          [ viewProperties.sumVisibleProperty,
-            model.verticalScene.vectorSet.resultantVector.isDefinedProperty,
-            model.verticalScene.vectorSet.numberOfVectorsOnGraphProperty
-          ],
-          ( sumVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
-            ( sumVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
-      } )
-    } );
+    const verticalGraphAreaHeading = new ExploreGraphAreaHeading(
+      verticalSceneNode.graphNode,
+      verticalSceneNode.vectorSetNodesParent,
+      verticalSceneNode.visibleProperty,
+      viewProperties.sumVisibleProperty,
+      model.verticalScene.vectorSet );
 
     const screenViewRootNode = new Node( {
       children: [

@@ -6,16 +6,14 @@
  * @author Martin Veillette
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabModel from '../model/LabModel.js';
+import LabGraphAreaHeading from './LabGraphAreaHeading.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabSceneNode from './LabSceneNode.js';
 import LabScreenSummaryContent from './LabScreenSummaryContent.js';
@@ -83,60 +81,26 @@ export default class LabScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Graph Area heading for the Cartesian scene.
-    const cartesianGraphAreaHeading = new Node( {
-      visibleProperty: cartesianSceneNode.visibleProperty,
-      pdomOrder: [
-        cartesianSceneNode.graphNode,
-        cartesianSceneNode.vectorSetNodesParent
-      ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphLabStringProperty, {
-        vectorSet1Size: new DerivedProperty( [
-            viewProperties.sum1VisibleProperty,
-            model.cartesianScene.vectorSet1.resultantVector.isDefinedProperty,
-            model.cartesianScene.vectorSet1.numberOfVectorsOnGraphProperty
-          ],
-          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
-        ),
-        vectorSet1Symbol: model.cartesianScene.vectorSet1.accessibleSymbolProperty,
-        vectorSet2Size: new DerivedProperty( [
-            viewProperties.sum2VisibleProperty,
-            model.cartesianScene.vectorSet2.resultantVector.isDefinedProperty,
-            model.cartesianScene.vectorSet2.numberOfVectorsOnGraphProperty
-          ],
-          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
-        ),
-        vectorSet2Symbol: model.cartesianScene.vectorSet2.accessibleSymbolProperty
-      } )
-    } );
+    const cartesianGraphAreaHeading = new LabGraphAreaHeading(
+      cartesianSceneNode.graphNode,
+      cartesianSceneNode.vectorSetNodesParent,
+      cartesianSceneNode.visibleProperty,
+      viewProperties.sum1VisibleProperty,
+      viewProperties.sum2VisibleProperty,
+      model.cartesianScene.vectorSet1,
+      model.cartesianScene.vectorSet2
+    );
 
     // Graph Area heading for the polar scene.
-    const polarGraphAreaHeading = new Node( {
-      visibleProperty: polarSceneNode.visibleProperty,
-      pdomOrder: [
-        polarSceneNode.graphNode,
-        polarSceneNode.vectorSetNodesParent
-      ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphLabStringProperty, {
-        vectorSet1Size: new DerivedProperty( [
-            viewProperties.sum1VisibleProperty,
-            model.polarScene.vectorSet1.resultantVector.isDefinedProperty,
-            model.polarScene.vectorSet1.numberOfVectorsOnGraphProperty
-          ],
-          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
-        ),
-        vectorSet1Symbol: model.polarScene.vectorSet1.accessibleSymbolProperty,
-        vectorSet2Size: new DerivedProperty( [
-            viewProperties.sum2VisibleProperty,
-            model.polarScene.vectorSet2.resultantVector.isDefinedProperty,
-            model.polarScene.vectorSet2.numberOfVectorsOnGraphProperty
-          ],
-          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
-        ),
-        vectorSet2Symbol: model.polarScene.vectorSet2.accessibleSymbolProperty
-      } )
-    } );
+    const polarGraphAreaHeading = new LabGraphAreaHeading(
+      polarSceneNode.graphNode,
+      polarSceneNode.vectorSetNodesParent,
+      polarSceneNode.visibleProperty,
+      viewProperties.sum1VisibleProperty,
+      viewProperties.sum2VisibleProperty,
+      model.polarScene.vectorSet1,
+      model.polarScene.vectorSet2
+    );
 
     const screenViewRootNode = new Node( {
       children: [

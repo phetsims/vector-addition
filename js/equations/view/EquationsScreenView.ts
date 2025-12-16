@@ -6,8 +6,6 @@
  * @author Martin Veillette
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -15,8 +13,8 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsModel from '../model/EquationsModel.js';
+import EquationsGraphAreaHeading from './EquationsGraphAreaHeading.js';
 import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsScreenSummaryContent from './EquationsScreenSummaryContent.js';
@@ -99,42 +97,24 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Graph Area heading for the Cartesian scene.
-    const cartesianGraphAreaHeading = new Node( {
-      visibleProperty: cartesianSceneNode.visibleProperty,
-      pdomOrder: [
-        cartesianSceneNode.graphNode,
-        cartesianSceneNode.vectorSetNodesParent
-      ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphEquationsStringProperty, {
-        numberOfVectors: new DerivedProperty(
-          [ viewProperties.resultantVectorVisibleProperty,
-            model.cartesianScene.vectorSet.resultantVector.isDefinedProperty,
-            model.cartesianScene.vectorSet.numberOfVectorsOnGraphProperty
-          ],
-          ( resultantVectorVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
-            ( resultantVectorVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
-      } )
-    } );
+    const cartesianGraphAreaHeading = new EquationsGraphAreaHeading(
+      cartesianSceneNode.graphNode,
+      cartesianSceneNode.vectorSetNodesParent,
+      cartesianSceneNode.visibleProperty,
+      viewProperties.resultantVectorVisibleProperty,
+      viewProperties.baseVectorsVisibleProperty,
+      model.cartesianScene.vectorSet
+    );
 
     // Graph Area heading for the polar scene.
-    const polarGraphAreaHeading = new Node( {
-      visibleProperty: polarSceneNode.visibleProperty,
-      pdomOrder: [
-        polarSceneNode.graphNode,
-        polarSceneNode.vectorSetNodesParent
-      ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphEquationsStringProperty, {
-        numberOfVectors: new DerivedProperty(
-          [ viewProperties.resultantVectorVisibleProperty,
-            model.polarScene.vectorSet.resultantVector.isDefinedProperty,
-            model.polarScene.vectorSet.numberOfVectorsOnGraphProperty
-          ],
-          ( resultantVectorVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
-            ( resultantVectorVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
-      } )
-    } );
+    const polarGraphAreaHeading = new EquationsGraphAreaHeading(
+      polarSceneNode.graphNode,
+      polarSceneNode.vectorSetNodesParent,
+      polarSceneNode.visibleProperty,
+      viewProperties.resultantVectorVisibleProperty,
+      viewProperties.baseVectorsVisibleProperty,
+      model.polarScene.vectorSet
+    );
 
     const screenViewRootNode = new Node( {
       children: [
