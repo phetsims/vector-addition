@@ -6,6 +6,8 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -27,13 +29,15 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
   public constructor( model: EquationsModel, tandem: Tandem ) {
 
+    const viewProperties = new EquationsViewProperties( tandem.createTandem( 'viewProperties' ) );
+
     super( model.sceneProperty, {
       resetModel: () => model.reset(),
       screenSummaryContent: new EquationsScreenSummaryContent( model.sceneProperty, model.scenes ),
       tandem: tandem
     } );
 
-    this.viewProperties = new EquationsViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = viewProperties;
 
     // Controls for the graph, at upper right
     const graphControlPanel = new EquationsGraphControlPanel(
@@ -101,7 +105,16 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
         cartesianSceneNode.graphNode,
         cartesianSceneNode.vectorSetNodesParent
       ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphEquationsStringProperty, {
+        numberOfVectors: new DerivedProperty(
+          [ viewProperties.resultantVectorVisibleProperty,
+            model.cartesianScene.vectorSet.resultantVector.isDefinedProperty,
+            model.cartesianScene.vectorSet.numberOfVectorsOnGraphProperty
+          ],
+          ( resultantVectorVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
+            ( resultantVectorVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
+      } )
     } );
 
     // Graph Area heading for the polar scene.
@@ -111,7 +124,16 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
         polarSceneNode.graphNode,
         polarSceneNode.vectorSetNodesParent
       ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphEquationsStringProperty, {
+        numberOfVectors: new DerivedProperty(
+          [ viewProperties.resultantVectorVisibleProperty,
+            model.polarScene.vectorSet.resultantVector.isDefinedProperty,
+            model.polarScene.vectorSet.numberOfVectorsOnGraphProperty
+          ],
+          ( resultantVectorVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
+            ( resultantVectorVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
+      } )
     } );
 
     const screenViewRootNode = new Node( {

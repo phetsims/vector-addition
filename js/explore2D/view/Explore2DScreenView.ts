@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -28,15 +29,17 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   public constructor( model: Explore2DModel, tandem: Tandem ) {
 
+    const viewProperties = new ExploreViewProperties( {
+      tandem: tandem.createTandem( 'viewProperties' )
+    } );
+
     super( model.sceneProperty, {
       resetModel: () => model.reset(),
-      screenSummaryContent: new Explore2DScreenSummaryContent( model.sceneProperty ),
+      screenSummaryContent: new Explore2DScreenSummaryContent( model.sceneProperty, viewProperties.sumVisibleProperty ),
       tandem: tandem
     } );
 
-    this.viewProperties = new ExploreViewProperties( {
-      tandem: tandem.createTandem( 'viewProperties' )
-    } );
+    this.viewProperties = viewProperties;
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(
@@ -90,7 +93,13 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
       accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
-        numberOfVectors: model.cartesianScene.vectorSet.numberOfVectorsOnGraphProperty
+        numberOfVectors: new DerivedProperty(
+          [ viewProperties.sumVisibleProperty,
+            model.cartesianScene.vectorSet.resultantVector.isDefinedProperty,
+            model.cartesianScene.vectorSet.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
+            ( sumVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
       } )
     } );
 
@@ -103,7 +112,13 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
       accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
-        numberOfVectors: model.polarScene.vectorSet.numberOfVectorsOnGraphProperty
+        numberOfVectors: new DerivedProperty(
+          [ viewProperties.sumVisibleProperty,
+            model.polarScene.vectorSet.resultantVector.isDefinedProperty,
+            model.polarScene.vectorSet.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
+            ( sumVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
       } )
     } );
 
