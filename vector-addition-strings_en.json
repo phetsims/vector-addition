@@ -171,6 +171,9 @@
       },
       "accessibleParagraphLab": {
         "value": "{{vectorSet1Size}} vectors from set {{vectorSet1Symbol}} and {{vectorSet2Size}} vectors from set {{vectorSet2Symbol}} in graph area."
+      },
+      "accessibleParagraphEquations": {
+        "value": "{{numberOfVectors}} vectors in graph area."
       }
     },
     "horizontalSceneName": {

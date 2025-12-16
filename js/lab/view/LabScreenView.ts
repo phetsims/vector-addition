@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -27,13 +28,16 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
   public constructor( model: LabModel, tandem: Tandem ) {
 
+    const viewProperties = new LabViewProperties( tandem.createTandem( 'viewProperties' ) );
+
     super( model.sceneProperty, {
       resetModel: () => model.reset(),
-      screenSummaryContent: new LabScreenSummaryContent( model.sceneProperty ),
+      screenSummaryContent: new LabScreenSummaryContent( model.sceneProperty,
+        viewProperties.sum1VisibleProperty, viewProperties.sum2VisibleProperty ),
       tandem: tandem
     } );
 
-    this.viewProperties = new LabViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = viewProperties;
 
     // Controls for the graph, at upper right
     const graphControlPanel = new LabGraphControlPanel(
@@ -87,9 +91,21 @@ export default class LabScreenView extends VectorAdditionScreenView {
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
       accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphLabStringProperty, {
-        vectorSet1Size: model.cartesianScene.vectorSet1.numberOfVectorsOnGraphProperty,
+        vectorSet1Size: new DerivedProperty( [
+            viewProperties.sum1VisibleProperty,
+            model.cartesianScene.vectorSet1.resultantVector.isDefinedProperty,
+            model.cartesianScene.vectorSet1.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
+        ),
         vectorSet1Symbol: model.cartesianScene.vectorSet1.accessibleSymbolProperty,
-        vectorSet2Size: model.cartesianScene.vectorSet2.numberOfVectorsOnGraphProperty,
+        vectorSet2Size: new DerivedProperty( [
+            viewProperties.sum2VisibleProperty,
+            model.cartesianScene.vectorSet2.resultantVector.isDefinedProperty,
+            model.cartesianScene.vectorSet2.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
+        ),
         vectorSet2Symbol: model.cartesianScene.vectorSet2.accessibleSymbolProperty
       } )
     } );
@@ -103,9 +119,21 @@ export default class LabScreenView extends VectorAdditionScreenView {
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
       accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphLabStringProperty, {
-        vectorSet1Size: model.polarScene.vectorSet1.numberOfVectorsOnGraphProperty,
+        vectorSet1Size: new DerivedProperty( [
+            viewProperties.sum1VisibleProperty,
+            model.polarScene.vectorSet1.resultantVector.isDefinedProperty,
+            model.polarScene.vectorSet1.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
+        ),
         vectorSet1Symbol: model.polarScene.vectorSet1.accessibleSymbolProperty,
-        vectorSet2Size: model.polarScene.vectorSet2.numberOfVectorsOnGraphProperty,
+        vectorSet2Size: new DerivedProperty( [
+            viewProperties.sum2VisibleProperty,
+            model.polarScene.vectorSet2.resultantVector.isDefinedProperty,
+            model.polarScene.vectorSet2.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
+        ),
         vectorSet2Symbol: model.polarScene.vectorSet2.accessibleSymbolProperty
       } )
     } );

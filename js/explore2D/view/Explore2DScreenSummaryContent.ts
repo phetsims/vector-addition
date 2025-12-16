@@ -9,6 +9,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -19,20 +20,28 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore2DScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor( sceneProperty: TReadOnlyProperty<ExploreScene> ) {
+  public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>, sumVisibleProperty: TReadOnlyProperty<boolean> ) {
 
     // Number of vectors on the graph.
-    const numberOfVectorsProperty = new DynamicProperty( sceneProperty, {
+    const numberOfVectorsProperty = new DynamicProperty<number, number, ExploreScene>( sceneProperty, {
       derive: scene => scene.vectorSet.numberOfVectorsOnGraphProperty
     } );
 
+    // Whether the resultant vector is defined.
+    const resultantIsDefinedProperty = new DynamicProperty<boolean, boolean, ExploreScene>( sceneProperty, {
+      derive: scene => scene.vectorSet.resultantVector.isDefinedProperty
+    } );
+
     // Accessible name of the selected scene.
-    const accessibleSceneNameStringProperty = new DynamicProperty( sceneProperty, {
+    const accessibleSceneNameStringProperty = new DynamicProperty<string, string, ExploreScene>( sceneProperty, {
       derive: scene => scene.accessibleSceneNameStringProperty
     } );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.explore2DScreen.screenSummary.currentDetailsStringProperty, {
-      numberOfVectors: numberOfVectorsProperty,
+      numberOfVectors: new DerivedProperty(
+        [ sumVisibleProperty, resultantIsDefinedProperty, numberOfVectorsProperty ],
+        ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
+      ),
       sceneName: accessibleSceneNameStringProperty
     } );
 
