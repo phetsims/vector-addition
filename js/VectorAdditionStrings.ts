@@ -91,6 +91,7 @@ type StringsType = {
     'graphArea': {
       'accessibleParagraphExploreStringProperty': LocalizedStringProperty;
       'accessibleParagraphLabStringProperty': LocalizedStringProperty;
+      'accessibleParagraphEquationsStringProperty': LocalizedStringProperty;
     };
     'horizontalSceneNameStringProperty': LocalizedStringProperty;
     'verticalSceneNameStringProperty': LocalizedStringProperty;

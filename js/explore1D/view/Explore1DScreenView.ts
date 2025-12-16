@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -28,16 +29,18 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
   public constructor( model: Explore1DModel, tandem: Tandem ) {
 
-    super( model.sceneProperty, {
-      resetModel: () => model.reset(),
-      screenSummaryContent: new Explore1DScreenSummaryContent( model.sceneProperty ),
-      tandem: tandem
-    } );
-
-    this.viewProperties = new ExploreViewProperties( {
+    const viewProperties = new ExploreViewProperties( {
       anglesVisiblePropertyInstrumented: false,
       tandem: tandem.createTandem( 'viewProperties' )
     } );
+
+    super( model.sceneProperty, {
+      resetModel: () => model.reset(),
+      screenSummaryContent: new Explore1DScreenSummaryContent( model.sceneProperty, viewProperties.sumVisibleProperty ),
+      tandem: tandem
+    } );
+
+    this.viewProperties = viewProperties;
 
     const graphViewBounds = model.verticalScene.graph.viewBounds;
 
@@ -90,7 +93,13 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
       accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
-        numberOfVectors: model.horizontalScene.vectorSet.numberOfVectorsOnGraphProperty
+        numberOfVectors: new DerivedProperty(
+          [ viewProperties.sumVisibleProperty,
+            model.horizontalScene.vectorSet.resultantVector.isDefinedProperty,
+            model.horizontalScene.vectorSet.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
+            ( sumVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
       } )
     } );
 
@@ -103,7 +112,13 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       ],
       accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
       accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphExploreStringProperty, {
-        numberOfVectors: model.verticalScene.vectorSet.numberOfVectorsOnGraphProperty
+        numberOfVectors: new DerivedProperty(
+          [ viewProperties.sumVisibleProperty,
+            model.verticalScene.vectorSet.resultantVector.isDefinedProperty,
+            model.verticalScene.vectorSet.numberOfVectorsOnGraphProperty
+          ],
+          ( sumVisible, resultantVectorIsDefined, numberOfVectorsOnGraph ) =>
+            ( sumVisible && resultantVectorIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph )
       } )
     } );
 
