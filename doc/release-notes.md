@@ -37,7 +37,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * Basic Sound
 * Core Description
 * PhET-iO support, including PhET Studio
-* "Angle Convention" feature: see _Preferences > Simulation_
+* "Angle Convention" preference: see _Preferences > Simulation_
 
 ### Bug Fixes
 * Negative angles are now displayed correctly for right-to-left (RTL) languages. For example, `-90°` instead of `90°-`.
