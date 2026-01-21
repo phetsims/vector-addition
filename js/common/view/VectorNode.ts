@@ -24,7 +24,6 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
@@ -64,13 +63,6 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
   // Drag listener for moving the vector with the pointer, for drag forwarding.
   private readonly moveVectorDragListener: DragListener;
-
-  //TODO https://github.com/phetsims/scenery/issues/1729 Revisit this when response cueing is revised.
-  // We need to use a separate utterance queue for the doAccessibleObjectResponse method because it was interrupting
-  // important context responses ('Vector added to graph area', 'Vector removed from graph area') that occur over
-  // in VectorSetNode. It seems backwards to have to use a separate queue for the thing doing the interrupting, but
-  // that's currently the recommended pattern.
-  private readonly objectResponseUtterance = new Utterance();
 
   // Disposes of things that are specific to this class.
   private readonly disposeVectorNode: () => void;
@@ -243,8 +235,6 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       shadowMultilink.dispose();
       selectedVectorProperty.unlink( selectedVectorListener );
       this.vector.animateToToolboxProperty.unlink( animateBackListener );
-
-      this.objectResponseUtterance.dispose();
     };
   }
 
@@ -277,13 +267,13 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     }
 
     // Both of the possible values for patternStringProperty above must have the same placeholders!
-    this.objectResponseUtterance.alert = StringUtils.fillIn( patternString, {
+    const response = StringUtils.fillIn( patternString, {
       tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
       tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
     } );
-    this.addAccessibleObjectResponse( this.objectResponseUtterance, { alertBehavior: 'queue' } );
+    this.addAccessibleObjectResponse( response );
   }
 }
 

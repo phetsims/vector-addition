@@ -34,6 +34,10 @@ import VectorNode from './VectorNode.js';
 const MOUSE_AREA_DILATION = 6;
 const TOUCH_AREA_DILATION = 8;
 
+// When dragging the vector tip, the object responses are self-interruptible so that the user is not spammed with
+// information during rapid movement.
+const INTERRUPTIBLE_OPTIONS = { interruptible: true };
+
 export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
   // The associated vector model element.
@@ -181,7 +185,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
         tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
         tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
-      } ) );
+      } ), INTERRUPTIBLE_OPTIONS );
     }
     else {
 
@@ -193,7 +197,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
         angle: toFixedNumber( angle, 1 )
-      } ) );
+      } ), INTERRUPTIBLE_OPTIONS );
     }
   }
 }

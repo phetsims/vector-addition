@@ -84,7 +84,9 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
         maxX: graphBounds.maxX,
         maxY: graphBounds.maxY
       } );
-      this.addAccessibleObjectResponse( response, { alertBehavior: 'interrupt' } );
+
+      // Self interruptible, so that if the user drags again quickly, we don't queue up multiple responses.
+      this.addAccessibleObjectResponse( response, { interruptible: true } );
     };
 
     // Drag support for pointer and keyboard input, with sound.
