@@ -28,7 +28,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
@@ -107,9 +106,6 @@ export default class VectorAdditionSceneNode extends Node {
         listener: () => {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           scene.erase();
-
-          //TODO https://github.com/phetsims/sun/issues/957 accessibleContextResponse should be specified in VectorAdditionEraserButton options.
-          this.eraserButton!.addAccessibleContextResponse( VectorAdditionStrings.a11y.eraserButton.accessibleContextResponseStringProperty.value );
         },
         right: scene.graph.viewBounds.maxX,
         top: scene.graph.viewBounds.maxY + 15,

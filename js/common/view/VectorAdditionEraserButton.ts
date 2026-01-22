@@ -40,7 +40,8 @@ export default class VectorAdditionEraserButton extends EraserButton {
       touchAreaXDilation: 7,
       touchAreaYDilation: 7,
       accessibleName: VectorAdditionStrings.a11y.eraserButton.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.eraserButton.accessibleHelpTextStringProperty
+      accessibleHelpText: VectorAdditionStrings.a11y.eraserButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: VectorAdditionStrings.a11y.eraserButton.accessibleContextResponseStringProperty
     }, providedOptions );
 
     super( options );
