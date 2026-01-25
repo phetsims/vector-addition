@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * GraphOriginManipulator shows the origin on the graph, and can be dragged to reposition the origin.

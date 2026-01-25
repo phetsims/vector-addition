@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * VectorTipNode is the draggable tip of a vector. Dragging the tip scales and rotates the vector.
