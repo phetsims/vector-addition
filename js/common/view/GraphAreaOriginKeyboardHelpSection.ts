@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import SceneryPhetFluent from '../../../../scenery-phet/js/SceneryPhetFluent.js';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
@@ -20,11 +20,9 @@ export default class GraphAreaOriginKeyboardHelpSection extends KeyboardHelpSect
     // Move
     // Note that we are not using MoveDraggableItemsKeyboardHelpSection because a Shift modifier is not needed for the
     // origin, and MoveDraggableItemsKeyboardHelpSection has no way to omit the keyboard help for the Shift modifier.
-    const moveRow = KeyboardHelpSectionRow.labelWithIcon(
-      SceneryPhetFluent.keyboardHelpDialog.moveStringProperty,
-      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(), {
-        labelInnerContent: SceneryPhetFluent.a11y.keyboardHelpDialog.draggableItems.moveDescriptionStringProperty
-      } );
+    const moveRow = KeyboardHelpSectionRow.fromHotkeyData( KeyboardDragListener.MOVE_HOTKEY_DATA, {
+      labelStringProperty: SceneryPhetFluent.keyboardHelpDialog.moveStringProperty
+    } );
 
     // 'Graph Area Origin' title
     super( VectorAdditionStrings.keyboardHelpDialog.graphAreaOriginStringProperty, [ moveRow ] );
