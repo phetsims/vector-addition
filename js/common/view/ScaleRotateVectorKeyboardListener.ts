@@ -33,8 +33,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown', 'w', 'a', 's', 'd' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.scaleRotateVectorStringProperty,
-    keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.scaleRotateDescriptionStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.scaleRotateVectorStringProperty
   } );
 
   public constructor( vector: Vector, tipNode: VectorTipNode ) {

@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
@@ -25,11 +23,7 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'space', 'enter' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.selectOrDeselectStringProperty,
-    keyboardHelpDialogPDOMLabelStringProperty:
-      new PatternStringProperty( VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.selectOrDeselectDescriptionStringProperty, {
-        enterKey: TextKeyNode.getEnterKeyString() // platform-specific
-      } )
+    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.selectOrDeselectStringProperty
   } );
 
   public constructor( vector: Vector ) {

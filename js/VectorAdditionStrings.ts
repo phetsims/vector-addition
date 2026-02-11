@@ -250,15 +250,6 @@ type StringsType = {
     };
     'vectorAddedToGraphAreaStringProperty': LocalizedStringProperty;
     'vectorRemovedFromGraphAreaStringProperty': LocalizedStringProperty;
-    'keyboardHelpDialog': {
-      'vectors': {
-        'removeFromGraphDescriptionStringProperty': LocalizedStringProperty;
-        'selectOrDeselectDescriptionStringProperty': LocalizedStringProperty;
-        'moveDescriptionStringProperty': LocalizedStringProperty;
-        'scaleRotateDescriptionStringProperty': LocalizedStringProperty;
-        'checkVectorValuesDescriptionStringProperty': LocalizedStringProperty;
-      }
-    }
   }
 };
 

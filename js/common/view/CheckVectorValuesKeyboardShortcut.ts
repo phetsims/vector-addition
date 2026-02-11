@@ -8,8 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
@@ -26,11 +24,7 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'alt+c' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.checkVectorValuesStringProperty,
-    keyboardHelpDialogPDOMLabelStringProperty:
-      new PatternStringProperty( VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.checkVectorValuesDescriptionStringProperty, {
-        altKey: TextKeyNode.getAltKeyString() // platform-specific
-      } )
+    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.checkVectorValuesStringProperty
   } );
 
   public constructor( vector: Vector, vectorNode: VectorNode ) {
