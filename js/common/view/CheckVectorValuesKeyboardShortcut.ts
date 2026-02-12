@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * CheckVectorValuesKeyboardShortcut reads the vector values for the vector that has focus. The class name designates

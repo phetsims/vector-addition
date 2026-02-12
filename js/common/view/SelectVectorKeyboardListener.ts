@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * SelectVectorKeyboardListener selects or deselects the vector that has focus, using the keyboard.

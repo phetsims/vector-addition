@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * ScaleRotateVectorKeyboardListener scales and rotates a vector on the graph, using the keyboard.
