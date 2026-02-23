@@ -42,7 +42,7 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
       } ) );
     }
 
-    // Read vector values
+    // Check vector values
     rows.push( KeyboardHelpSectionRow.fromHotkeyData( CheckVectorValuesKeyboardShortcut.HOTKEY_DATA ) );
 
     // Remove from graph area
