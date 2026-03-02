@@ -266,23 +266,17 @@
         "value": "Scene"
       },
       "accessibleHelpText": {
-        "value": "Switch between independent scenes with their own vectors and graph areas."
+        "value": "Switch between independent scenes with their own vectors and graph areas. Cartesian scene vectors snap to integer x and y components. Polar scene vectors snap to integer magnitudes and angle multiples of {{polarAngleInterval}} degrees."
       }
     },
     "cartesianRadioButton": {
       "accessibleName": {
         "value": "Cartesian scene"
-      },
-      "accessibleHelpText": {
-        "value": "Vectors snap to integer x and y components."
       }
     },
     "polarRadioButton": {
       "accessibleName": {
         "value": "Polar scene"
-      },
-      "accessibleHelpText": {
-        "value": "Vectors snap to integer magnitudes and angle multiples of {{polarAngleInterval}} degrees."
       }
     },
     "horizontalVerticalSceneRadioButtonGroup": {

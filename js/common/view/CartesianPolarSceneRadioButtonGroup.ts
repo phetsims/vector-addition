@@ -39,7 +39,9 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
         // RectangularRadioButtonGroupOptions
         isDisposable: false,
         accessibleName: VectorAdditionStrings.a11y.cartesianPolarSceneRadioButtonGroup.accessibleNameStringProperty,
-        accessibleHelpText: VectorAdditionStrings.a11y.cartesianPolarSceneRadioButtonGroup.accessibleHelpTextStringProperty
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.cartesianPolarSceneRadioButtonGroup.accessibleHelpTextStringProperty, {
+          polarAngleInterval: VectorAdditionConstants.POLAR_ANGLE_INTERVAL
+        } )
       }, providedOptions );
 
     const items: RectangularRadioButtonGroupItem<T>[] = [
@@ -48,8 +50,7 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
         createNode: () => VectorAdditionIconFactory.createCartesianSceneIcon( cartesianColorPalette ),
         tandemName: 'cartesianRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.cartesianRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.cartesianRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.cartesianRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -57,10 +58,7 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
         createNode: () => VectorAdditionIconFactory.createPolarSceneIcon( polarColorPalette ),
         tandemName: 'polarRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.polarRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.polarRadioButton.accessibleHelpTextStringProperty, {
-            polarAngleInterval: VectorAdditionConstants.POLAR_ANGLE_INTERVAL
-          } )
+          accessibleName: VectorAdditionStrings.a11y.polarRadioButton.accessibleNameStringProperty
         }
       }
     ];
