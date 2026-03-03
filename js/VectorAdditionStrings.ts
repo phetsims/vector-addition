@@ -142,11 +142,9 @@ type StringsType = {
     };
     'cartesianRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'polarRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'horizontalVerticalSceneRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
