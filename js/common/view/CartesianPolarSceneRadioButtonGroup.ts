@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * CartesianPolarSceneRadioButtonGroup is a radio button group for switching between Cartesian and polar scenes.
