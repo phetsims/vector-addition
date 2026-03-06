@@ -37,15 +37,9 @@ export default class CoefficientPicker extends NumberPicker {
         disabledOpacity: 1,
         backgroundStrokeDisabledOpacity: 1,
         arrowDisabledOpacity: 0,
-
-        //TODO https://github.com/phetsims/scenery/issues/1731 Replace this workaround with accessibleName.
-        // Workaround for dynamic accessibleName triggers a re-render and confuses Safari. These two options replace
-        // accessibleName. See https://github.com/phetsims/vector-addition/issues/423#issuecomment-3603841659.
-        labelTagName: 'label',
-        labelContent: new PatternStringProperty( VectorAdditionStrings.a11y.coefficientPicker.accessibleNameStringProperty, {
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.coefficientPicker.accessibleNameStringProperty, {
           symbol: labelStringProperty
         } ),
-
         accessibleHelpText: VectorAdditionStrings.a11y.coefficientPicker.accessibleHelpTextStringProperty,
 
         // false because it makes no sense to hide coefficient pickers in the equations.
