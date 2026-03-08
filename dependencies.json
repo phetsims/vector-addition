@@ -49,7 +49,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "6343150359f1fafb499144c7ea35abc465ebf47b",
+    "sha": "53ce30c8cf960872f3684491722987af02345211",
     "branch": "HEAD"
   },
   "phetmarks": {
@@ -97,7 +97,7 @@
     "branch": "HEAD"
   },
   "vector-addition": {
-    "sha": "6b50aaee8584bc154038a414b49555858926ef09",
+    "sha": "23a2a7ef33db1871f28c6fd3c49bee5e47e206a9",
     "branch": "1.2"
   }
 }
