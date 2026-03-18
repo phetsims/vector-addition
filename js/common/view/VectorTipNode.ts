@@ -35,8 +35,11 @@ const MOUSE_AREA_DILATION = 6;
 const TOUCH_AREA_DILATION = 8;
 
 // When dragging the vector tip, the object responses are self-interruptible so that the user is not spammed with
-// information during rapid movement.
-const INTERRUPTIBLE_OPTIONS = { interruptible: true };
+// information when pressing the arrow keys repeatedly.
+const ACCESSIBLE_OBJECT_RESPONSE_OPTIONS = {
+  interruptible: true,
+  alertDelay: 1000
+};
 
 export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
@@ -185,7 +188,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
         tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
         tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
-      } ), INTERRUPTIBLE_OPTIONS );
+      } ), ACCESSIBLE_OBJECT_RESPONSE_OPTIONS );
     }
     else {
 
@@ -197,7 +200,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
         angle: toFixedNumber( angle, 1 )
-      } ), INTERRUPTIBLE_OPTIONS );
+      } ), ACCESSIBLE_OBJECT_RESPONSE_OPTIONS );
     }
   }
 }

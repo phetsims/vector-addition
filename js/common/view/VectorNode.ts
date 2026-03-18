@@ -47,6 +47,13 @@ const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConst
 const SHADOW_X_OFFSET = 3.2;
 const SHADOW_Y_OFFSET = 2.1;
 
+// When dragging the entire vector, the object responses are self-interruptible so that the user is not spammed with
+// information when pressing the arrow keys repeatedly.
+const ACCESSIBLE_OBJECT_RESPONSE_OPTIONS = {
+  interruptible: true,
+  alertDelay: 1000
+};
+
 type SelfOptions = EmptySelfOptions;
 export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
@@ -273,7 +280,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
       tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
     } );
-    this.addAccessibleObjectResponse( response );
+    this.addAccessibleObjectResponse( response, ACCESSIBLE_OBJECT_RESPONSE_OPTIONS );
   }
 }
 
