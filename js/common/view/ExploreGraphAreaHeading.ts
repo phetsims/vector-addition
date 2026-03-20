@@ -10,7 +10,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorSet from '../model/VectorSet.js';
 
@@ -44,5 +43,3 @@ export default class ExploreGraphAreaHeading extends Node {
         ( sumVisible && sumIsDefined ) ? numberOfVectorsOnGraph + 1 : numberOfVectorsOnGraph );
   }
 }
-
-vectorAddition.register( 'ExploreGraphAreaHeading', ExploreGraphAreaHeading );

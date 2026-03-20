@@ -17,7 +17,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import vectorAddition from '../../vectorAddition.js';
 
 export class LabelEqualsNumberPicker extends HBox {
 
@@ -60,5 +59,3 @@ export class LabelEqualsNumberPicker extends HBox {
     this.numberPicker = numberPicker;
   }
 }
-
-vectorAddition.register( 'LabelEqualsNumberPicker', LabelEqualsNumberPicker );

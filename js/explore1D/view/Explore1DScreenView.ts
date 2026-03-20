@@ -13,7 +13,6 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ExploreGraphAreaHeading from '../../common/view/ExploreGraphAreaHeading.js';
 import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
-import vectorAddition from '../../vectorAddition.js';
 import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
@@ -146,5 +145,3 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     super.reset();
   }
 }
-
-vectorAddition.register( 'Explore1DScreenView', Explore1DScreenView );

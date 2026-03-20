@@ -12,7 +12,6 @@ import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
@@ -66,5 +65,3 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
     super( sceneProperty, items, options );
   }
 }
-
-vectorAddition.register( 'CartesianPolarSceneRadioButtonGroup', CartesianPolarSceneRadioButtonGroup );

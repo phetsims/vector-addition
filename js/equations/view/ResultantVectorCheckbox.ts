@@ -23,7 +23,6 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsScene from '../model/EquationsScene.js';
 
@@ -109,5 +108,3 @@ export default class ResultantVectorCheckbox extends Checkbox {
     super( resultantVectorVisibleProperty, content, options );
   }
 }
-
-vectorAddition.register( 'ResultantVectorCheckbox', ResultantVectorCheckbox );

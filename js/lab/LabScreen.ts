@@ -11,7 +11,6 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
-import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
@@ -34,5 +33,3 @@ export default class LabScreen extends Screen<LabModel, LabScreenView> {
       options );
   }
 }
-
-vectorAddition.register( 'LabScreen', LabScreen );

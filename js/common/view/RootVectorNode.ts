@@ -21,7 +21,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import vectorAddition from '../../vectorAddition.js';
 import RootVector from '../model/RootVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
@@ -238,5 +237,3 @@ export default class RootVectorNode extends Node {
     return modelViewTransform.modelToViewDelta( labelVector.timesScalar( 0.5 ).plus( offset ) );
   }
 }
-
-vectorAddition.register( 'RootVectorNode', RootVectorNode );

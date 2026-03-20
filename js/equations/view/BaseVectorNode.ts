@@ -17,7 +17,6 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from '../../common/view/RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from '../../common/view/VectorNode.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import BaseVector from '../model/BaseVector.js';
 
@@ -54,5 +53,3 @@ export default class BaseVectorNode extends VectorNode {
     this.addLinkedElement( baseVector );
   }
 }
-
-vectorAddition.register( 'BaseVectorNode', BaseVectorNode );

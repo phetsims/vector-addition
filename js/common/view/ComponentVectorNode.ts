@@ -21,7 +21,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
@@ -215,5 +214,3 @@ export default class ComponentVectorNode extends RootVectorNode {
     this.labelNode.center = RootVectorNode.computeLabelCenter( componentVector, modelViewTransform, labelOffset );
   }
 }
-
-vectorAddition.register( 'ComponentVectorNode', ComponentVectorNode );

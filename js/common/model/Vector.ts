@@ -33,7 +33,6 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import ComponentVector from './ComponentVector.js';
@@ -505,5 +504,3 @@ export default class Vector extends RootVector {
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
-
-vectorAddition.register( 'Vector', Vector );

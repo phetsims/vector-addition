@@ -12,7 +12,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
 import LabVectorToolbox from './LabVectorToolbox.js';
 import LabViewProperties from './LabViewProperties.js';
@@ -39,5 +38,3 @@ export default class LabSceneNode extends VectorAdditionSceneNode {
     } );
   }
 }
-
-vectorAddition.register( 'LabSceneNode', LabSceneNode );

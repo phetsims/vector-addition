@@ -27,7 +27,6 @@ import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/G
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabScene from '../model/LabScene.js';
 import LabViewProperties from './LabViewProperties.js';
@@ -162,5 +161,3 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     super( content, options );
   }
 }
-
-vectorAddition.register( 'LabGraphControlPanel', LabGraphControlPanel );

@@ -18,7 +18,6 @@ import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/G
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -71,5 +70,3 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
     super( content, options );
   }
 }
-
-vectorAddition.register( 'Explore1DGraphControlPanel', Explore1DGraphControlPanel );

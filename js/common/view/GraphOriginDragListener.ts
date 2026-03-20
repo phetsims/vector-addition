@@ -14,7 +14,6 @@ import { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optio
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import SoundRichDragListener, { SoundRichDragListenerOptions } from '../../../../scenery-phet/js/SoundRichDragListener.js';
-import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -43,5 +42,3 @@ export default class GraphOriginDragListener extends SoundRichDragListener {
     }, providedOptions ) );
   }
 }
-
-vectorAddition.register( 'GraphOriginDragListener', GraphOriginDragListener );

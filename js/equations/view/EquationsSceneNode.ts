@@ -22,7 +22,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
 import EquationsScene from '../model/EquationsScene.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
@@ -95,5 +94,3 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
     this.getVectorSetNode( vectorSet ).addBaseVectorNode( baseVector, baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
   }
 }
-
-vectorAddition.register( 'EquationsSceneNode', EquationsSceneNode );

@@ -14,7 +14,6 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -63,5 +62,3 @@ export default class ComponentsControl extends VBox {
     } );
   }
 }
-
-vectorAddition.register( 'ComponentsControl', ComponentsControl );

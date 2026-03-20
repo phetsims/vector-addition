@@ -9,7 +9,6 @@
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import CheckVectorValuesKeyboardShortcut from './CheckVectorValuesKeyboardShortcut.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
@@ -55,5 +54,3 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
     } );
   }
 }
-
-vectorAddition.register( 'VectorsKeyboardHelpSection', VectorsKeyboardHelpSection );

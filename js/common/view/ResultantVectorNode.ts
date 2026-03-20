@@ -20,7 +20,6 @@ import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import vectorAddition from '../../vectorAddition.js';
 import ResultantVector from '../model/ResultantVector.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -75,5 +74,3 @@ export default class ResultantVectorNode extends VectorNode {
     this.addLinkedElement( resultantVector );
   }
 }
-
-vectorAddition.register( 'ResultantVectorNode', ResultantVectorNode );

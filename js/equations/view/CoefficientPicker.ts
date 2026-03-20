@@ -13,7 +13,6 @@ import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -49,5 +48,3 @@ export default class CoefficientPicker extends NumberPicker {
     super( coefficientProperty, coefficientProperty.rangeProperty, options );
   }
 }
-
-vectorAddition.register( 'CoefficientPicker', CoefficientPicker );

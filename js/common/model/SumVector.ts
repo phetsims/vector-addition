@@ -19,7 +19,6 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import Graph from './Graph.js';
 import ResultantVector, { ResultantVectorOptions } from './ResultantVector.js';
@@ -67,5 +66,3 @@ function computeSum( vectors: Vector[] ): Vector2 {
 
   return sum;
 }
-
-vectorAddition.register( 'SumVector', SumVector );

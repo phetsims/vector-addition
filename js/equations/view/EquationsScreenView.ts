@@ -12,7 +12,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
-import vectorAddition from '../../vectorAddition.js';
 import EquationsModel from '../model/EquationsModel.js';
 import EquationsGraphAreaHeading from './EquationsGraphAreaHeading.js';
 import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
@@ -162,5 +161,3 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     super.reset();
   }
 }
-
-vectorAddition.register( 'EquationsScreenView', EquationsScreenView );

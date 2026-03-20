@@ -53,5 +53,3 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
     } );
   }
 }
-
-vectorAddition.register( 'CheckVectorValuesKeyboardShortcut', CheckVectorValuesKeyboardShortcut );

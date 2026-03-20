@@ -74,5 +74,3 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
     return { dx: dx, dy: dy };
   }
 }
-
-vectorAddition.register( 'MoveVectorKeyboardListener', MoveVectorKeyboardListener );

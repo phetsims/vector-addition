@@ -24,7 +24,6 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -283,5 +282,3 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.addAccessibleObjectResponse( response, ACCESSIBLE_OBJECT_RESPONSE_OPTIONS );
   }
 }
-
-vectorAddition.register( 'VectorNode', VectorNode );

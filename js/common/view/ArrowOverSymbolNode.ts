@@ -16,7 +16,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import vectorAddition from '../../vectorAddition.js';
 
 const DEFAULT_FONT = new PhetFont( 18 );
 
@@ -84,5 +83,3 @@ export default class ArrowOverSymbolNode extends Node {
     this.rightArrowNode.bottom = this.symbolText.top - this.spacing;
   }
 }
-
-vectorAddition.register( 'ArrowOverSymbolNode', ArrowOverSymbolNode );

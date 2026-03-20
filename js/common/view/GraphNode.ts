@@ -20,7 +20,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
@@ -364,5 +363,3 @@ class TicksNode extends Node {
     } );
   }
 }
-
-vectorAddition.register( 'GraphNode', GraphNode );

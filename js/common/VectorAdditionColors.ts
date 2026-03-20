@@ -241,5 +241,3 @@ export default class VectorAdditionColors {
     } )
   } );
 }
-
-vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );

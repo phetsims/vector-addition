@@ -13,7 +13,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsScene from './EquationsScene.js';
 import { EquationsVectorDescription } from './EquationsVectorSet.js';
@@ -56,5 +55,3 @@ export default class EquationsPolarScene extends EquationsScene {
     );
   }
 }
-
-vectorAddition.register( 'EquationsPolarScene', EquationsPolarScene );

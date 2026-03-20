@@ -12,7 +12,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabScene from './LabScene.js';
 
@@ -34,5 +33,3 @@ export default class LabCartesianScene extends LabScene {
     );
   }
 }
-
-vectorAddition.register( 'LabCartesianScene', LabCartesianScene );

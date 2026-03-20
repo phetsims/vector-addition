@@ -10,7 +10,6 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ExploreGraphAreaHeading from '../../common/view/ExploreGraphAreaHeading.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 
@@ -39,5 +38,3 @@ export default class LabGraphAreaHeading extends Node {
     } );
   }
 }
-
-vectorAddition.register( 'LabGraphAreaHeading', LabGraphAreaHeading );

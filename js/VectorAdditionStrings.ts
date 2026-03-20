@@ -253,6 +253,4 @@ type StringsType = {
 
 const VectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
 
-vectorAddition.register( 'VectorAdditionStrings', VectorAdditionStrings );
-
 export default VectorAdditionStrings;

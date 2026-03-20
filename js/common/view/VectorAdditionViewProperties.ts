@@ -14,7 +14,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = {
 
@@ -81,5 +80,3 @@ export default class VectorAdditionViewProperties {
     Disposable.assertNotDisposable();
   }
 }
-
-vectorAddition.register( 'VectorAdditionViewProperties', VectorAdditionViewProperties );

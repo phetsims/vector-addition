@@ -12,7 +12,6 @@ import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -41,5 +40,3 @@ export default class GraphControlPanel extends Panel {
     super( content, options );
   }
 }
-
-vectorAddition.register( 'GraphControlPanel', GraphControlPanel );

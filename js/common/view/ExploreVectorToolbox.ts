@@ -12,7 +12,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import vectorAddition from '../../vectorAddition.js';
 import ExploreVectorSet from '../model/ExploreVectorSet.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
 import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
@@ -44,5 +43,3 @@ export default class ExploreVectorToolbox extends VectorToolbox {
     super( panelSlots, options );
   }
 }
-
-vectorAddition.register( 'ExploreVectorToolbox', ExploreVectorToolbox );

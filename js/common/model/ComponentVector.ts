@@ -20,7 +20,6 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import { ComponentVectorType } from './ComponentVectorType.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
@@ -217,5 +216,3 @@ export default class ComponentVector extends RootVector {
     return this.parentVector.xyComponents.timesScalar( 0.5 ).plus( this.parentVector.tail );
   }
 }
-
-vectorAddition.register( 'ComponentVector', ComponentVector );

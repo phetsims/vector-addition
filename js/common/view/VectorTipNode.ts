@@ -21,7 +21,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
@@ -219,5 +218,3 @@ function createDilatedTip( tipWidth: number, tipHeight: number, dilation: number
     .lineTo( -tipHeight, tipWidth / 2 + dilation )
     .close();
 }
-
-vectorAddition.register( 'VectorTipNode', VectorTipNode );

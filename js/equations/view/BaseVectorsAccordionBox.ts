@@ -31,7 +31,6 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import BaseVector from '../model/BaseVector.js';
 import CartesianBaseVector from '../model/CartesianBaseVector.js';
@@ -214,5 +213,3 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     this.expandedProperty.lazyLink( () => this.interruptSubtreeInput() );
   }
 }
-
-vectorAddition.register( 'BaseVectorsAccordionBox', BaseVectorsAccordionBox );

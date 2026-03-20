@@ -9,7 +9,6 @@
 
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import { AngleConvention, AngleConventionValues } from './AngleConvention.js';
 
@@ -32,5 +31,3 @@ export default class VectorAdditionPreferences {
     } );
   }
 }
-
-vectorAddition.register( 'VectorAdditionPreferences', VectorAdditionPreferences );

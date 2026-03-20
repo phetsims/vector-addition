@@ -13,7 +13,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
@@ -34,5 +33,3 @@ export default class ValuesCheckbox extends Checkbox {
     super( valuesVisibleProperty, content, options );
   }
 }
-
-vectorAddition.register( 'ValuesCheckbox', ValuesCheckbox );

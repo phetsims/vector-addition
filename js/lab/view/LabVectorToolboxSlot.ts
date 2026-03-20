@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 
@@ -55,5 +54,3 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
       } );
   }
 }
-
-vectorAddition.register( 'LabVectorToolboxSlot', LabVectorToolboxSlot );

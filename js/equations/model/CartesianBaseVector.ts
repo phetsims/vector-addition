@@ -26,7 +26,6 @@ import Graph from '../../common/model/Graph.js';
 import Vector from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import vectorAddition from '../../vectorAddition.js';
 import BaseVector, { BaseVectorOptions } from './BaseVector.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -86,5 +85,3 @@ export default class CartesianBaseVector extends BaseVector {
     super.reset();
   }
 }
-
-vectorAddition.register( 'CartesianBaseVector', CartesianBaseVector );

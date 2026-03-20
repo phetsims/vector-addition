@@ -20,7 +20,6 @@ import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = {
   tailDash?: number[]; // describes the dash, similar to SCENERY/LineStyle lineDash
@@ -169,5 +168,3 @@ export default class DashedArrowNode extends Node {
     }
   }
 }
-
-vectorAddition.register( 'DashedArrowNode', DashedArrowNode );

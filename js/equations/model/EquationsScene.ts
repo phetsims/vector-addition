@@ -22,7 +22,6 @@ import Graph from '../../common/model/Graph.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet, { EquationsVectorDescription } from './EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from './EquationType.js';
 
@@ -79,5 +78,3 @@ export default class EquationsScene extends VectorAdditionScene {
     throw new Error( 'EquationsScene does not support erase.' );
   }
 }
-
-vectorAddition.register( 'EquationsScene', EquationsScene );

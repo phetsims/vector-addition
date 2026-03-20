@@ -20,7 +20,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { EquationType } from '../model/EquationType.js';
 
@@ -101,5 +100,3 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
     super( equationTypeProperty, items, options );
   }
 }
-
-vectorAddition.register( 'EquationTypeRadioButtonGroup', EquationTypeRadioButtonGroup );

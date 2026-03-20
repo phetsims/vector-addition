@@ -25,7 +25,6 @@ import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioS
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVector from '../../equations/model/BaseVector.js';
 import BaseVectorNode from '../../equations/view/BaseVectorNode.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
@@ -399,5 +398,3 @@ export default class VectorSetNode extends Node {
     }
   }
 }
-
-vectorAddition.register( 'VectorSetNode', VectorSetNode );

@@ -16,7 +16,6 @@ import { ExploreVectorDescription } from '../../common/model/ExploreVectorSet.js
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // Properties common to all vectors in this scene.
@@ -65,5 +64,3 @@ export class Explore2DPolarScene extends ExploreScene {
     );
   }
 }
-
-vectorAddition.register( 'Explore2DPolarScene', Explore2DPolarScene );

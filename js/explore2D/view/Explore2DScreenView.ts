@@ -14,7 +14,6 @@ import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPola
 import ExploreGraphAreaHeading from '../../common/view/ExploreGraphAreaHeading.js';
 import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
-import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
@@ -146,5 +145,3 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     super.reset();
   }
 }
-
-vectorAddition.register( 'Explore2DScreenView', Explore2DScreenView );

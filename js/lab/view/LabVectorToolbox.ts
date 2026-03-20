@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
-import vectorAddition from '../../vectorAddition.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 
@@ -54,5 +53,3 @@ export default class LabVectorToolbox extends VectorToolbox {
     super( slots, options );
   }
 }
-
-vectorAddition.register( 'LabVectorToolbox', LabVectorToolbox );

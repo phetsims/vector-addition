@@ -27,7 +27,6 @@ import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferen
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VectorAdditionUtils.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 
@@ -141,5 +140,3 @@ export default class LabelEqualsAnglePicker extends Node {
     } );
   }
 }
-
-vectorAddition.register( 'LabelEqualsAnglePicker', LabelEqualsAnglePicker );

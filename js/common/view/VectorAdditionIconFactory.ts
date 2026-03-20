@@ -29,7 +29,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import { EquationType } from '../../equations/model/EquationType.js';
-import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
@@ -502,5 +501,3 @@ function createEyeCloseIcon( iconSize: number ): Node {
     maxHeight: iconSize
   } );
 }
-
-vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );

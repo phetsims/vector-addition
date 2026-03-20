@@ -16,7 +16,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import Graph from './Graph.js';
 import Vector, { VectorOptions } from './Vector.js';
@@ -72,5 +71,3 @@ export default class ResultantVector extends Vector {
       } );
   }
 }
-
-vectorAddition.register( 'ResultantVector', ResultantVector );

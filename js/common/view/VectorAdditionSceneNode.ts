@@ -27,7 +27,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
@@ -205,5 +204,3 @@ export default class VectorAdditionSceneNode extends Node {
     this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
   }
 }
-
-vectorAddition.register( 'VectorAdditionSceneNode', VectorAdditionSceneNode );

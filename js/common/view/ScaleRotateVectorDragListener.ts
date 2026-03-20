@@ -15,7 +15,6 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
 import VectorTipNode from './VectorTipNode.js';
 
@@ -69,5 +68,3 @@ export default class ScaleRotateVectorDragListener extends SoundDragListener {
     this.vector.moveTipToPositionWithInvariants( tipPositionModel );
   }
 }
-
-vectorAddition.register( 'ScaleRotateVectorDragListener', ScaleRotateVectorDragListener );

@@ -20,7 +20,6 @@ import Vector from '../../common/model/Vector.js';
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -118,5 +117,3 @@ export default class LabVectorSet extends VectorSet {
     return _.find( this.allVectors, vector => !this.activeVectors.includes( vector ) ) || null;
   }
 }
-
-vectorAddition.register( 'LabVectorSet', LabVectorSet );

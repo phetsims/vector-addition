@@ -24,7 +24,6 @@ import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -243,5 +242,3 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     this.expandedProperty.lazyLink( () => this.interruptSubtreeInput() );
   }
 }
-
-vectorAddition.register( 'VectorValuesAccordionBox', VectorValuesAccordionBox );

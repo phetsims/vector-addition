@@ -8,7 +8,6 @@
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import vectorAddition from '../../vectorAddition.js';
 import GraphAreaOriginKeyboardHelpSection from './GraphAreaOriginKeyboardHelpSection.js';
 import VectorsKeyboardHelpSection from './VectorsKeyboardHelpSection.js';
 
@@ -44,5 +43,3 @@ export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboard
     } );
   }
 }
-
-vectorAddition.register( 'VectorAdditionKeyboardHelpContent', VectorAdditionKeyboardHelpContent );

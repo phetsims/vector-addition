@@ -20,7 +20,6 @@ import ComponentsControl from '../../common/view/ComponentsControl.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from '../model/EquationsScene.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import ResultantVectorCheckbox from './ResultantVectorCheckbox.js';
@@ -79,5 +78,3 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     super( content, options );
   }
 }
-
-vectorAddition.register( 'EquationsGraphControlPanel', EquationsGraphControlPanel );

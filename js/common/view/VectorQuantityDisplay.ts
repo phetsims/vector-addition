@@ -25,7 +25,6 @@ import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
-import vectorAddition from '../../vectorAddition.js';
 import { AngleConvention } from '../model/AngleConvention.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
@@ -140,5 +139,3 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     throw new Error( 'invalid case for getNumberDisplayValue' );
   }
 }
-
-vectorAddition.register( 'VectorQuantityDisplay', VectorQuantityDisplay );

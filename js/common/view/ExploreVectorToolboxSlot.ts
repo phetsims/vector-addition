@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
 import Vector from '../model/Vector.js';
@@ -63,5 +62,3 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
       } );
   }
 }
-
-vectorAddition.register( 'ExploreVectorToolboxSlot', ExploreVectorToolboxSlot );

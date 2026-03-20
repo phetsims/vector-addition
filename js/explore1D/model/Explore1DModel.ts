@@ -14,7 +14,6 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import vectorAddition from '../../vectorAddition.js';
 import Explore1DHorizontalScene from './Explore1DHorizontalScene.js';
 import Explore1DVerticalScene from './Explore1DVerticalScene.js';
 
@@ -52,5 +51,3 @@ export default class Explore1DModel extends VectorAdditionModel<ExploreScene> {
     affirm( this.verticalScene instanceof Explore1DVerticalScene, 'invalid scene type' );
   }
 }
-
-vectorAddition.register( 'Explore1DModel', Explore1DModel );

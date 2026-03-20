@@ -11,7 +11,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
-import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphAreaHeading from './LabGraphAreaHeading.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
@@ -148,5 +147,3 @@ export default class LabScreenView extends VectorAdditionScreenView {
     super.reset();
   }
 }
-
-vectorAddition.register( 'LabScreenView', LabScreenView );

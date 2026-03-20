@@ -11,7 +11,6 @@ import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabScene from '../model/LabScene.js';
 
@@ -78,5 +77,3 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
     } );
   }
 }
-
-vectorAddition.register( 'LabScreenSummaryContent', LabScreenSummaryContent );

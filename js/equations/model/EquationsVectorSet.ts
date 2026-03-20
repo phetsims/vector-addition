@@ -20,7 +20,6 @@ import Graph from '../../common/model/Graph.js';
 import ResultantVector from '../../common/model/ResultantVector.js';
 import Vector from '../../common/model/Vector.js';
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
-import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
 import EquationsResultantVector from './EquationsResultantVector.js';
 import EquationsVector from './EquationsVector.js';
@@ -125,5 +124,3 @@ export default class EquationsVectorSet extends VectorSet<EquationsVector> {
     } );
   }
 }
-
-vectorAddition.register( 'EquationsVectorSet', EquationsVectorSet );

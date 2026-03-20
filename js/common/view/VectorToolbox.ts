@@ -15,7 +15,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorToolboxSlot from './VectorToolboxSlot.js';
@@ -82,5 +81,3 @@ export default class VectorToolbox extends Panel {
     this.slots = slots;
   }
 }
-
-vectorAddition.register( 'VectorToolbox', VectorToolbox );

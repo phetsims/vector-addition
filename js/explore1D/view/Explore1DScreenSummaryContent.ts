@@ -12,7 +12,6 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore1DScreenSummaryContent extends ScreenSummaryContent {
@@ -50,5 +49,3 @@ export default class Explore1DScreenSummaryContent extends ScreenSummaryContent 
     } );
   }
 }
-
-vectorAddition.register( 'Explore1DScreenSummaryContent', Explore1DScreenSummaryContent );

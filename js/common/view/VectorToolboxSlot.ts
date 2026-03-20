@@ -19,7 +19,6 @@ import ParallelDOM from '../../../../scenery/js/accessibility/pdom/ParallelDOM.j
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
@@ -164,5 +163,3 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     } );
   }
 }
-
-vectorAddition.register( 'VectorToolboxSlot', VectorToolboxSlot );

@@ -11,7 +11,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import Graph from './Graph.js';
 import Vector from './Vector.js';
@@ -61,5 +60,3 @@ export default class ExploreVectorSet extends VectorSet {
     super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
   }
 }
-
-vectorAddition.register( 'ExploreVectorSet', ExploreVectorSet );

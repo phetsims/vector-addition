@@ -20,7 +20,6 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import vectorAddition from '../../vectorAddition.js';
 
 const COLOR = Color.BLACK;
 const ARROWHEAD_WIDTH = 8;  // the arrowhead width (before rotation)
@@ -138,5 +137,3 @@ export default class CurvedArrowNode extends Node {
     return this.radius;
   }
 }
-
-vectorAddition.register( 'CurvedArrowNode', CurvedArrowNode );

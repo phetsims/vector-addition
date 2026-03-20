@@ -127,5 +127,3 @@ function computeTipPositionPolar( vector: Vector, keysPressed: OneKeyStroke ): V
   // Return the new tip position.
   return new Vector2( vector.tail.x + xyComponents.x, vector.tail.y + xyComponents.y );
 }
-
-vectorAddition.register( 'ScaleRotateVectorKeyboardListener', ScaleRotateVectorKeyboardListener );

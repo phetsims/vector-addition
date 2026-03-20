@@ -20,7 +20,6 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
@@ -131,5 +130,3 @@ export default class SumCheckbox extends Checkbox {
     super( sumVisibleProperty, content, options );
   }
 }
-
-vectorAddition.register( 'SumCheckbox', SumCheckbox );

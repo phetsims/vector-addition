@@ -13,7 +13,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class BaseVectorsCheckbox extends Checkbox {
@@ -37,5 +36,3 @@ export default class BaseVectorsCheckbox extends Checkbox {
     super( baseVectorsVisibleProperty, icon, options );
   }
 }
-
-vectorAddition.register( 'BaseVectorsCheckbox', BaseVectorsCheckbox );

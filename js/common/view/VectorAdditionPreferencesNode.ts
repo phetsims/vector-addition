@@ -9,7 +9,6 @@
 
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import AngleConventionControl from './AngleConventionControl.js';
 
@@ -29,5 +28,3 @@ export default class VectorAdditionPreferencesNode extends VBox {
     } );
   }
 }
-
-vectorAddition.register( 'VectorAdditionPreferencesNode', VectorAdditionPreferencesNode );

@@ -20,7 +20,6 @@ import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from '../../common/view/FixedSizeAccordionBox.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from '../model/EquationType.js';
@@ -96,5 +95,3 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
     this.expandedProperty.lazyLink( () => this.interruptSubtreeInput() );
   }
 }
-
-vectorAddition.register( 'EquationAccordionBox', EquationAccordionBox );

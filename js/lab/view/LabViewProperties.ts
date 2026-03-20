@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
-import vectorAddition from '../../vectorAddition.js';
 
 export default class LabViewProperties extends VectorAdditionViewProperties {
 
@@ -45,5 +44,3 @@ export default class LabViewProperties extends VectorAdditionViewProperties {
     super.reset();
   }
 }
-
-vectorAddition.register( 'LabViewProperties', LabViewProperties );

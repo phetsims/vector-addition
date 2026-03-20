@@ -22,7 +22,6 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
-import vectorAddition from '../../vectorAddition.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import Graph, { GraphOptions } from './Graph.js';
 import Vector from './Vector.js';
@@ -109,5 +108,3 @@ export default class VectorAdditionScene extends PhetioObject {
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
-
-vectorAddition.register( 'VectorAdditionScene', VectorAdditionScene );

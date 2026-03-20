@@ -22,7 +22,6 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import Graph from '../../common/model/Graph.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
-import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -51,5 +50,3 @@ export default class BaseVector extends Vector {
     super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
   }
 }
-
-vectorAddition.register( 'BaseVector', BaseVector );

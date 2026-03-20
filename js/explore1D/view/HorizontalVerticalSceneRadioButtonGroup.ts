@@ -14,7 +14,6 @@ import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, Rectangul
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -61,5 +60,3 @@ export default class HorizontalVerticalSceneRadioButtonGroup<S extends VectorAdd
     super( sceneProperty, items, options );
   }
 }
-
-vectorAddition.register( 'HorizontalVerticalSceneRadioButtonGroup', HorizontalVerticalSceneRadioButtonGroup );

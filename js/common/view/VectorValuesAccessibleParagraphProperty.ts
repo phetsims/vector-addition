@@ -14,7 +14,6 @@ import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import BaseVector from '../../equations/model/BaseVector.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
@@ -90,5 +89,3 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
     } );
   }
 }
-
-vectorAddition.register( 'VectorValuesAccessibleParagraphProperty', VectorValuesAccessibleParagraphProperty );

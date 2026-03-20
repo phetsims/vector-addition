@@ -34,7 +34,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Font from '../../../../scenery/js/util/Font.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 
@@ -155,5 +154,3 @@ export default class VectorSymbolNode extends HBox {
     this.updateVectorSymbolNode();
   }
 }
-
-vectorAddition.register( 'VectorSymbolNode', VectorSymbolNode );

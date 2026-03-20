@@ -25,7 +25,6 @@ import Graph from '../../common/model/Graph.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import BaseVector from './BaseVector.js';
 import CartesianBaseVector from './CartesianBaseVector.js';
@@ -134,5 +133,3 @@ export default class EquationsVector extends Vector {
     return labelDisplayData;
   }
 }
-
-vectorAddition.register( 'EquationsVector', EquationsVector );

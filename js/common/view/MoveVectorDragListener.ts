@@ -17,7 +17,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
 import VectorNode from './VectorNode.js';
 
@@ -113,5 +112,3 @@ export class MoveVectorDragListener extends SoundDragListener {
     }
   }
 }
-
-vectorAddition.register( 'MoveVectorDragListener', MoveVectorDragListener );

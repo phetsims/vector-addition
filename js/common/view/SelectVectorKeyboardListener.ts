@@ -41,5 +41,3 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
     } );
   }
 }
-
-vectorAddition.register( 'SelectVectorKeyboardListener', SelectVectorKeyboardListener );

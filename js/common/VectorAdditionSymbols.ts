@@ -9,7 +9,6 @@
 import StringProperty from '../../../axon/js/StringProperty.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
-import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 
 export default class VectorAdditionSymbols {
@@ -38,5 +37,3 @@ export default class VectorAdditionSymbols {
   // Other symbols
   public static readonly THETA = MathSymbolFont.getRichTextMarkup( MathSymbols.THETA );
 }
-
-vectorAddition.register( 'VectorAdditionSymbols', VectorAdditionSymbols );

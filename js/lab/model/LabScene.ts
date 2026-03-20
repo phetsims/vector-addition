@@ -20,7 +20,6 @@ import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import vectorAddition from '../../vectorAddition.js';
 import LabVectorSet from './LabVectorSet.js';
 
 // Lab Graphs have the 'default' graph bounds
@@ -126,5 +125,3 @@ export default class LabScene extends VectorAdditionScene {
     this.vectorSets.forEach( vectorSet => vectorSet.erase() );
   }
 }
-
-vectorAddition.register( 'LabScene', LabScene );

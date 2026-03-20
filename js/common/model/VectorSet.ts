@@ -18,7 +18,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
@@ -218,5 +217,3 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
     } );
   }
 }
-
-vectorAddition.register( 'VectorSet', VectorSet );

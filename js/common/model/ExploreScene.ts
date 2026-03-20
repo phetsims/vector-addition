@@ -9,7 +9,6 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import ExploreVectorSet, { ExploreVectorDescription } from './ExploreVectorSet.js';
@@ -57,5 +56,3 @@ export default class ExploreScene extends VectorAdditionScene {
     this.vectorSet.erase();
   }
 }
-
-vectorAddition.register( 'ExploreScene', ExploreScene );

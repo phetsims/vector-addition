@@ -18,7 +18,6 @@ import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-p
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
@@ -115,5 +114,3 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
     } );
   }
 }
-
-vectorAddition.register( 'GraphOriginManipulator', GraphOriginManipulator );

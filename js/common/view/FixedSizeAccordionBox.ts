@@ -15,7 +15,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 type SelfOptions = {
@@ -67,5 +66,3 @@ export default class FixedSizeAccordionBox extends AccordionBox {
     super( expandedContentAlignBox, options );
   }
 }
-
-vectorAddition.register( 'FixedSizeAccordionBox', FixedSizeAccordionBox );

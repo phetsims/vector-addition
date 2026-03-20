@@ -17,7 +17,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
@@ -60,5 +59,3 @@ export default class VectorAdditionScreenView extends ScreenView {
     // Nothing to do here, but subclasses will override.
   }
 }
-
-vectorAddition.register( 'VectorAdditionScreenView', VectorAdditionScreenView );

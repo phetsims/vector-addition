@@ -10,7 +10,6 @@
 import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import vectorAddition from '../vectorAddition.js';
 import { AngleConventionValues } from './model/AngleConvention.js';
 
 const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
@@ -81,8 +80,6 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
 } );
 
 affirm( VectorAdditionQueryParameters.tailWidth < VectorAdditionQueryParameters.headWidth, 'tailWidth must be < headWidth' );
-
-vectorAddition.register( 'VectorAdditionQueryParameters', VectorAdditionQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

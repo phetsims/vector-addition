@@ -15,7 +15,6 @@ import ExploreScene from '../../common/model/ExploreScene.js';
 import { ExploreVectorDescription } from '../../common/model/ExploreVectorSet.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // Properties common to all vectors in this scene.
@@ -68,5 +67,3 @@ export default class Explore1DVerticalScene extends ExploreScene {
     );
   }
 }
-
-vectorAddition.register( 'Explore1DVerticalScene', Explore1DVerticalScene );

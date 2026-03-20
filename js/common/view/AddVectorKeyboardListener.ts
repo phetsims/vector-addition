@@ -11,7 +11,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
-import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
@@ -59,5 +58,3 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
     } );
   }
 }
-
-vectorAddition.register( 'AddVectorKeyboardListener', AddVectorKeyboardListener );

@@ -37,5 +37,3 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
     } );
   }
 }
-
-vectorAddition.register( 'RemoveVectorKeyboardListener', RemoveVectorKeyboardListener );

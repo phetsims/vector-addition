@@ -10,7 +10,6 @@ import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
@@ -28,5 +27,3 @@ export default class AnglesCheckbox extends Checkbox {
     super( anglesVisibleProperty, VectorAdditionIconFactory.createAngleIcon(), options );
   }
 }
-
-vectorAddition.register( 'AnglesCheckbox', AnglesCheckbox );

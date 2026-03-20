@@ -23,7 +23,6 @@ import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/Rect
 import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 import { NumberPickerOptions } from '../../../sun/js/NumberPicker.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
-import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
 import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
@@ -260,5 +259,3 @@ export default class VectorAdditionConstants {
 // See https://github.com/phetsims/vector-addition/issues/127
 affirm( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width % 2 === 0 && VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height % 2 === 0,
   `DEFAULT_GRAPH_BOUNDS dimensions must be even: ${VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS}` );
-
-vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

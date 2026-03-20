@@ -9,7 +9,6 @@
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import vectorAddition from '../../vectorAddition.js';
 
 type VectorColorProperty = TReadOnlyProperty<Color | string | null>;
 
@@ -59,5 +58,3 @@ export default class VectorColorPalette {
     this.baseVectorStrokeProperty = ( options.baseVectorStrokeProperty || options.vectorFillProperty );
   }
 }
-
-vectorAddition.register( 'VectorColorPalette', VectorColorPalette );

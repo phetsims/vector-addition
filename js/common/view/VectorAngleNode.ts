@@ -16,7 +16,6 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import vectorAddition from '../../vectorAddition.js';
 import { AngleConvention } from '../model/AngleConvention.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
@@ -175,5 +174,3 @@ export default class VectorAngleNode extends Node {
     }
   }
 }
-
-vectorAddition.register( 'VectorAngleNode', VectorAngleNode );

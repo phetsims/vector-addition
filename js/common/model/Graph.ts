@@ -16,7 +16,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { GraphOrientation } from './GraphOrientation.js';
 
@@ -115,5 +114,3 @@ export default class Graph extends PhetioObject {
     return this.boundsProperty.value;
   }
 }
-
-vectorAddition.register( 'Graph', Graph );

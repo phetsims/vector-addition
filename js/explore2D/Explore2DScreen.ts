@@ -11,7 +11,6 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
-import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import Explore2DModel from './model/Explore2DModel.js';
 import Explore2DScreenView from './view/Explore2DScreenView.js';
@@ -36,5 +35,3 @@ export default class Explore2DScreen extends Screen<Explore2DModel, Explore2DScr
     );
   }
 }
-
-vectorAddition.register( 'Explore2DScreen', Explore2DScreen );

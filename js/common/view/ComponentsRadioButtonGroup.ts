@@ -11,7 +11,6 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -76,5 +75,3 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
     super( componentVectorStyleProperty, items, options );
   }
 }
-
-vectorAddition.register( 'ComponentsRadioButtonGroup', ComponentsRadioButtonGroup );

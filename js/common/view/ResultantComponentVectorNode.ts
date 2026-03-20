@@ -18,7 +18,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import ResultantVector from '../model/ResultantVector.js';
@@ -59,5 +58,3 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
     super( componentVector, modelViewTransformProperty, selectedVectorProperty, componentVectorStyleProperty, valuesVisibleProperty, options );
   }
 }
-
-vectorAddition.register( 'ResultantComponentVectorNode', ResultantComponentVectorNode );

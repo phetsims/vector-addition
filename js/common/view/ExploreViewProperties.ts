@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionViewProperties, { VectorAdditionViewPropertiesOptions } from './VectorAdditionViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -39,5 +38,3 @@ export default class ExploreViewProperties extends VectorAdditionViewProperties 
     super.reset();
   }
 }
-
-vectorAddition.register( 'ExploreViewProperties', ExploreViewProperties );

@@ -16,7 +16,6 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
 import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import vectorAddition from '../../vectorAddition.js';
 
 export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 
@@ -42,5 +41,3 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
     } );
   }
 }
-
-vectorAddition.register( 'Explore1DSceneNode', Explore1DSceneNode );

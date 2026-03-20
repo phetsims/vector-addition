@@ -33,7 +33,6 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { signedToUnsignedDegrees } from '../VectorAdditionUtils.js';
 import { AngleConvention } from './AngleConvention.js';
@@ -342,5 +341,3 @@ function radiansToDegrees( angleRadians: number | null, angleConvention: AngleCo
   }
   return angleDegrees;
 }
-
-vectorAddition.register( 'RootVector', RootVector );

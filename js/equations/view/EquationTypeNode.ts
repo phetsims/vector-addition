@@ -14,7 +14,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
-import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType } from '../model/EquationType.js';
 import CoefficientPicker from './CoefficientPicker.js';
@@ -118,5 +117,3 @@ export default class EquationTypeNode extends Node {
     super( options );
   }
 }
-
-vectorAddition.register( 'EquationTypeNode', EquationTypeNode );
