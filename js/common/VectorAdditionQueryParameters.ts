@@ -87,6 +87,6 @@ vectorAddition.register( 'VectorAdditionQueryParameters', VectorAdditionQueryPar
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.vectorAddition.VectorAdditionQueryParameters' );
+phet.log && phet.log( `VectorAdditionQueryParameters: ${JSON.stringify( VectorAdditionQueryParameters, null, 2 )}` );
 
 export default VectorAdditionQueryParameters;
