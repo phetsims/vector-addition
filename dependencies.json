@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "69437b7a5619a8e5fbd3ccd97c5d8a792b98b396",
+    "sha": "bdb5ed151f3de42bb731ee5dd2407b29658c2abf",
     "branch": "HEAD"
   },
   "dot": {
@@ -29,7 +29,7 @@
     "branch": "HEAD"
   },
   "perennial-alias": {
-    "sha": "f24ac08f597d91b830cf093390cbaac9cee49099",
+    "sha": "a42be140d4a715404344281e530ca7b6641f2a2c",
     "branch": "HEAD"
   },
   "phet-core": {
@@ -97,7 +97,7 @@
     "branch": "HEAD"
   },
   "vector-addition": {
-    "sha": "32db06eaafb5094dfe6a339fded24d296927672e",
+    "sha": "698322189ff87a869099d7fb3ca5dc143a3c02ee",
     "branch": "1.2"
   }
 }
