@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "c08a5980ef1e031b92143c71f1b872cded86fab7",
+    "sha": "ab9b0499501096368cc2ca32661772ed0c145f03",
     "branch": "HEAD"
   },
   "kite": {
@@ -97,7 +97,7 @@
     "branch": "HEAD"
   },
   "vector-addition": {
-    "sha": "698322189ff87a869099d7fb3ca5dc143a3c02ee",
+    "sha": "edbec5b2a626ab5ffd1f1a282c18f478a4e3f4ca",
     "branch": "1.2"
   }
 }
