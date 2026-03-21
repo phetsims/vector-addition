@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * Graph is the graph for a scene. Its bounds (x-axis and y-axis ranges) can be changed by moving the origin.

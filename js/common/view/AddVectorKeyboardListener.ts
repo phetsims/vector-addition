@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * AddVectorKeyboardListener moves a vector from the toolbox to the graph, using the keyboard.

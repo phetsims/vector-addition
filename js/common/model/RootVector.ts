@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * RootVector is the abstract base class for all vector model classes. It is conceptually the most fundamental class

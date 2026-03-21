@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * ResultantVector is the base class for a resultant vector, the vector that results from the combination of a set of

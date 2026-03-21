@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * LabelEqualsNumberPicker is a label (Node), equals sign (Text), and a NumberPicker, with horizontal layout.

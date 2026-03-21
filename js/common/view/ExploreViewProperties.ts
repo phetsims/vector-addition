@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * ExploreViewProperties is the set of Properties that are specific to the view for the 'Explore 1D' and 'Explore 2D' screens.

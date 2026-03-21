@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * VectorColorPalette defines a set of color for rendering vectors. All vectors in a vector set share a VectorColorPalette.

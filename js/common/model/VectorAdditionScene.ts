@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * VectorAdditionScene is the base class for scenes, intended to be subclassed. A screen can have multiple scenes.

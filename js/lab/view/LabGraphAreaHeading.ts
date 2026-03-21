@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * LabGraphAreaHeading is a 'Graph Area' heading for the Lab screen.

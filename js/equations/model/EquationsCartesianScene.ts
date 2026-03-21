@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * EquationsCartesianScene is the Cartesian-coordinates scene in the 'Equations' screen, with vectors a, b, c.

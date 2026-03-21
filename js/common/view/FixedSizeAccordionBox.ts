@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * FixedSizeAccordionBox is the base class for a specialized version of AccordionBox whose size is the same

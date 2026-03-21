@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * VectorQuantityDisplay is a subclass of NumberDisplay for displaying a quantity that is associated with a Vector.

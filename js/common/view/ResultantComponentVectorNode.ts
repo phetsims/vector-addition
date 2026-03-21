@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * ResultantComponentVectorNode is the view for the x-component vector or y-component vector of a resultant vector.

@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * EquationsViewProperties is the set of Properties that are specific to the view for the 'Equations' screen.

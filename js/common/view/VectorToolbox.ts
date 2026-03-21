@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * VectorToolbox is a Panel that contains 'slots' that can be clicked on to move vectors out of the toolbox.

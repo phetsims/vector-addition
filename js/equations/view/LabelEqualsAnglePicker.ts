@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * LabelEqualsAnglePicker implements the UI for setting an angle in the Base Vectors accordion box.

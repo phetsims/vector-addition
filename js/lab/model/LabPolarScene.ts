@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * LabPolarScene is the polar scene in the 'Lab' screen, with vector sets 'p' and 'q'.

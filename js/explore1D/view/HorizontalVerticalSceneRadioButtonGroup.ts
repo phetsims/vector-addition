@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * HorizontalVerticalSceneRadioButtonGroup is a radio button group for switching between horizontal and vertical 1D scenes.

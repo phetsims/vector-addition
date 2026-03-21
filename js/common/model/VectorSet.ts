@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * VectorSet is the base class for all vector sets. It is a related set of vectors, from which a resultant vector is

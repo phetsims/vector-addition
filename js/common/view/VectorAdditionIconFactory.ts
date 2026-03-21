@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * VectorAdditionIconFactory is a set of factory methods for creating the various icons that appear in the sim.

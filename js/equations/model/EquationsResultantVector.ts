@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * EquationsResultantVector is the resultant vector in the 'Equations' screen.  The resultant vector is computed

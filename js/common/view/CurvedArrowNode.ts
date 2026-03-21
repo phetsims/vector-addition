@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * CurvedArrowNode is the view for an arrow that is curved, used to display a vector angle.

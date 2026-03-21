@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * EquationsPolarScene is the polar-coordinates scene in the 'Equations' screen, with vectors d, e, f.

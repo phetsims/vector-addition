@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2019-2026, University of Colorado Boulder
 
 /**
  * EquationTypeRadioButtonGroup is the radio button group that allows the user to select an equation type.

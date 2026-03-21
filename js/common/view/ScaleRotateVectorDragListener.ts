@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * ScaleRotateVectorDragListener scales and rotates a vector by dragging its head with the pointer.

@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * Explore2DScreenSummaryContent is the description screen summary for the 'Explore 2D' screen.
