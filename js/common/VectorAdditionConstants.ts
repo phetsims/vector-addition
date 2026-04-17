@@ -44,9 +44,9 @@ export default class VectorAdditionConstants {
   public static readonly CREDITS: CreditsData = {
     leadDesign: 'Michael Dubson, Amy Rouinfar, Matthew Blackman',
     softwareDevelopment: 'Brandon Li, Martin Veillette, Chris Malley (PixelZoom, Inc.)',
-    team: 'Diana L\u00f3pez Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins',
+    team: 'Diana López Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins',
     qualityAssurance: 'Jaspe Arias, Logan Bray, Megan Lai, Matthew Moore, Ashton Morris, Liam Mulhall, ' +
-                      'Valentina P\u00e9rez, Jacob Romero, Nancy Salpepi, Kathryn Woessner'
+                      'Valentina Pérez, Jacob Romero, Nancy Salpepi, Kathryn Woessner'
   };
 
   //----------------------------------------------------------------------------------------
