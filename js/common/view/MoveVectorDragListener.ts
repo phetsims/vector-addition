@@ -48,7 +48,7 @@ export class MoveVectorDragListener extends SoundDragListener {
 
       end: () => {
         if ( vector.isOnGraphProperty.value ) {
-          vectorNode.doAccessibleObjectResponse();
+          vectorNode.describeMoved();
         }
         else {
 
@@ -65,7 +65,7 @@ export class MoveVectorDragListener extends SoundDragListener {
               .minus( vector.xyComponents.timesScalar( 0.5 ) );
             const shadowTailPosition = vector.tail.plus( shadowOffset );
             vector.dropOntoGraph( shadowTailPosition );
-            vectorNode.doAccessibleObjectResponse();
+            vectorNode.describeMoved();
           }
           else {
 

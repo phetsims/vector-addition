@@ -33,13 +33,6 @@ import VectorNode from './VectorNode.js';
 const MOUSE_AREA_DILATION = 6;
 const TOUCH_AREA_DILATION = 8;
 
-// When dragging the vector tip, the object responses are self-interruptible so that the user is not spammed with
-// information when pressing the arrow keys repeatedly.
-const ACCESSIBLE_OBJECT_RESPONSE_OPTIONS = {
-  interruptible: true,
-  alertDelay: 1000
-};
-
 export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
   // The associated vector model element.
@@ -148,9 +141,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     vector.xyComponentsProperty.link( xyComponentsListener ); // Must be unlinked in dispose.
 
     this.focusedProperty.lazyLink( focused => {
-      if ( focused ) {
-        this.doAccessibleObjectResponse( null );
-      }
+      focused && this.describeFocused();
     } );
 
     this.disposeVectorTipNode = () => {
@@ -167,27 +158,45 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
   }
 
   /**
-   * Queues an accessible object response that describes either the vector's tip position (for Cartesian scenes)
-   * or magnitude and angle (for polar scenes). This Node has full responsibility for the content of the response,
-   * while input listeners are responsible for when to trigger the response based on user interaction with the Node.
+   * Describes the vector tip when it gets focus.
    */
-  public doAccessibleObjectResponse( previousTipPosition: Vector2 | null ): void {
+  private describeFocused(): void {
+    this.addAccessibleFocusObjectResponse( this.getVectorTipResponse( null ) );
+  }
+
+  /**
+   * Describes the vector tip when it is moved. The responses are interruptible so that the user
+   * is not spammed with information when pressing the arrow keys repeatedly.
+   */
+  public describeMoved( previousTipPosition: Vector2 | null ): void {
+    this.addAccessibleObjectResponse( this.getVectorTipResponse( previousTipPosition ), {
+      interruptible: true,
+      alertDelay: 1000
+    } );
+  }
+
+  /**
+   * Gets the response that describes either the vector's tip position (for Cartesian scenes) or magnitude and angle
+   * (for polar scenes).
+   */
+  private getVectorTipResponse( previousTipPosition: Vector2 | null ): string {
 
     // Did the tip move from outside the graph area to inside the graph area?
     const tipReturnedToGraphArea = previousTipPosition &&
                                    !this.graphBoundsProperty.value.containsPoint( previousTipPosition ) &&
                                    this.graphBoundsProperty.value.containsPoint( this.vector.tip );
 
+    let response: string;
     if ( this.vector.coordinateSnapMode === 'cartesian' ) {
 
       // Cartesian scene reports the tip's xy-coordinates.
       const patternString = tipReturnedToGraphArea ?
                             VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty.value :
                             VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty.value;
-      this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
+      response = StringUtils.fillIn( patternString, {
         tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
         tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
-      } ), ACCESSIBLE_OBJECT_RESPONSE_OPTIONS );
+      } );
     }
     else {
 
@@ -196,11 +205,12 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
                             VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty.value :
                             VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty.value;
       const angle = this.vector.getAngleDegrees( VectorAdditionPreferences.instance.angleConventionProperty.value ) || 0;
-      this.addAccessibleObjectResponse( StringUtils.fillIn( patternString, {
+      response = StringUtils.fillIn( patternString, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
         angle: toFixedNumber( angle, 1 )
-      } ), ACCESSIBLE_OBJECT_RESPONSE_OPTIONS );
+      } );
     }
+    return response;
   }
 }
 

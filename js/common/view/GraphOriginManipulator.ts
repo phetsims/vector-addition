@@ -31,6 +31,8 @@ const ORIGIN_DIAMETER = 0.8; // in model coordinates
 
 export default class GraphOriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
 
+  private readonly graph: Graph;
+
   public constructor( graph: Graph, tandem: Tandem ) {
 
     // convenience variable
@@ -61,6 +63,7 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
 
     super( diameter, options );
 
+    this.graph = graph;
     this.touchArea = Shape.circle( 0, 0, diameter );
 
     // Create a dragBounds to constrain the drag
@@ -74,23 +77,9 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
       phetioReadOnly: true
     } );
 
-    // Adds an accessible object response that describes the graph's bounds.
-    const addGraphBoundsResponse = () => {
-      const graphBounds = graph.boundsProperty.value;
-      const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
-        minX: graphBounds.minX,
-        minY: graphBounds.minY,
-        maxX: graphBounds.maxX,
-        maxY: graphBounds.maxY
-      } );
-
-      // Self interruptible, so that if the user drags again quickly, we don't queue up multiple responses.
-      this.addAccessibleObjectResponse( response, { interruptible: true } );
-    };
-
     // Drag support for pointer and keyboard input, with sound.
     this.addInputListener( new GraphOriginDragListener( positionProperty, erodedGraphBounds, modelViewTransform, {
-      end: () => addGraphBoundsResponse(),
+      end: () => this.describeMoved(),
       tandem: tandem
     } ) );
 
@@ -108,9 +97,38 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
 
     // When the origin manipulator gets focus, add an accessible object response.
     this.focusedProperty.link( focused => {
-      if ( focused ) {
-        addGraphBoundsResponse();
-      }
+      focused && this.describeFocused();
+    } );
+  }
+
+  /**
+   * Describes the manipulator when it gets focus.
+   */
+  private describeFocused(): void {
+    this.addAccessibleFocusObjectResponse( this.getGraphBoundsDescription() );
+  }
+
+  /**
+   * Describes the manipulator when it is moved. The responses are interruptible so that the user is not spammed with
+   * information when pressing the arrow keys repeatedly.
+   */
+  private describeMoved(): void {
+    this.addAccessibleObjectResponse( this.getGraphBoundsDescription(), {
+      interruptible: true,
+      alertDelay: 1000
+    } );
+  }
+
+  /**
+   * Gets the response that describes the range of the graph's x-axis and y-axis.
+   */
+  private getGraphBoundsDescription(): string {
+    const graphBounds = this.graph.boundsProperty.value;
+    return StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
+      minX: graphBounds.minX,
+      minY: graphBounds.minY,
+      maxX: graphBounds.maxX,
+      maxY: graphBounds.maxY
     } );
   }
 }

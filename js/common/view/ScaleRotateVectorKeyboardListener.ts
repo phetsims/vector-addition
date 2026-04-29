@@ -61,7 +61,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
         vector.moveTipToPositionWithInvariants( tipPosition );
 
         // Describe the new position of the vector tip.
-        tipNode.doAccessibleObjectResponse( previousTipPosition );
+        tipNode.describeMoved( previousTipPosition );
       }
     } );
   }

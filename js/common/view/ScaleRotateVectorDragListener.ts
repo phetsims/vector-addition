@@ -48,7 +48,7 @@ export default class ScaleRotateVectorDragListener extends SoundDragListener {
         selectedVectorProperty.value = vector;
       },
       end: () => {
-        this.tipNode.doAccessibleObjectResponse( previousTipPositionModel );
+        this.tipNode.describeMoved( previousTipPositionModel );
       }
     } );
 

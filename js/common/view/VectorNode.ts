@@ -46,13 +46,6 @@ const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConst
 const SHADOW_X_OFFSET = 3.2;
 const SHADOW_Y_OFFSET = 2.1;
 
-// When dragging the entire vector, the object responses are self-interruptible so that the user is not spammed with
-// information when pressing the arrow keys repeatedly.
-const ACCESSIBLE_OBJECT_RESPONSE_OPTIONS = {
-  interruptible: true,
-  alertDelay: 1000
-};
-
 type SelfOptions = EmptySelfOptions;
 export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
@@ -216,7 +209,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     this.focusedProperty.lazyLink( focused => {
       if ( focused && vector.isOnGraphProperty.value ) {
-        this.doAccessibleObjectResponse();
+        this.describeFocused();
       }
     } );
 
@@ -257,11 +250,27 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   }
 
   /**
-   * Queues an accessible object response that describes the vector's position.
-   * This Node has full responsibility for the content of the response, while input listeners are responsible for
-   * when to trigger the response based on user interaction with the Node.
+   * Describes the vector when it gets focus.
    */
-  public doAccessibleObjectResponse(): void {
+  private describeFocused(): void {
+    this.addAccessibleFocusObjectResponse( this.getVectorPositionResponse() );
+  }
+
+  /**
+   * Describes the vector when it is moved. The responses are interruptible so that the user is not spammed with
+   * information when pressing the arrow keys repeatedly.
+   */
+  public describeMoved(): void {
+    this.addAccessibleObjectResponse( this.getVectorPositionResponse(), {
+      interruptible: true,
+      alertDelay: 1000
+    } );
+  }
+
+  /**
+   * Gets the response that describes the vector's position.
+   */
+  private getVectorPositionResponse(): string {
 
     // If the tip is outside the graph area, the response is different.
     let patternString: string;
@@ -273,12 +282,11 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     }
 
     // Both of the possible values for patternStringProperty above must have the same placeholders!
-    const response = StringUtils.fillIn( patternString, {
+    return StringUtils.fillIn( patternString, {
       tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
       tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
     } );
-    this.addAccessibleObjectResponse( response, ACCESSIBLE_OBJECT_RESPONSE_OPTIONS );
   }
 }
