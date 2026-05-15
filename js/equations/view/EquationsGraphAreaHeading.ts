@@ -10,7 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 
 export default class EquationsGraphAreaHeading extends Node {
@@ -27,8 +27,8 @@ export default class EquationsGraphAreaHeading extends Node {
         graphNode,
         vectorSetNodesParent
       ],
-      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionStrings.a11y.graphArea.accessibleParagraphEquationsStringProperty, {
+      accessibleHeading: VectorAdditionFluent.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      accessibleParagraph: new PatternStringProperty( VectorAdditionFluent.a11y.graphArea.accessibleParagraphEquationsStringProperty, {
         numberOfVectors: new DerivedProperty(
           [ resultantVectorVisibleProperty,
             baseVectorsVisibleProperty,

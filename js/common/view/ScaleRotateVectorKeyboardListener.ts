@@ -17,7 +17,7 @@ import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
@@ -33,7 +33,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown', 'w', 'a', 's', 'd' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.scaleRotateVectorStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionFluent.keyboardHelpDialog.scaleRotateVectorStringProperty
   } );
 
   public constructor( vector: Vector, tipNode: VectorTipNode ) {

@@ -27,7 +27,7 @@ import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/G
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import LabScene from '../model/LabScene.js';
 import LabViewProperties from './LabViewProperties.js';
 
@@ -71,7 +71,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     // To left-align vector icons for the 2 sum checkboxes.
     const alignGroup = new AlignGroup();
 
-    const sum1AccessibleSymbolProperty = new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
+    const sum1AccessibleSymbolProperty = new PatternStringProperty( VectorAdditionFluent.a11y.symbolSubSubscriptStringProperty, {
       symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
       subscript: RichText.getAccessibleStringProperty( vectorSet1SymbolProperty )
     } );
@@ -91,14 +91,14 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         polarScene.vectorSet1.vectorColorPalette.sumStrokeProperty
       ], scene => scene.vectorSet1.vectorColorPalette.sumStrokeProperty.value ),
       alignGroup: alignGroup,
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
+      accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.labSumCheckbox.accessibleNameStringProperty, {
         vectorSetSymbol: RichText.getAccessibleStringProperty( vectorSet1SymbolProperty ),
         sumSymbol: sum1AccessibleSymbolProperty
       } ),
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
 
-    const sum2AccessibleSymbolProperty = new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
+    const sum2AccessibleSymbolProperty = new PatternStringProperty( VectorAdditionFluent.a11y.symbolSubSubscriptStringProperty, {
       symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
       subscript: RichText.getAccessibleStringProperty( vectorSet2SymbolProperty )
     } );
@@ -118,7 +118,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         polarScene.vectorSet2.vectorColorPalette.sumStrokeProperty
       ], scene => scene.vectorSet2.vectorColorPalette.sumStrokeProperty.value ),
       alignGroup: alignGroup,
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
+      accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.labSumCheckbox.accessibleNameStringProperty, {
         vectorSetSymbol: RichText.getAccessibleStringProperty( vectorSet2SymbolProperty ),
         sumSymbol: sum2AccessibleSymbolProperty
       } ),

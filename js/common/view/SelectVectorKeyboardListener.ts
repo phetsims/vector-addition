@@ -11,7 +11,7 @@ import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 
 const SELECTED_SOUND = sharedSoundPlayers.get( 'checkboxChecked' );
@@ -23,7 +23,7 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'space', 'enter' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.selectOrDeselectStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionFluent.keyboardHelpDialog.selectOrDeselectStringProperty
   } );
 
   public constructor( vector: Vector ) {

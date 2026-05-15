@@ -11,7 +11,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
-import VectorAdditionStrings from '../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../VectorAdditionFluent.js';
 import Explore1DModel from './model/Explore1DModel.js';
 import Explore1DScreenView from './view/Explore1DScreenView.js';
 
@@ -20,10 +20,10 @@ export default class Explore1DScreen extends Screen<Explore1DModel, Explore1DScr
   public constructor( tandem: Tandem ) {
 
     const options: ScreenOptions = {
-      name: VectorAdditionStrings.screen.explore1DStringProperty,
+      name: VectorAdditionFluent.screen.explore1DStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
-      screenButtonsHelpText: VectorAdditionStrings.a11y.explore1DScreen.screenButtonsHelpTextStringProperty,
+      screenButtonsHelpText: VectorAdditionFluent.a11y.explore1DScreen.screenButtonsHelpTextStringProperty,
       createKeyboardHelpNode: () => new VectorAdditionKeyboardHelpContent(),
       tandem: tandem
     };

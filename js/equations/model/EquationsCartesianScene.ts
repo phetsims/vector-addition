@@ -12,7 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import EquationsScene from './EquationsScene.js';
 import { EquationsVectorDescription } from './EquationsVectorSet.js';
 
@@ -43,7 +43,7 @@ export default class EquationsCartesianScene extends EquationsScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
     super(
-      VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
+      VectorAdditionFluent.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       componentVectorStyleProperty,
       VectorAdditionColors.EQUATIONS_CARTESIAN_COLOR_PALETTE,

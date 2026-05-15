@@ -12,5 +12,10 @@ import banTSCommentConfig from '../perennial-alias/js/eslint/config/util/banTSCo
 
 export default [
   ...simEslintConfig,
-  ...banTSCommentConfig
+  ...banTSCommentConfig,
+  {
+    rules: {
+      'phet/require-fluent': 'error'
+    }
+  }
 ];

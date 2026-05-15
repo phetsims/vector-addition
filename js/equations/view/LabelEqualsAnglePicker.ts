@@ -27,7 +27,7 @@ import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferen
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VectorAdditionUtils.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 
 export default class LabelEqualsAnglePicker extends Node {
@@ -77,10 +77,10 @@ export default class LabelEqualsAnglePicker extends Node {
 
         // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
         formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleNameStringProperty, {
+        accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorAnglePicker.accessibleNameStringProperty, {
           symbol: vectorAccessibleSymbolProperty
         } ),
-        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
+        accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
           symbol: vectorAccessibleSymbolProperty
         } ),
         tandem: Tandem.OPT_OUT // because the parent Node is instrumented and decides which LabelEqualsNumberPicker is visible.
@@ -104,10 +104,10 @@ export default class LabelEqualsAnglePicker extends Node {
 
         // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
         formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleNameStringProperty, {
+        accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorAnglePicker.accessibleNameStringProperty, {
           symbol: vectorAccessibleSymbolProperty
         } ),
-        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
+        accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
           symbol: vectorAccessibleSymbolProperty
         } ),
         tandem: Tandem.OPT_OUT // because the parent Node is instrumented and decides which LabelEqualsNumberPicker is visible.

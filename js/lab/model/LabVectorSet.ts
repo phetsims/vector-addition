@@ -20,7 +20,7 @@ import Vector from '../../common/model/Vector.js';
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -65,7 +65,7 @@ export default class LabVectorSet extends VectorSet {
           symbolProperty: new DerivedStringProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
 
           // e.g. 'v sub 3'
-          accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
+          accessibleSymbolProperty: new PatternStringProperty( VectorAdditionFluent.a11y.symbolSubSubscriptStringProperty, {
             symbol: accessibleSymbolProperty,
             subscript: i
           } ),
@@ -94,7 +94,7 @@ export default class LabVectorSet extends VectorSet {
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
 
       // Resultant (sum) vector description contains no markup, e.g 's sub v'.
-      resultantAccessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
+      resultantAccessibleSymbolProperty: new PatternStringProperty( VectorAdditionFluent.a11y.symbolSubSubscriptStringProperty, {
         symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
         subscript: RichText.getAccessibleStringProperty( symbolProperty )
       } ),

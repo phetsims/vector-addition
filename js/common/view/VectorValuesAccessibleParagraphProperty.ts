@@ -14,7 +14,7 @@ import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import BaseVector from '../../equations/model/BaseVector.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -44,7 +44,7 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
     if ( vector instanceof BaseVector ) {
 
       // A base vector in the Equation screen.
-      patternStringProperty = VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphBaseVectorStringProperty;
+      patternStringProperty = VectorAdditionFluent.a11y.vectorValuesAccordionBox.accessibleParagraphBaseVectorStringProperty;
       patternStringPropertyOptions = {
         symbol: vector.accessibleSymbolProperty,
         magnitude: magnitudeProperty,
@@ -56,7 +56,7 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
     else if ( vector instanceof EquationsVector ) {
 
       // A vector that has a coefficient in the Equations screen.
-      patternStringProperty = VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphCoefficientVectorStringProperty;
+      patternStringProperty = VectorAdditionFluent.a11y.vectorValuesAccordionBox.accessibleParagraphCoefficientVectorStringProperty;
       patternStringPropertyOptions = {
         coefficient: vector.coefficientProperty,
         symbol: vector.baseVector.accessibleSymbolProperty,
@@ -69,7 +69,7 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
     else {
 
       // Any other vector.
-      patternStringProperty = VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty;
+      patternStringProperty = VectorAdditionFluent.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty;
       patternStringPropertyOptions = {
         symbol: vector.accessibleSymbolProperty,
         magnitude: magnitudeProperty,

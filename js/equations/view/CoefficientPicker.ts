@@ -13,7 +13,7 @@ import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,10 +36,10 @@ export default class CoefficientPicker extends NumberPicker {
         disabledOpacity: 1,
         backgroundStrokeDisabledOpacity: 1,
         arrowDisabledOpacity: 0,
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.coefficientPicker.accessibleNameStringProperty, {
+        accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.coefficientPicker.accessibleNameStringProperty, {
           symbol: labelStringProperty
         } ),
-        accessibleHelpText: VectorAdditionStrings.a11y.coefficientPicker.accessibleHelpTextStringProperty,
+        accessibleHelpText: VectorAdditionFluent.a11y.coefficientPicker.accessibleHelpTextStringProperty,
 
         // false because it makes no sense to hide coefficient pickers in the equations.
         phetioVisiblePropertyInstrumented: false

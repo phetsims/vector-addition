@@ -12,14 +12,14 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import LabScene from './LabScene.js';
 
 export default class LabCartesianScene extends LabScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
     super(
-      VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
+      VectorAdditionFluent.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       new Vector2( 8, 6 ),
       VectorAdditionSymbols.uStringProperty,

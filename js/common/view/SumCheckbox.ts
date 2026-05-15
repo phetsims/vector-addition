@@ -20,7 +20,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
@@ -62,26 +62,26 @@ export default class SumCheckbox extends Checkbox {
 
     // "Vector Sum, {{symbol}}"
     options.accessibleName = options.accessibleName ||
-                             new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty, {
+                             new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleNameStringProperty, {
                                symbol: options.accessibleSumSymbolProperty
                              } );
 
     // "Show or hide vector {{symbol}}."
-    options.accessibleHelpText = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
+    options.accessibleHelpText = new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
       symbol: options.accessibleSumSymbolProperty
     } );
 
     // "Vector {{symbol}} visibility enabled."
-    options.accessibleContextResponseChecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
+    options.accessibleContextResponseChecked = new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
       symbol: options.accessibleSumSymbolProperty
     } );
 
     // "Vector {{symbol}} visibility disabled."
-    options.accessibleContextResponseUnchecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
+    options.accessibleContextResponseUnchecked = new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
       symbol: options.accessibleSumSymbolProperty
     } );
 
-    const textNode = new Text( VectorAdditionStrings.sumStringProperty, {
+    const textNode = new Text( VectorAdditionFluent.sumStringProperty, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
       maxWidth: 75 // determined empirically
     } );

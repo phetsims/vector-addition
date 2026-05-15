@@ -16,7 +16,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import { AngleConvention } from '../model/AngleConvention.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
@@ -29,10 +29,10 @@ export default class AngleConventionControl extends PreferencesControl {
 
   public constructor( angleConventionProperty: StringUnionProperty<AngleConvention>, tandem: Tandem ) {
 
-    const labelText = new Text( VectorAdditionStrings.angleConventionStringProperty,
+    const labelText = new Text( VectorAdditionFluent.angleConventionStringProperty,
       PreferencesDialogConstants.CONTROL_LABEL_OPTIONS );
 
-    const descriptionText = new RichText( VectorAdditionStrings.angleConventionDescriptionStringProperty,
+    const descriptionText = new RichText( VectorAdditionFluent.angleConventionDescriptionStringProperty,
       PreferencesDialogConstants.CONTROL_DESCRIPTION_OPTIONS );
 
     const radioButtonGroup = new AngleConventionRadioButtonGroup( angleConventionProperty,
@@ -59,17 +59,17 @@ class AngleConventionRadioButtonGroup extends AquaRadioButtonGroup<AngleConventi
     const items: AquaRadioButtonGroupItem<AngleConvention>[] = [
       {
         value: 'signed',
-        createNode: () => new Text( VectorAdditionStrings.signedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
+        createNode: () => new Text( VectorAdditionFluent.signedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
         options: {
-          accessibleName: VectorAdditionStrings.a11y.signedRadioButtonStringProperty
+          accessibleName: VectorAdditionFluent.a11y.signedRadioButtonStringProperty
         },
         tandemName: 'signedRadioButton'
       },
       {
         value: 'unsigned',
-        createNode: () => new Text( VectorAdditionStrings.unsignedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
+        createNode: () => new Text( VectorAdditionFluent.unsignedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
         options: {
-          accessibleName: VectorAdditionStrings.a11y.unsignedRadioButtonStringProperty
+          accessibleName: VectorAdditionFluent.a11y.unsignedRadioButtonStringProperty
         },
         tandemName: 'unsignedRadioButton'
       }

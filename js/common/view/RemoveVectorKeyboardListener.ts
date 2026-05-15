@@ -12,7 +12,7 @@ import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 
 export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
@@ -21,7 +21,7 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'delete', 'backspace' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.removeFromGraphAreaStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionFluent.keyboardHelpDialog.removeFromGraphAreaStringProperty
   } );
 
   public constructor( vector: Vector ) {

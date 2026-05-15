@@ -16,7 +16,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 
 // xy-components for the vector icons, in model coordinates.
@@ -44,10 +44,10 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
         mouseAreaDilation: POINTER_AREA_DILATION,
         touchAreaDilation: POINTER_AREA_DILATION,
         symbolProperty: vectorSet.symbolProperty,
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
+        accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.vectorSetButton.accessibleNameStringProperty, {
           symbol: vectorSet.accessibleSymbolProperty
         } ),
-        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
+        accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
           symbol: vectorSet.accessibleSymbolProperty
         } ),
         tandem: tandem

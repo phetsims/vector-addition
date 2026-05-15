@@ -24,7 +24,7 @@ import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
@@ -59,21 +59,21 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       contentAlign: 'center',
       contentXSpacing: 5,
       titleXSpacing: 15,
-      accessibleHelpTextCollapsed: VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleHelpTextCollapsedStringProperty
+      accessibleHelpTextCollapsed: VectorAdditionFluent.a11y.vectorValuesAccordionBox.accessibleHelpTextCollapsedStringProperty
     }, providedOptions );
 
     // 'Vector Values' title
-    const titleText = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
+    const titleText = new Text( VectorAdditionFluent.vectorValuesStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: 450
     } );
 
     // 'No vector selected', displayed when the accordion box is expanded and no vector is selected.
-    const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
+    const noVectorSelectedText = new Text( VectorAdditionFluent.noVectorSelectedStringProperty, {
       visibleProperty: new DerivedProperty( [ selectedVectorProperty ], selectedVector => selectedVector === null ),
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: 450,
-      accessibleParagraph: VectorAdditionStrings.noVectorSelectedStringProperty
+      accessibleParagraph: VectorAdditionFluent.noVectorSelectedStringProperty
     } );
 
     // Magnitude

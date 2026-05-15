@@ -19,7 +19,7 @@ import ParallelDOM from '../../../../scenery/js/accessibility/pdom/ParallelDOM.j
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import AddVectorKeyboardListener from './AddVectorKeyboardListener.js';
@@ -124,7 +124,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       // See https://github.com/phetsims/vector-addition/issues/427.
       this.setPDOMAttribute( 'aria-disabled', slotIsEmpty );
       if ( slotIsEmpty ) {
-        this.setAccessibleHelpText( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextEmptyStringProperty );
+        this.setAccessibleHelpText( VectorAdditionFluent.a11y.vectorSetButton.accessibleHelpTextEmptyStringProperty );
       }
       else {
         this.setAccessibleHelpText( options.accessibleHelpText );

@@ -18,7 +18,7 @@ import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-p
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import GraphOriginDragListener from './GraphOriginDragListener.js';
@@ -54,8 +54,8 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
       lineWidth: 1,
       center: origin,
       touchArea: Shape.circle( 2 * diameter ),
-      accessibleName: VectorAdditionStrings.a11y.originManipulator.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.originManipulator.accessibleHelpTextStringProperty,
+      accessibleName: VectorAdditionFluent.a11y.originManipulator.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionFluent.a11y.originManipulator.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioFeatured: true,
       phetioInputEnabledPropertyInstrumented: true
@@ -124,7 +124,7 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
    */
   private getGraphBoundsDescription(): string {
     const graphBounds = this.graph.boundsProperty.value;
-    return StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
+    return StringUtils.fillIn( VectorAdditionFluent.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
       minX: graphBounds.minX,
       minY: graphBounds.minY,
       maxX: graphBounds.maxX,

@@ -25,7 +25,7 @@ import Graph from '../../common/model/Graph.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import BaseVector from './BaseVector.js';
 import CartesianBaseVector from './CartesianBaseVector.js';
 import PolarBaseVector from './PolarBaseVector.js';
@@ -64,7 +64,7 @@ export default class EquationsVector extends Vector {
       phetioFeatured: true
     } );
 
-    const accessibleSymbolProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsVectorNode.accessibleNameStringProperty, {
+    const accessibleSymbolProperty = new PatternStringProperty( VectorAdditionFluent.a11y.equationsVectorNode.accessibleNameStringProperty, {
       coefficient: coefficientProperty,
       symbol: RichText.getAccessibleStringProperty( providedOptions.symbolProperty )
     } );

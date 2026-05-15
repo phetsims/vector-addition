@@ -15,7 +15,7 @@ import ExploreScene from '../../common/model/ExploreScene.js';
 import { ExploreVectorDescription } from '../../common/model/ExploreVectorSet.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 // Properties common to all vectors in this scene.
 const TAIL_POSITION = Vector2.ZERO;
@@ -56,7 +56,7 @@ export default class Explore1DHorizontalScene extends ExploreScene {
                       tandem: Tandem ) {
 
     super(
-      VectorAdditionStrings.a11y.horizontalSceneNameStringProperty,
+      VectorAdditionFluent.a11y.horizontalSceneNameStringProperty,
       graphBounds,
       'horizontal',
       'cartesian',

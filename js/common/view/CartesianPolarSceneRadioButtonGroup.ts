@@ -12,7 +12,7 @@ import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -37,8 +37,8 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
 
         // RectangularRadioButtonGroupOptions
         isDisposable: false,
-        accessibleName: VectorAdditionStrings.a11y.cartesianPolarSceneRadioButtonGroup.accessibleNameStringProperty,
-        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.cartesianPolarSceneRadioButtonGroup.accessibleHelpTextStringProperty, {
+        accessibleName: VectorAdditionFluent.a11y.cartesianPolarSceneRadioButtonGroup.accessibleNameStringProperty,
+        accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.cartesianPolarSceneRadioButtonGroup.accessibleHelpTextStringProperty, {
           polarAngleInterval: VectorAdditionConstants.POLAR_ANGLE_INTERVAL
         } )
       }, providedOptions );
@@ -49,7 +49,7 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
         createNode: () => VectorAdditionIconFactory.createCartesianSceneIcon( cartesianColorPalette ),
         tandemName: 'cartesianRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.cartesianRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.cartesianRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -57,7 +57,7 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
         createNode: () => VectorAdditionIconFactory.createPolarSceneIcon( polarColorPalette ),
         tandemName: 'polarRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.polarRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.polarRadioButton.accessibleNameStringProperty
         }
       }
     ];

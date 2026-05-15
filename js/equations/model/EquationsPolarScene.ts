@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import EquationsScene from './EquationsScene.js';
 import { EquationsVectorDescription } from './EquationsVectorSet.js';
 
@@ -44,7 +44,7 @@ export default class EquationsPolarScene extends EquationsScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
     super(
-      VectorAdditionStrings.a11y.polarSceneNameStringProperty,
+      VectorAdditionFluent.a11y.polarSceneNameStringProperty,
       'polar',
       componentVectorStyleProperty,
       VectorAdditionColors.EQUATIONS_POLAR_COLOR_PALETTE,

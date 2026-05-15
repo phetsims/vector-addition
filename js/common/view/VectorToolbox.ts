@@ -15,7 +15,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorToolboxSlot from './VectorToolboxSlot.js';
 
@@ -55,7 +55,7 @@ export default class VectorToolbox extends Panel {
         yMargin: 10,
         fill: Color.WHITE,
         stroke: Color.BLACK,
-        accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.availableVectorsStringProperty,
+        accessibleHeading: VectorAdditionFluent.a11y.accessibleHeadings.availableVectorsStringProperty,
         visiblePropertyOptions: {
           phetioFeatured: true
         }

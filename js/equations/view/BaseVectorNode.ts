@@ -17,7 +17,7 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from '../../common/view/RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from '../../common/view/VectorNode.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import BaseVector from '../model/BaseVector.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -42,7 +42,7 @@ export default class BaseVectorNode extends VectorNode {
         fill: vectorColorPalette.baseVectorFillProperty,
         stroke: vectorColorPalette.baseVectorStrokeProperty
       } ),
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorNode.accessibleNameStringProperty, {
+      accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorNode.accessibleNameStringProperty, {
         symbol: baseVector.accessibleSymbolProperty
       } )
     }, providedOptions );

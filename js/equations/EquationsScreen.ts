@@ -11,7 +11,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
-import VectorAdditionStrings from '../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../VectorAdditionFluent.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
 
@@ -20,10 +20,10 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
   public constructor( tandem: Tandem ) {
 
     const options: ScreenOptions = {
-      name: VectorAdditionStrings.screen.equationsStringProperty,
+      name: VectorAdditionFluent.screen.equationsStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createEquationsScreenIcon(),
-      screenButtonsHelpText: VectorAdditionStrings.a11y.equationsScreen.screenButtonsHelpTextStringProperty,
+      screenButtonsHelpText: VectorAdditionFluent.a11y.equationsScreen.screenButtonsHelpTextStringProperty,
       createKeyboardHelpNode: () => new VectorAdditionKeyboardHelpContent( false /* includeScaleRotate */ ),
       tandem: tandem
     };

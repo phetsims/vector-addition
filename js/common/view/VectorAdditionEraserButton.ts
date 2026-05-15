@@ -13,7 +13,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import EraserButton, { EraserButtonOptions } from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -38,9 +38,9 @@ export default class VectorAdditionEraserButton extends EraserButton {
       baseColor: VectorAdditionColors.eraserButtonBaseColorProperty,
       touchAreaXDilation: 7,
       touchAreaYDilation: 7,
-      accessibleName: VectorAdditionStrings.a11y.eraserButton.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.eraserButton.accessibleHelpTextStringProperty,
-      accessibleContextResponse: VectorAdditionStrings.a11y.eraserButton.accessibleContextResponseStringProperty
+      accessibleName: VectorAdditionFluent.a11y.eraserButton.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionFluent.a11y.eraserButton.accessibleHelpTextStringProperty,
+      accessibleContextResponse: VectorAdditionFluent.a11y.eraserButton.accessibleContextResponseStringProperty
     }, providedOptions );
 
     super( options );

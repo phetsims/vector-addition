@@ -11,7 +11,7 @@ import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import LabScene from '../model/LabScene.js';
 
 export default class LabScreenSummaryContent extends ScreenSummaryContent {
@@ -55,7 +55,7 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
       derive: scene => scene.accessibleSceneNameStringProperty
     } );
 
-    const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
+    const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionFluent.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
       vectorSet1Size: new DerivedProperty(
         [ sum1VisibleProperty, resultant1IsDefinedProperty, mumberOfVectors1Property ],
         ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
@@ -70,10 +70,10 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
     } );
 
     super( {
-      playAreaContent: VectorAdditionStrings.a11y.labScreen.screenSummary.playAreaStringProperty,
-      controlAreaContent: VectorAdditionStrings.a11y.labScreen.screenSummary.controlAreaStringProperty,
+      playAreaContent: VectorAdditionFluent.a11y.labScreen.screenSummary.playAreaStringProperty,
+      controlAreaContent: VectorAdditionFluent.a11y.labScreen.screenSummary.controlAreaStringProperty,
       currentDetailsContent: currentDetailsStringProperty,
-      interactionHintContent: VectorAdditionStrings.a11y.labScreen.screenSummary.interactionHintStringProperty
+      interactionHintContent: VectorAdditionFluent.a11y.labScreen.screenSummary.interactionHintStringProperty
     } );
   }
 }

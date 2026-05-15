@@ -10,7 +10,7 @@ import Property from '../../../../axon/js/Property.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import GridCheckbox, { GridCheckboxOptions } from '../../../../scenery-phet/js/GridCheckbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export default class VectorAdditionGridCheckbox extends GridCheckbox {
@@ -19,8 +19,8 @@ export default class VectorAdditionGridCheckbox extends GridCheckbox {
 
     const options = combineOptions<GridCheckboxOptions>( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
       iconOptions: { size: 24 },
-      accessibleName: VectorAdditionStrings.a11y.gridCheckbox.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.gridCheckbox.accessibleHelpTextStringProperty,
+      accessibleName: VectorAdditionFluent.a11y.gridCheckbox.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionFluent.a11y.gridCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
 

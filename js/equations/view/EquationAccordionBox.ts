@@ -20,7 +20,7 @@ import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from '../../common/view/FixedSizeAccordionBox.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from '../model/EquationType.js';
 import EquationTypeNode from './EquationTypeNode.js';
@@ -53,11 +53,11 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
       contentAlign: 'center',
       contentXSpacing: 5,
       titleXSpacing: 15,
-      accessibleHelpTextCollapsed: VectorAdditionStrings.a11y.equationAccordionBox.accessibleHelpTextCollapsedStringProperty
+      accessibleHelpTextCollapsed: VectorAdditionFluent.a11y.equationAccordionBox.accessibleHelpTextCollapsedStringProperty
     }, providedOptions );
 
     // 'Equation' title
-    const titleText = new Text( VectorAdditionStrings.equationStringProperty, {
+    const titleText = new Text( VectorAdditionFluent.equationStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: 450
     } );

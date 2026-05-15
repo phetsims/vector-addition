@@ -10,7 +10,7 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import SceneryPhetFluent from '../../../../scenery-phet/js/SceneryPhetFluent.js';
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 export default class GraphAreaOriginKeyboardHelpSection extends KeyboardHelpSection {
 
@@ -24,6 +24,6 @@ export default class GraphAreaOriginKeyboardHelpSection extends KeyboardHelpSect
     } );
 
     // 'Graph Area Origin' title
-    super( VectorAdditionStrings.keyboardHelpDialog.graphAreaOriginStringProperty, [ moveRow ] );
+    super( VectorAdditionFluent.keyboardHelpDialog.graphAreaOriginStringProperty, [ moveRow ] );
   }
 }

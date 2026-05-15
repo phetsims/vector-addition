@@ -13,7 +13,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import EquationsScene from '../model/EquationsScene.js';
 
 export default class EquationsScreenSummaryContent extends ScreenSummaryContent {
@@ -55,7 +55,7 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
     } );
 
     // Control Area description
-    const controlAreaStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
+    const controlAreaStringProperty = new PatternStringProperty( VectorAdditionFluent.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
       symbol1: accessibleSymbol1Property,
       symbol2: accessibleSymbol2Property,
       symbol3: accessibleSymbol3Property
@@ -74,10 +74,10 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
 
         // Note that all of these string patterns must have the same placeholders.
         const patternStringProperty = ( equationType === 'addition' ) ?
-                                      VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsAdditionStringProperty :
+                                      VectorAdditionFluent.a11y.equationsScreen.screenSummary.currentDetailsAdditionStringProperty :
                                       ( equationType === 'subtraction' ) ?
-                                      VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsSubtractionStringProperty :
-                                      VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty;
+                                      VectorAdditionFluent.a11y.equationsScreen.screenSummary.currentDetailsSubtractionStringProperty :
+                                      VectorAdditionFluent.a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty;
         return StringUtils.fillIn( patternStringProperty, {
           coefficient1: coefficient1,
           symbol1: accessibleSymbol1,
@@ -88,10 +88,10 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
       } );
 
     super( {
-      playAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,
+      playAreaContent: VectorAdditionFluent.a11y.equationsScreen.screenSummary.playAreaStringProperty,
       controlAreaContent: controlAreaStringProperty,
       currentDetailsContent: currentDetailsStringProperty,
-      interactionHintContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.interactionHintStringProperty
+      interactionHintContent: VectorAdditionFluent.a11y.equationsScreen.screenSummary.interactionHintStringProperty
     } );
   }
 }

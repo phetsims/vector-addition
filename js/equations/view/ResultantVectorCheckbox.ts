@@ -23,7 +23,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import EquationsScene from '../model/EquationsScene.js';
 
 export default class ResultantVectorCheckbox extends Checkbox {
@@ -41,22 +41,22 @@ export default class ResultantVectorCheckbox extends Checkbox {
 
       // CheckboxOptions
       isDisposable: false,
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
+      accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
         symbol: accessibleSymbolProperty
       } ),
 
       // "Show or hide vector {{symbol}}."
-      accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
+      accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
         symbol: accessibleSymbolProperty
       } ),
 
       // "Vector {{symbol}} visibility enabled."
-      accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
+      accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
         symbol: accessibleSymbolProperty
       } ),
 
       // "Vector {{symbol}} visibility disabled."
-      accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
+      accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
         symbol: accessibleSymbolProperty
       } ),
       tandem: tandem

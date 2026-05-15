@@ -13,7 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
@@ -52,10 +52,10 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
         mouseAreaDilation: pointerAreaDilation,
         touchAreaDilation: pointerAreaDilation,
         symbolProperty: vector.symbolProperty,
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
+        accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.vectorButton.accessibleNameStringProperty, {
           symbol: vector.accessibleSymbolProperty
         } ),
-        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleHelpTextStringProperty, {
+        accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.vectorButton.accessibleHelpTextStringProperty, {
           symbol: vector.accessibleSymbolProperty
         } ),
         tandem: tandem

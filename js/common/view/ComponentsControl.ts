@@ -14,7 +14,7 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentsRadioButtonGroup from './ComponentsRadioButtonGroup.js';
@@ -26,7 +26,7 @@ export default class ComponentsControl extends VBox {
   public constructor( componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     // 'Components' label, left aligned
-    const componentsText = new Text( VectorAdditionStrings.componentsStringProperty, {
+    const componentsText = new Text( VectorAdditionFluent.componentsStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: MAX_WIDTH,
       layoutOptions: {

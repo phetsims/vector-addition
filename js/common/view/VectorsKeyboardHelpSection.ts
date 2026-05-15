@@ -9,7 +9,7 @@
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import CheckVectorValuesKeyboardShortcut from './CheckVectorValuesKeyboardShortcut.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
@@ -48,7 +48,7 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
     rows.push( KeyboardHelpSectionRow.fromHotkeyData( RemoveVectorKeyboardListener.HOTKEY_DATA ) );
 
     // 'Vectors' title
-    super( VectorAdditionStrings.keyboardHelpDialog.vectorsStringProperty, rows, {
+    super( VectorAdditionFluent.keyboardHelpDialog.vectorsStringProperty, rows, {
       textMaxWidth: 300,
       isDisposable: false
     } );

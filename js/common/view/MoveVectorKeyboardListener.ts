@@ -13,7 +13,7 @@ import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorNode from './VectorNode.js';
 
@@ -23,7 +23,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown', 'w', 'a', 's', 'd' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.moveVectorStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionFluent.keyboardHelpDialog.moveVectorStringProperty
   } );
 
   public constructor( vector: Vector, vectorNode: VectorNode ) {

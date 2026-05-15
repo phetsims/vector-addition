@@ -13,7 +13,7 @@ import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import sharedSoundPlayers from '../../../../tambo/js/sharedSoundPlayers.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorNode from './VectorNode.js';
 import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
@@ -24,7 +24,7 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'alt+c' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.checkVectorValuesStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionFluent.keyboardHelpDialog.checkVectorValuesStringProperty
   } );
 
   public constructor( vector: Vector, vectorNode: VectorNode ) {

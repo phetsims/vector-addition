@@ -15,7 +15,7 @@ import { ExploreVectorDescription } from '../../common/model/ExploreVectorSet.js
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 // Properties common to all vectors in this scene.
 const TAIL_POSITION = Vector2.ZERO;
@@ -53,7 +53,7 @@ export default class Explore2DCartesianScene extends ExploreScene {
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     super(
-      VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
+      VectorAdditionFluent.a11y.cartesianSceneNameStringProperty,
       VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS,
       'twoDimensional',
       'cartesian',

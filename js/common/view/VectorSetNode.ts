@@ -25,7 +25,7 @@ import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioS
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVector from '../../equations/model/BaseVector.js';
 import BaseVectorNode from '../../equations/view/BaseVectorNode.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
@@ -156,12 +156,12 @@ export default class VectorSetNode extends Node {
     this.vectorSet.allVectors.forEach( vector => {
       vector.isOnGraphProperty.lazyLink( isOnGraph => {
         if ( isOnGraph ) {
-          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorAddedToGraphAreaStringProperty, {
+          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionFluent.a11y.vectorAddedToGraphAreaStringProperty, {
             symbol: vector.accessibleSymbolProperty.value
           } ) );
         }
         else {
-          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorRemovedFromGraphAreaStringProperty, {
+          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionFluent.a11y.vectorRemovedFromGraphAreaStringProperty, {
             symbol: vector.accessibleSymbolProperty.value
           } ) );
         }

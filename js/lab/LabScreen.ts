@@ -11,7 +11,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
-import VectorAdditionStrings from '../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../VectorAdditionFluent.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
 
@@ -20,10 +20,10 @@ export default class LabScreen extends Screen<LabModel, LabScreenView> {
   public constructor( tandem: Tandem ) {
 
     const options: ScreenOptions = {
-      name: VectorAdditionStrings.screen.labStringProperty,
+      name: VectorAdditionFluent.screen.labStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
-      screenButtonsHelpText: VectorAdditionStrings.a11y.labScreen.screenButtonsHelpTextStringProperty,
+      screenButtonsHelpText: VectorAdditionFluent.a11y.labScreen.screenButtonsHelpTextStringProperty,
       createKeyboardHelpNode: () => new VectorAdditionKeyboardHelpContent(),
       tandem: tandem
     };

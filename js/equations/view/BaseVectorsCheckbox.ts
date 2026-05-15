@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 export default class BaseVectorsCheckbox extends Checkbox {
 
@@ -28,8 +28,8 @@ export default class BaseVectorsCheckbox extends Checkbox {
     } );
 
     const options = combineOptions<CheckboxOptions>( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
-      accessibleName: VectorAdditionStrings.a11y.baseVectorsCheckbox.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.baseVectorsCheckbox.accessibleHelpTextStringProperty,
+      accessibleName: VectorAdditionFluent.a11y.baseVectorsCheckbox.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionFluent.a11y.baseVectorsCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
 

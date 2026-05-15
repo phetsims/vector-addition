@@ -24,7 +24,7 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import CheckVectorValuesKeyboardShortcut from './CheckVectorValuesKeyboardShortcut.js';
@@ -74,7 +74,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions?: VectorNodeOptions ) {
 
-    const accessibleNameProperty = new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
+    const accessibleNameProperty = new PatternStringProperty( VectorAdditionFluent.a11y.vectorNode.body.accessibleNameStringProperty, {
       symbol: vector.accessibleSymbolProperty
     } );
 
@@ -90,7 +90,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
           } ),
         arrowHasInteractiveHighlight: true,
         accessibleName: accessibleNameProperty,
-        accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
+        accessibleHelpText: VectorAdditionFluent.a11y.vectorNode.body.accessibleHelpTextStringProperty
       }, providedOptions );
 
     // To improve readability
@@ -275,10 +275,10 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     // If the tip is outside the graph area, the response is different.
     let patternString: string;
     if ( this.graphBoundsProperty.value.containsPoint( this.vector.tip ) ) {
-      patternString = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty.value;
+      patternString = VectorAdditionFluent.a11y.vectorNode.body.accessibleObjectResponseStringProperty.value;
     }
     else {
-      patternString = VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphAreaStringProperty.value;
+      patternString = VectorAdditionFluent.a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphAreaStringProperty.value;
     }
 
     // Both of the possible values for patternStringProperty above must have the same placeholders!

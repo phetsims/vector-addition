@@ -9,7 +9,7 @@
 import StringProperty from '../../../axon/js/StringProperty.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
-import VectorAdditionStrings from '../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../VectorAdditionFluent.js';
 
 export default class VectorAdditionSymbols {
 
@@ -18,8 +18,8 @@ export default class VectorAdditionSymbols {
   }
 
   // Axis labels
-  public static readonly xStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.xStringProperty );
-  public static readonly yStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.yStringProperty );
+  public static readonly xStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionFluent.symbol.xStringProperty );
+  public static readonly yStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionFluent.symbol.yStringProperty );
 
   // Vector symbols are not localized. See https://github.com/phetsims/vector-addition/issues/10.
   public static readonly aStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'a' ) );

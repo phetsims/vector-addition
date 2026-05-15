@@ -15,7 +15,7 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 export default class Explore2DScreenSummaryContent extends ScreenSummaryContent {
 
@@ -36,7 +36,7 @@ export default class Explore2DScreenSummaryContent extends ScreenSummaryContent 
       derive: scene => scene.accessibleSceneNameStringProperty
     } );
 
-    const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.explore2DScreen.screenSummary.currentDetailsStringProperty, {
+    const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionFluent.a11y.explore2DScreen.screenSummary.currentDetailsStringProperty, {
       numberOfVectors: new DerivedProperty(
         [ sumVisibleProperty, resultantIsDefinedProperty, numberOfVectorsProperty ],
         ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors
@@ -45,10 +45,10 @@ export default class Explore2DScreenSummaryContent extends ScreenSummaryContent 
     } );
 
     super( {
-      playAreaContent: VectorAdditionStrings.a11y.explore2DScreen.screenSummary.playAreaStringProperty,
-      controlAreaContent: VectorAdditionStrings.a11y.explore2DScreen.screenSummary.controlAreaStringProperty,
+      playAreaContent: VectorAdditionFluent.a11y.explore2DScreen.screenSummary.playAreaStringProperty,
+      controlAreaContent: VectorAdditionFluent.a11y.explore2DScreen.screenSummary.controlAreaStringProperty,
       currentDetailsContent: currentDetailsStringProperty,
-      interactionHintContent: VectorAdditionStrings.a11y.explore2DScreen.screenSummary.interactionHintStringProperty
+      interactionHintContent: VectorAdditionFluent.a11y.explore2DScreen.screenSummary.interactionHintStringProperty
     } );
   }
 }

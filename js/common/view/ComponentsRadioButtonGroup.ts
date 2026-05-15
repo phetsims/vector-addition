@@ -11,7 +11,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
@@ -26,7 +26,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'invisible' ),
         tandemName: 'invisibleRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.invisibleRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.invisibleRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -34,7 +34,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'triangle' ),
         tandemName: 'triangleRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.triangleRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.triangleRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -42,7 +42,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'parallelogram' ),
         tandemName: 'parallelogramRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.parallelogramRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.parallelogramRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -50,15 +50,15 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'projection' ),
         tandemName: 'projectionRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.projectionRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.projectionRadioButton.accessibleNameStringProperty
         }
       }
     ];
 
     const options = combineOptions<RectangularRadioButtonGroupOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
       isDisposable: false,
-      accessibleName: VectorAdditionStrings.a11y.componentsRadioButtonGroup.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.componentsRadioButtonGroup.accessibleHelpTextStringProperty,
+      accessibleName: VectorAdditionFluent.a11y.componentsRadioButtonGroup.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionFluent.a11y.componentsRadioButtonGroup.accessibleHelpTextStringProperty,
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false,
 

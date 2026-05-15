@@ -21,7 +21,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -60,7 +60,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       .lineTo( -tipHeight, tipWidth / 2 )
       .close();
 
-    const accessibleNameProperty = new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.tip.accessibleNameStringProperty, {
+    const accessibleNameProperty = new PatternStringProperty( VectorAdditionFluent.a11y.vectorNode.tip.accessibleNameStringProperty, {
       symbol: vector.accessibleSymbolProperty
     } );
 
@@ -68,7 +68,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       stroke: phet.chipper.queryParameters.dev ? 'red' : null,
       cursor: 'pointer',
       accessibleName: accessibleNameProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.tip.accessibleHelpTextStringProperty
+      accessibleHelpText: VectorAdditionFluent.a11y.vectorNode.tip.accessibleHelpTextStringProperty
     }, AccessibleDraggableOptions );
 
     super( tipShape, options );
@@ -191,8 +191,8 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
       // Cartesian scene reports the tip's xy-coordinates.
       const patternString = tipReturnedToGraphArea ?
-                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty.value :
-                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty.value;
+                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty.value :
+                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty.value;
       response = StringUtils.fillIn( patternString, {
         tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
         tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
@@ -202,8 +202,8 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
       // Polar scene reports the vector's magnitude and angle.
       const patternString = tipReturnedToGraphArea ?
-                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty.value :
-                            VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty.value;
+                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty.value :
+                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty.value;
       const angle = this.vector.getAngleDegrees( VectorAdditionPreferences.instance.angleConventionProperty.value ) || 0;
       response = StringUtils.fillIn( patternString, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),

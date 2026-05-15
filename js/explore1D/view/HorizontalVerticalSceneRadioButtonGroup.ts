@@ -14,7 +14,7 @@ import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, Rectangul
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionFluent from '../../VectorAdditionFluent.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,8 +34,8 @@ export default class HorizontalVerticalSceneRadioButtonGroup<S extends VectorAdd
         // RectangularRadioButtonGroupOptions
         isDisposable: false,
         phetioVisiblePropertyInstrumented: true,
-        accessibleName: VectorAdditionStrings.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleNameStringProperty,
-        accessibleHelpText: VectorAdditionStrings.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleHelpTextStringProperty
+        accessibleName: VectorAdditionFluent.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleNameStringProperty,
+        accessibleHelpText: VectorAdditionFluent.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleHelpTextStringProperty
       }, providedOptions );
 
     const items: RectangularRadioButtonGroupItem<S>[] = [
@@ -44,7 +44,7 @@ export default class HorizontalVerticalSceneRadioButtonGroup<S extends VectorAdd
         createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( 'horizontal' ),
         tandemName: 'horizontalRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.horizontalRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.horizontalRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -52,7 +52,7 @@ export default class HorizontalVerticalSceneRadioButtonGroup<S extends VectorAdd
         createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( 'vertical' ),
         tandemName: 'verticalRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.verticalRadioButton.accessibleNameStringProperty
+          accessibleName: VectorAdditionFluent.a11y.verticalRadioButton.accessibleNameStringProperty
         }
       }
     ];
