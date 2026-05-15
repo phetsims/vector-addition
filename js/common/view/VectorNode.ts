@@ -9,14 +9,12 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
@@ -74,7 +72,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions?: VectorNodeOptions ) {
 
-    const accessibleNameProperty = new PatternStringProperty( VectorAdditionFluent.a11y.vectorNode.body.accessibleNameStringProperty, {
+    const accessibleNameProperty = VectorAdditionFluent.a11y.vectorNode.body.accessibleName.createProperty( {
       symbol: vector.accessibleSymbolProperty
     } );
 
@@ -273,16 +271,12 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   private getVectorPositionResponse(): string {
 
     // If the tip is outside the graph area, the response is different.
-    let patternString: string;
-    if ( this.graphBoundsProperty.value.containsPoint( this.vector.tip ) ) {
-      patternString = VectorAdditionFluent.a11y.vectorNode.body.accessibleObjectResponseStringProperty.value;
-    }
-    else {
-      patternString = VectorAdditionFluent.a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphAreaStringProperty.value;
-    }
+    const pattern = this.graphBoundsProperty.value.containsPoint( this.vector.tip ) ?
+                    VectorAdditionFluent.a11y.vectorNode.body.accessibleObjectResponse :
+                    VectorAdditionFluent.a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphArea;
 
-    // Both of the possible values for patternStringProperty above must have the same placeholders!
-    return StringUtils.fillIn( patternString, {
+    // Both of the possible values for pattern above must have the same placeholders!
+    return pattern.format( {
       tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),

@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -16,7 +15,6 @@ import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
@@ -60,7 +58,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       .lineTo( -tipHeight, tipWidth / 2 )
       .close();
 
-    const accessibleNameProperty = new PatternStringProperty( VectorAdditionFluent.a11y.vectorNode.tip.accessibleNameStringProperty, {
+    const accessibleNameProperty = VectorAdditionFluent.a11y.vectorNode.tip.accessibleName.createProperty( {
       symbol: vector.accessibleSymbolProperty
     } );
 
@@ -190,10 +188,10 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     if ( this.vector.coordinateSnapMode === 'cartesian' ) {
 
       // Cartesian scene reports the tip's xy-coordinates.
-      const patternString = tipReturnedToGraphArea ?
-                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty.value :
-                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty.value;
-      response = StringUtils.fillIn( patternString, {
+      const pattern = tipReturnedToGraphArea ?
+                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphArea :
+                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesian;
+      response = pattern.format( {
         tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
         tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
       } );
@@ -201,11 +199,11 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     else {
 
       // Polar scene reports the vector's magnitude and angle.
-      const patternString = tipReturnedToGraphArea ?
-                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty.value :
-                            VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty.value;
+      const pattern = tipReturnedToGraphArea ?
+                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphArea :
+                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolar;
       const angle = this.vector.getAngleDegrees( VectorAdditionPreferences.instance.angleConventionProperty.value ) || 0;
-      response = StringUtils.fillIn( patternString, {
+      response = pattern.format( {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
         angle: toFixedNumber( angle, 1 )
       } );

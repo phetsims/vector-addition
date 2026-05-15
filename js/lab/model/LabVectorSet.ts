@@ -7,7 +7,6 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -65,7 +64,7 @@ export default class LabVectorSet extends VectorSet {
           symbolProperty: new DerivedStringProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
 
           // e.g. 'v sub 3'
-          accessibleSymbolProperty: new PatternStringProperty( VectorAdditionFluent.a11y.symbolSubSubscriptStringProperty, {
+          accessibleSymbolProperty: VectorAdditionFluent.a11y.symbolSubSubscript.createProperty( {
             symbol: accessibleSymbolProperty,
             subscript: i
           } ),
@@ -94,7 +93,7 @@ export default class LabVectorSet extends VectorSet {
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
 
       // Resultant (sum) vector description contains no markup, e.g 's sub v'.
-      resultantAccessibleSymbolProperty: new PatternStringProperty( VectorAdditionFluent.a11y.symbolSubSubscriptStringProperty, {
+      resultantAccessibleSymbolProperty: VectorAdditionFluent.a11y.symbolSubSubscript.createProperty( {
         symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
         subscript: RichText.getAccessibleStringProperty( symbolProperty )
       } ),

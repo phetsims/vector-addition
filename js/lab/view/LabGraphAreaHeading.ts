@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ExploreGraphAreaHeading from '../../common/view/ExploreGraphAreaHeading.js';
@@ -29,7 +28,7 @@ export default class LabGraphAreaHeading extends Node {
         vectorSetNodesParent
       ],
       accessibleHeading: VectorAdditionFluent.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
-      accessibleParagraph: new PatternStringProperty( VectorAdditionFluent.a11y.graphArea.accessibleParagraphLabStringProperty, {
+      accessibleParagraph: VectorAdditionFluent.a11y.graphArea.accessibleParagraphLab.createProperty( {
         vectorSet1Size: ExploreGraphAreaHeading.createTotalNumberOfVectorsProperty( sum1VisibleProperty, vectorSet1 ),
         vectorSet1Symbol: vectorSet1.accessibleSymbolProperty,
         vectorSet2Size: ExploreGraphAreaHeading.createTotalNumberOfVectorsProperty( sum2VisibleProperty, vectorSet2 ),

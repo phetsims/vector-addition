@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -42,7 +41,7 @@ export default class BaseVectorNode extends VectorNode {
         fill: vectorColorPalette.baseVectorFillProperty,
         stroke: vectorColorPalette.baseVectorStrokeProperty
       } ),
-      accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorNode.accessibleNameStringProperty, {
+      accessibleName: VectorAdditionFluent.a11y.baseVectorNode.accessibleName.createProperty( {
         symbol: baseVector.accessibleSymbolProperty
       } )
     }, providedOptions );

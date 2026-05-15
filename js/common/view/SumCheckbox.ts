@@ -6,7 +6,6 @@
  * @author Brandon Li
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { optionize4 } from '../../../../phet-core/js/optionize.js';
@@ -60,24 +59,24 @@ export default class SumCheckbox extends Checkbox {
         alignGroup: new AlignGroup()
       }, providedOptions );
 
-    // "Vector Sum, {{symbol}}"
+    // "Vector Sum, { $symbol }"
     options.accessibleName = options.accessibleName ||
-                             new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleNameStringProperty, {
+                             VectorAdditionFluent.a11y.sumCheckbox.accessibleName.createProperty( {
                                symbol: options.accessibleSumSymbolProperty
                              } );
 
-    // "Show or hide vector {{symbol}}."
-    options.accessibleHelpText = new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
+    // "Show or hide vector { $symbol }."
+    options.accessibleHelpText = VectorAdditionFluent.a11y.sumCheckbox.accessibleHelpText.createProperty( {
       symbol: options.accessibleSumSymbolProperty
     } );
 
-    // "Vector {{symbol}} visibility enabled."
-    options.accessibleContextResponseChecked = new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
+    // "Vector { $symbol } visibility enabled."
+    options.accessibleContextResponseChecked = VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseChecked.createProperty( {
       symbol: options.accessibleSumSymbolProperty
     } );
 
-    // "Vector {{symbol}} visibility disabled."
-    options.accessibleContextResponseUnchecked = new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
+    // "Vector { $symbol } visibility disabled."
+    options.accessibleContextResponseUnchecked = VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseUnchecked.createProperty( {
       symbol: options.accessibleSumSymbolProperty
     } );
 

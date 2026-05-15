@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -44,10 +43,10 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
         mouseAreaDilation: POINTER_AREA_DILATION,
         touchAreaDilation: POINTER_AREA_DILATION,
         symbolProperty: vectorSet.symbolProperty,
-        accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.vectorSetButton.accessibleNameStringProperty, {
+        accessibleName: VectorAdditionFluent.a11y.vectorSetButton.accessibleName.createProperty( {
           symbol: vectorSet.accessibleSymbolProperty
         } ),
-        accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
+        accessibleHelpText: VectorAdditionFluent.a11y.vectorSetButton.accessibleHelpText.createProperty( {
           symbol: vectorSet.accessibleSymbolProperty
         } ),
         tandem: tandem

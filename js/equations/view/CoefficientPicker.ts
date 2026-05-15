@@ -7,7 +7,6 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -36,7 +35,7 @@ export default class CoefficientPicker extends NumberPicker {
         disabledOpacity: 1,
         backgroundStrokeDisabledOpacity: 1,
         arrowDisabledOpacity: 0,
-        accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.coefficientPicker.accessibleNameStringProperty, {
+        accessibleName: VectorAdditionFluent.a11y.coefficientPicker.accessibleName.createProperty( {
           symbol: labelStringProperty
         } ),
         accessibleHelpText: VectorAdditionFluent.a11y.coefficientPicker.accessibleHelpTextStringProperty,

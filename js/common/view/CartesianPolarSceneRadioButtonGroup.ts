@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -38,7 +37,7 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
         // RectangularRadioButtonGroupOptions
         isDisposable: false,
         accessibleName: VectorAdditionFluent.a11y.cartesianPolarSceneRadioButtonGroup.accessibleNameStringProperty,
-        accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.cartesianPolarSceneRadioButtonGroup.accessibleHelpTextStringProperty, {
+        accessibleHelpText: VectorAdditionFluent.a11y.cartesianPolarSceneRadioButtonGroup.accessibleHelpText.createProperty( {
           polarAngleInterval: VectorAdditionConstants.POLAR_ANGLE_INTERVAL
         } )
       }, providedOptions );

@@ -87,7 +87,7 @@
           "value": "Turn on vector sum, values, and grid. Modify position of graph area origin. Switch between horizontal and vertical scenes, or reset the screen."
         },
         "currentDetails": {
-          "value": "Currently, {{numberOfVectors}} vectors in graph area. {{sceneName}} scene selected."
+          "value": "Currently, { $numberOfVectors } vectors in graph area. { $sceneName } scene selected."
         },
         "interactionHint": {
           "value": "Add vectors to graph area to begin exploring."
@@ -106,7 +106,7 @@
           "value": "Turn on vector sum, values, angles, and grid. Display vector components. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset screen."
         },
         "currentDetails": {
-          "value": "Currently, {{numberOfVectors}} vectors in graph area. {{sceneName}} scene selected."
+          "value": "Currently, { $numberOfVectors } vectors in graph area. { $sceneName } scene selected."
         },
         "interactionHint": {
           "value": "Add vectors to graph area to begin exploring."
@@ -125,7 +125,7 @@
           "value": "Turn on vector sums, values, angles, and grid. Display vector components. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset screen."
         },
         "currentDetails": {
-          "value": "Currently, {{vectorSet1Size}} vectors from set {{vectorSet1Symbol}} and {{vectorSet2Size}} vectors from set {{vectorSet2Symbol}} in graph area. {{sceneName}} scene selected."
+          "value": "Currently, { $vectorSet1Size } vectors from set { $vectorSet1Symbol } and { $vectorSet2Size } vectors from set { $vectorSet2Symbol } in graph area. { $sceneName } scene selected."
         },
         "interactionHint": {
           "value": "Add vectors to graph area to begin exploring."
@@ -141,16 +141,16 @@
           "value": "There is an open graph area showing vectors from the selected equation. Modify position, magnitude, direction, and scaling of these vectors, and explore how changes to the equation and coefficients affect vectors in graph area."
         },
         "controlArea": {
-          "value": "Choose equation determining how three vectors interrelate. Select coefficients for scaling vectors {{symbol1}} and {{symbol2}}. Turn on vector {{symbol3}}, values, angles, and grid, and components. Set components of base vectors, and choose to add them to graph area. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset entire screen."
+          "value": "Choose equation determining how three vectors interrelate. Select coefficients for scaling vectors { $symbol1 } and { $symbol2 }. Turn on vector { $symbol3 }, values, angles, and grid, and components. Set components of base vectors, and choose to add them to graph area. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset entire screen."
         },
         "currentDetailsAddition": {
-          "value": "Currently, equation is {{coefficient1}} times base vector {{symbol1}} plus {{coefficient2}} times base vector {{symbol2}} equals vector {{symbol3}}."
+          "value": "Currently, equation is { $coefficient1 } times base vector { $symbol1 } plus { $coefficient2 } times base vector { $symbol2 } equals vector { $symbol3 }."
         },
         "currentDetailsSubtraction": {
-          "value": "Currently, equation is {{coefficient1}} times base vector {{symbol1}} minus {{coefficient2}} times base vector {{symbol2}} equals vector {{symbol3}}."
+          "value": "Currently, equation is { $coefficient1 } times base vector { $symbol1 } minus { $coefficient2 } times base vector { $symbol2 } equals vector { $symbol3 }."
         },
         "currentDetailsNegation": {
-          "value": "Currently, equation is {{coefficient1}} times base vector {{symbol1}} plus {{coefficient2}} times base vector {{symbol2}} plus vector {{symbol3}} equals zero."
+          "value": "Currently, equation is { $coefficient1 } times base vector { $symbol1 } plus { $coefficient2 } times base vector { $symbol2 } plus vector { $symbol3 } equals zero."
         },
         "interactionHint": {
           "value": "Modify equation type and its coefficients to explore how changes in the equation affect vectors in graph area."
@@ -167,13 +167,13 @@
     },
     "graphArea": {
       "accessibleParagraphExplore": {
-        "value": "{{numberOfVectors}} vectors in graph area."
+        "value": "{ $numberOfVectors } vectors in graph area."
       },
       "accessibleParagraphLab": {
-        "value": "{{vectorSet1Size}} vectors from set {{vectorSet1Symbol}} and {{vectorSet2Size}} vectors from set {{vectorSet2Symbol}} in graph area."
+        "value": "{ $vectorSet1Size } vectors from set { $vectorSet1Symbol } and { $vectorSet2Size } vectors from set { $vectorSet2Symbol } in graph area."
       },
       "accessibleParagraphEquations": {
-        "value": "{{numberOfVectors}} vectors in graph area."
+        "value": "{ $numberOfVectors } vectors in graph area."
       }
     },
     "horizontalSceneName": {
@@ -206,26 +206,26 @@
     },
     "sumCheckbox": {
       "accessibleName": {
-        "value": "Vector Sum, {{symbol}}"
+        "value": "Vector Sum, { $symbol }"
       },
       "accessibleHelpText": {
-        "value": "Show or hide vector {{symbol}}, if defined."
+        "value": "Show or hide vector { $symbol }, if defined."
       },
       "accessibleContextResponseChecked": {
-        "value": "Vector {{symbol}} visibility enabled."
+        "value": "Vector { $symbol } visibility enabled."
       },
       "accessibleContextResponseUnchecked": {
-        "value": "Vector {{symbol}} visibility disabled."
+        "value": "Vector { $symbol } visibility disabled."
       }
     },
     "labSumCheckbox": {
       "accessibleName": {
-        "value": "Vector Sum for Set {{vectorSetSymbol}}, {{sumSymbol}}"
+        "value": "Vector Sum for Set { $vectorSetSymbol }, { $sumSymbol }"
       }
     },
     "equationsSumCheckbox": {
       "accessibleName": {
-        "value": "Vector {{symbol}}"
+        "value": "Vector { $symbol }"
       }
     },
     "valuesCheckbox": {
@@ -266,7 +266,7 @@
         "value": "Scene"
       },
       "accessibleHelpText": {
-        "value": "Switch between independent scenes with their own vectors and graph areas. Cartesian scene vectors snap to integer x and y components. Polar scene vectors snap to integer magnitudes and angle multiples of {{polarAngleInterval}} degrees."
+        "value": "Switch between independent scenes with their own vectors and graph areas. Cartesian scene vectors snap to integer x and y components. Polar scene vectors snap to integer magnitudes and angle multiples of { $polarAngleInterval } degrees."
       }
     },
     "cartesianRadioButton": {
@@ -302,22 +302,22 @@
         "value": "Equation Type"
       },
       "accessibleHelpText": {
-        "value": "Choose the equation that determines how vectors {{symbol1}}, {{symbol2}}, and {{symbol3}} interrelate."
+        "value": "Choose the equation that determines how vectors { $symbol1 }, { $symbol2 }, and { $symbol3 } interrelate."
       }
     },
     "additionRadioButton": {
       "accessibleName": {
-        "value": "{{symbol1}} plus {{symbol2}} equals {{symbol3}}"
+        "value": "{ $symbol1 } plus { $symbol2 } equals { $symbol3 }"
       }
     },
     "subtractionRadioButton": {
       "accessibleName": {
-        "value": "{{symbol1}} minus {{symbol2}} equals {{symbol3}}"
+        "value": "{ $symbol1 } minus { $symbol2 } equals { $symbol3 }"
       }
     },
     "negationRadioButton": {
       "accessibleName": {
-        "value": "{{symbol1}} plus {{symbol2}} plus {{symbol3}} equals zero"
+        "value": "{ $symbol1 } plus { $symbol2 } plus { $symbol3 } equals zero"
       }
     },
     "baseVectorsCheckbox": {
@@ -336,7 +336,7 @@
         "value": "Move to relocate graph area origin, which changes x axis and y axis spans."
       },
       "accessibleObjectResponse": {
-        "value": "x axis spans {{minX}} to {{maxX}}, y axis spans {{minY}} to {{maxY}}"
+        "value": "x axis spans { $minX } to { $maxX }, y axis spans { $minY } to { $maxY }"
       }
     },
     "eraserButton": {
@@ -352,16 +352,16 @@
     },
     "vectorValuesAccordionBox": {
       "accessibleParagraph": {
-        "value": "For vector {{symbol}}: magnitude is {{magnitude}}; direction is {{direction}} degrees from positive x axis; x component is {{xComponent}}; y component is {{yComponent}}."
+        "value": "For vector { $symbol }: magnitude is { $magnitude }; direction is { $direction } degrees from positive x axis; x component is { $xComponent }; y component is { $yComponent }."
       },
       "accessibleHelpTextCollapsed": {
         "value": "Show magnitude, direction, and components of selected vector."
       },
       "accessibleParagraphBaseVector": {
-        "value": "For base vector {{symbol}}: magnitude is {{magnitude}}; direction is {{direction}} degrees from positive x axis; x component is {{xComponent}}; y component is {{yComponent}}."
+        "value": "For base vector { $symbol }: magnitude is { $magnitude }; direction is { $direction } degrees from positive x axis; x component is { $xComponent }; y component is { $yComponent }."
       },
       "accessibleParagraphCoefficientVector": {
-        "value": "For vector {{coefficient}} {{symbol}}: magnitude is {{magnitude}}; direction is {{direction}} degrees from positive x axis; x component is {{xComponent}}; y component is {{yComponent}}."
+        "value": "For vector { $coefficient } { $symbol }: magnitude is { $magnitude }; direction is { $direction } degrees from positive x axis; x component is { $xComponent }; y component is { $yComponent }."
       }
     },
     "equationAccordionBox": {
@@ -370,7 +370,7 @@
       }
     },
     "symbolSubSubscript": {
-      "value": "{{symbol}} sub {{subscript}}"
+      "value": "{ $symbol } sub { $subscript }"
     },
     "signedRadioButton": {
       "value": "signed, negative 180 to positive 180 degrees"
@@ -380,39 +380,39 @@
     },
     "baseVectorXComponentPicker": {
       "accessibleName": {
-        "value": "Base vector {{symbol}}, x component"
+        "value": "Base vector { $symbol }, x component"
       },
       "accessibleHelpText": {
-        "value": "Choose horizontal component of base vector {{symbol}}."
+        "value": "Choose horizontal component of base vector { $symbol }."
       }
     },
     "baseVectorYComponentPicker": {
       "accessibleName": {
-        "value": "Base vector {{symbol}}, y component"
+        "value": "Base vector { $symbol }, y component"
       },
       "accessibleHelpText": {
-        "value": "Choose vertical component of base vector {{symbol}}."
+        "value": "Choose vertical component of base vector { $symbol }."
       }
     },
     "baseVectorMagnitudePicker": {
       "accessibleName": {
-        "value": "Base vector {{symbol}}, magnitude"
+        "value": "Base vector { $symbol }, magnitude"
       },
       "accessibleHelpText": {
-        "value": "Choose magnitude of base vector {{symbol}}."
+        "value": "Choose magnitude of base vector { $symbol }."
       }
     },
     "baseVectorAnglePicker": {
       "accessibleName": {
-        "value": "Base vector {{symbol}}, direction"
+        "value": "Base vector { $symbol }, direction"
       },
       "accessibleHelpText": {
-        "value": "Choose direction of base vector {{symbol}}, in degrees from positive x axis."
+        "value": "Choose direction of base vector { $symbol }, in degrees from positive x axis."
       }
     },
     "coefficientPicker": {
       "accessibleName": {
-        "value": "Vector {{symbol}} Coefficient"
+        "value": "Vector { $symbol } Coefficient"
       },
       "accessibleHelpText": {
         "value": "Choose coefficient to multiply base vector in equation."
@@ -420,18 +420,18 @@
     },
     "vectorButton": {
       "accessibleName": {
-        "value": "Vector {{symbol}}"
+        "value": "Vector { $symbol }"
       },
       "accessibleHelpText": {
-        "value": "Add vector {{symbol}} to graph area."
+        "value": "Add vector { $symbol } to graph area."
       }
     },
     "vectorSetButton": {
       "accessibleName": {
-        "value": "Vector Set {{symbol}}"
+        "value": "Vector Set { $symbol }"
       },
       "accessibleHelpText": {
-        "value": "Add vector from set {{symbol}} to graph area."
+        "value": "Add vector from set { $symbol } to graph area."
       },
       "accessibleHelpTextEmpty": {
         "value": "Disabled when empty."
@@ -440,54 +440,54 @@
     "vectorNode": {
       "body": {
         "accessibleName": {
-          "value": "Vector {{symbol}}"
+          "value": "Vector { $symbol }"
         },
         "accessibleHelpText": {
           "value": "Move to change position of vector."
         },
         "accessibleObjectResponse": {
-          "value": "tail at {{tailX}} {{tailY}}, tip at {{tipX}} {{tipY}}"
+          "value": "tail at { $tailX } { $tailY }, tip at { $tipX } { $tipY }"
         },
         "accessibleObjectResponseTipOutsideGraphArea": {
-          "value": "tail at {{tailX}} {{tailY}}, tip at {{tipX}} {{tipY}}, tip outside graph area"
+          "value": "tail at { $tailX } { $tailY }, tip at { $tipX } { $tipY }, tip outside graph area"
         }
       },
       "tip": {
         "accessibleName": {
-          "value": "Vector {{symbol}} tip"
+          "value": "Vector { $symbol } tip"
         },
         "accessibleHelpText": {
           "value": "Move to change position of vector tip."
         },
         "accessibleObjectResponseCartesian": {
-          "value": "tip at {{tipX}} {{tipY}}"
+          "value": "tip at { $tipX } { $tipY }"
         },
         "accessibleObjectResponseCartesianTipReturnedToGraphArea": {
-          "value": "tip at {{tipX}} {{tipY}}, tip returned to graph area"
+          "value": "tip at { $tipX } { $tipY }, tip returned to graph area"
         },
         "accessibleObjectResponsePolar": {
-          "value": "magnitude {{magnitude}}, direction {{angle}} degrees"
+          "value": "magnitude { $magnitude }, direction { $angle } degrees"
         },
         "accessibleObjectResponsePolarTipReturnedToGraphArea": {
-          "value": "magnitude {{magnitude}}, direction {{angle}} degrees, tip returned to graph area"
+          "value": "magnitude { $magnitude }, direction { $angle } degrees, tip returned to graph area"
         }
       }
     },
     "equationsVectorNode": {
       "accessibleName": {
-        "value": "{{coefficient}} {{symbol}}"
+        "value": "{ $coefficient } { $symbol }"
       }
     },
     "baseVectorNode": {
       "accessibleName": {
-        "value": "Base Vector {{symbol}}"
+        "value": "Base Vector { $symbol }"
       }
     },
     "vectorAddedToGraphArea": {
-      "value": "Vector {{symbol}} added to graph area."
+      "value": "Vector { $symbol } added to graph area."
     },
     "vectorRemovedFromGraphArea": {
-      "value": "Vector {{symbol}} removed from graph area."
+      "value": "Vector { $symbol } removed from graph area."
     }
   }
 }

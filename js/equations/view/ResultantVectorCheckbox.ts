@@ -9,7 +9,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
@@ -41,22 +40,22 @@ export default class ResultantVectorCheckbox extends Checkbox {
 
       // CheckboxOptions
       isDisposable: false,
-      accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
+      accessibleName: VectorAdditionFluent.a11y.equationsSumCheckbox.accessibleName.createProperty( {
         symbol: accessibleSymbolProperty
       } ),
 
-      // "Show or hide vector {{symbol}}."
-      accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
+      // "Show or hide vector { $symbol }."
+      accessibleHelpText: VectorAdditionFluent.a11y.sumCheckbox.accessibleHelpText.createProperty( {
         symbol: accessibleSymbolProperty
       } ),
 
-      // "Vector {{symbol}} visibility enabled."
-      accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
+      // "Vector { $symbol } visibility enabled."
+      accessibleContextResponseChecked: VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseChecked.createProperty( {
         symbol: accessibleSymbolProperty
       } ),
 
-      // "Vector {{symbol}} visibility disabled."
-      accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
+      // "Vector { $symbol } visibility disabled."
+      accessibleContextResponseUnchecked: VectorAdditionFluent.a11y.sumCheckbox.accessibleContextResponseUnchecked.createProperty( {
         symbol: accessibleSymbolProperty
       } ),
       tandem: tandem

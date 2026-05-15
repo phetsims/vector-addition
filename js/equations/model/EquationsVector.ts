@@ -9,7 +9,6 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -64,7 +63,7 @@ export default class EquationsVector extends Vector {
       phetioFeatured: true
     } );
 
-    const accessibleSymbolProperty = new PatternStringProperty( VectorAdditionFluent.a11y.equationsVectorNode.accessibleNameStringProperty, {
+    const accessibleSymbolProperty = VectorAdditionFluent.a11y.equationsVectorNode.accessibleName.createProperty( {
       coefficient: coefficientProperty,
       symbol: RichText.getAccessibleStringProperty( providedOptions.symbolProperty )
     } );

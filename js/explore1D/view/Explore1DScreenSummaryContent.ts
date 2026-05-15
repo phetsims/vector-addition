@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
@@ -33,7 +32,7 @@ export default class Explore1DScreenSummaryContent extends ScreenSummaryContent 
       derive: scene => scene.accessibleSceneNameStringProperty
     } );
 
-    const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionFluent.a11y.explore1DScreen.screenSummary.currentDetailsStringProperty, {
+    const currentDetailsStringProperty = VectorAdditionFluent.a11y.explore1DScreen.screenSummary.currentDetails.createProperty( {
       numberOfVectors: new DerivedProperty(
         [ sumVisibleProperty, resultantIsDefinedProperty, numberOfVectorsProperty ],
         ( sumVisible, resultantIsDefined, numberOfVectors ) => ( sumVisible && resultantIsDefined ) ? numberOfVectors + 1 : numberOfVectors

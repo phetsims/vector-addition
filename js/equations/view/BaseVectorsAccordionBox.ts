@@ -15,7 +15,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
@@ -97,10 +96,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorXComponentPicker.accessibleNameStringProperty, {
+            accessibleName: VectorAdditionFluent.a11y.baseVectorXComponentPicker.accessibleName.createProperty( {
               symbol: baseVector.accessibleSymbolProperty
             } ),
-            accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorXComponentPicker.accessibleHelpTextStringProperty, {
+            accessibleHelpText: VectorAdditionFluent.a11y.baseVectorXComponentPicker.accessibleHelpText.createProperty( {
               symbol: baseVector.accessibleSymbolProperty
             } ),
             tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}xPicker` )
@@ -118,10 +117,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorYComponentPicker.accessibleNameStringProperty, {
+            accessibleName: VectorAdditionFluent.a11y.baseVectorYComponentPicker.accessibleName.createProperty( {
               symbol: baseVector.accessibleSymbolProperty
             } ),
-            accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorYComponentPicker.accessibleHelpTextStringProperty, {
+            accessibleHelpText: VectorAdditionFluent.a11y.baseVectorYComponentPicker.accessibleHelpText.createProperty( {
               symbol: baseVector.accessibleSymbolProperty
             } ),
             tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}yPicker` )
@@ -151,10 +150,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            accessibleName: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorMagnitudePicker.accessibleNameStringProperty, {
+            accessibleName: VectorAdditionFluent.a11y.baseVectorMagnitudePicker.accessibleName.createProperty( {
               symbol: baseVector.accessibleSymbolProperty
             } ),
-            accessibleHelpText: new PatternStringProperty( VectorAdditionFluent.a11y.baseVectorMagnitudePicker.accessibleHelpTextStringProperty, {
+            accessibleHelpText: VectorAdditionFluent.a11y.baseVectorMagnitudePicker.accessibleHelpText.createProperty( {
               symbol: baseVector.accessibleSymbolProperty
             } ),
             tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}MagnitudePicker` )

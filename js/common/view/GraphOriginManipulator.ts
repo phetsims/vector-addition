@@ -12,7 +12,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
@@ -124,7 +123,7 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
    */
   private getGraphBoundsDescription(): string {
     const graphBounds = this.graph.boundsProperty.value;
-    return StringUtils.fillIn( VectorAdditionFluent.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
+    return VectorAdditionFluent.a11y.originManipulator.accessibleObjectResponse.format( {
       minX: graphBounds.minX,
       minY: graphBounds.minY,
       maxX: graphBounds.maxX,

@@ -16,7 +16,6 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import IndexedNodeIO from '../../../../scenery/js/nodes/IndexedNodeIO.js';
@@ -156,12 +155,12 @@ export default class VectorSetNode extends Node {
     this.vectorSet.allVectors.forEach( vector => {
       vector.isOnGraphProperty.lazyLink( isOnGraph => {
         if ( isOnGraph ) {
-          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionFluent.a11y.vectorAddedToGraphAreaStringProperty, {
+          this.addAccessibleContextResponse( VectorAdditionFluent.a11y.vectorAddedToGraphArea.format( {
             symbol: vector.accessibleSymbolProperty.value
           } ) );
         }
         else {
-          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionFluent.a11y.vectorRemovedFromGraphAreaStringProperty, {
+          this.addAccessibleContextResponse( VectorAdditionFluent.a11y.vectorRemovedFromGraphArea.format( {
             symbol: vector.accessibleSymbolProperty.value
           } ) );
         }
