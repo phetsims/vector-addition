@@ -174,7 +174,7 @@ a11y:
   originManipulator:
     accessibleName:           Graph Area Origin
     accessibleHelpText:       Move to relocate graph area origin, which changes x axis and y axis spans.
-    accessibleObjectResponse: x axis spans { $minX } to { $maxX }, y axis spans { $minY } to { $maxY }
+    accessibleObjectResponse: 'x axis spans { $minX } to { $maxX }, y axis spans { $minY } to { $maxY }'
   eraserButton:
     accessibleName:            Erase all vectors
     accessibleHelpText:        Remove all vectors from graph area.
@@ -211,9 +211,7 @@ a11y:
     accessibleHelpText: Choose magnitude of base vector { $symbol }.
   baseVectorAnglePicker:
     accessibleName:     Base vector { $symbol }, direction
-    accessibleHelpText: >-
-                        Choose direction of base vector { $symbol }, in degrees from positive x
-                        axis.
+    accessibleHelpText: Choose direction of base vector { $symbol }, in degrees from positive x axis.
   coefficientPicker:
     accessibleName:     Vector { $symbol } Coefficient
     accessibleHelpText: Choose coefficient to multiply base vector in equation.
