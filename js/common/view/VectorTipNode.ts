@@ -184,31 +184,15 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
                                    !this.graphBoundsProperty.value.containsPoint( previousTipPosition ) &&
                                    this.graphBoundsProperty.value.containsPoint( this.vector.tip );
 
-    let response: string;
-    if ( this.vector.coordinateSnapMode === 'cartesian' ) {
-
-      // Cartesian scene reports the tip's xy-coordinates.
-      const pattern = tipReturnedToGraphArea ?
-                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphArea :
-                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponseCartesian;
-      response = pattern.format( {
-        tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
-        tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
-      } );
-    }
-    else {
-
-      // Polar scene reports the vector's magnitude and angle.
-      const pattern = tipReturnedToGraphArea ?
-                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphArea :
-                      VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponsePolar;
-      const angle = this.vector.getAngleDegrees( VectorAdditionPreferences.instance.angleConventionProperty.value ) || 0;
-      response = pattern.format( {
-        magnitude: toFixedNumber( this.vector.magnitude, 1 ),
-        angle: toFixedNumber( angle, 1 )
-      } );
-    }
-    return response;
+    const angle = this.vector.getAngleDegrees( VectorAdditionPreferences.instance.angleConventionProperty.value ) || 0;
+    return VectorAdditionFluent.a11y.vectorNode.tip.accessibleObjectResponse.format( {
+      coordinateSnapMode: this.vector.coordinateSnapMode,
+      tipReturnedToGraphArea: tipReturnedToGraphArea ? 'true' : 'false',
+      tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
+      tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
+      magnitude: toFixedNumber( this.vector.magnitude, 1 ),
+      angle: toFixedNumber( angle, 1 )
+    } );
   }
 }
 

@@ -71,33 +71,35 @@ a11y:
   equationsScreen:
     screenButtonsHelpText: Explore and manipulate vector equations.
     screenSummary:
-      playArea:                  >-
-                                 There is an open graph area showing vectors from the selected equation.
-                                 Modify position, magnitude, direction, and scaling of these vectors, and
-                                 explore how changes to the equation and coefficients affect vectors in
-                                 graph area.
-      controlArea:               >-
-                                 Choose equation determining how three vectors interrelate. Select
-                                 coefficients for scaling vectors { $symbol1 } and { $symbol2 }. Turn on
-                                 vector { $symbol3 }, values, angles, and grid, and components. Set
-                                 components of base vectors, and choose to add them to graph area. Modify
-                                 position of graph area origin. Switch between Cartesian and polar
-                                 scenes, or reset entire screen.
-      currentDetailsAddition:    >-
-                                 Currently, equation is { $coefficient1 } times base vector { $symbol1 }
-                                 plus { $coefficient2 } times base vector { $symbol2 } equals vector
-                                 { $symbol3 }.
-      currentDetailsSubtraction: >-
-                                 Currently, equation is { $coefficient1 } times base vector { $symbol1 }
-                                 minus { $coefficient2 } times base vector { $symbol2 } equals vector
-                                 { $symbol3 }.
-      currentDetailsNegation:    >-
-                                 Currently, equation is { $coefficient1 } times base vector { $symbol1 }
-                                 plus { $coefficient2 } times base vector { $symbol2 } plus vector
-                                 { $symbol3 } equals zero.
-      interactionHint:           >-
-                                 Modify equation type and its coefficients to explore how changes in the
-                                 equation affect vectors in graph area.
+      playArea:        >-
+                       There is an open graph area showing vectors from the selected equation.
+                       Modify position, magnitude, direction, and scaling of these vectors, and
+                       explore how changes to the equation and coefficients affect vectors in
+                       graph area.
+      controlArea:     >-
+                       Choose equation determining how three vectors interrelate. Select
+                       coefficients for scaling vectors { $symbol1 } and { $symbol2 }. Turn on
+                       vector { $symbol3 }, values, angles, and grid, and components. Set
+                       components of base vectors, and choose to add them to graph area. Modify
+                       position of graph area origin. Switch between Cartesian and polar
+                       scenes, or reset entire screen.
+      currentDetails:
+        select_equationType:
+          addition:    >-
+                       Currently, equation is { $coefficient1 } times base vector { $symbol1 }
+                       plus { $coefficient2 } times base vector { $symbol2 } equals vector
+                       { $symbol3 }.
+          subtraction: >-
+                       Currently, equation is { $coefficient1 } times base vector { $symbol1 }
+                       minus { $coefficient2 } times base vector { $symbol2 } equals vector
+                       { $symbol3 }.
+          negation:    >-
+                       Currently, equation is { $coefficient1 } times base vector { $symbol1 }
+                       plus { $coefficient2 } times base vector { $symbol2 } plus vector
+                       { $symbol3 } equals zero.
+      interactionHint: >-
+                       Modify equation type and its coefficients to explore how changes in the
+                       equation affect vectors in graph area.
   accessibleHeadings:
     availableVectors: Available Vectors
     graphAreaHeading: Graph Area
@@ -230,14 +232,20 @@ a11y:
       accessibleObjectResponseTipOutsideGraphArea: >-
                                                    tail at { $tailX } { $tailY }, tip at { $tipX } { $tipY }, tip outside graph area
     tip:
-      accessibleName:                                          Vector { $symbol } tip
-      accessibleHelpText:                                      Move to change position of vector tip.
-      accessibleObjectResponseCartesian:                       tip at { $tipX } { $tipY }
-      accessibleObjectResponseCartesianTipReturnedToGraphArea: tip at { $tipX } { $tipY }, tip returned to graph area
-      accessibleObjectResponsePolar:                           magnitude { $magnitude }, direction { $angle } degrees
-      accessibleObjectResponsePolarTipReturnedToGraphArea:     >-
-                                                               magnitude { $magnitude }, direction { $angle } degrees, tip returned to
-                                                               graph area
+      accessibleName:     Vector { $symbol } tip
+      accessibleHelpText: Move to change position of vector tip.
+      accessibleObjectResponse:
+        select_coordinateSnapMode:
+          cartesian:
+            select_tipReturnedToGraphArea:
+              true:  tip at { $tipX } { $tipY }, tip returned to graph area
+              false: tip at { $tipX } { $tipY }
+          polar:
+            select_tipReturnedToGraphArea:
+              true:  >-
+                     magnitude { $magnitude }, direction { $angle } degrees, tip returned to
+                     graph area
+              false: magnitude { $magnitude }, direction { $angle } degrees
   equationsVectorNode:
     accessibleName: '{ $coefficient } { $symbol }'
   baseVectorNode:

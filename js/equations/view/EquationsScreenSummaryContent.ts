@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
@@ -60,33 +59,15 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
       symbol3: accessibleSymbol3Property
     } );
 
-    const currentDetailsFluentArgs = {
+    // Current Details description
+    const currentDetailsStringProperty = VectorAdditionFluent.a11y.equationsScreen.screenSummary.currentDetails.createProperty( {
+      equationType: equationTypeProperty,
       coefficient1: coefficient1Property,
       symbol1: accessibleSymbol1Property,
       coefficient2: coefficient2Property,
       symbol2: accessibleSymbol2Property,
       symbol3: accessibleSymbol3Property
-    };
-
-    const currentDetailsAdditionStringProperty =
-      VectorAdditionFluent.a11y.equationsScreen.screenSummary.currentDetailsAddition.createProperty( currentDetailsFluentArgs );
-    const currentDetailsSubtractionStringProperty =
-      VectorAdditionFluent.a11y.equationsScreen.screenSummary.currentDetailsSubtraction.createProperty( currentDetailsFluentArgs );
-    const currentDetailsNegationStringProperty =
-      VectorAdditionFluent.a11y.equationsScreen.screenSummary.currentDetailsNegation.createProperty( currentDetailsFluentArgs );
-
-    // Current Details description
-    const currentDetailsStringProperty = new DerivedStringProperty( [
-        equationTypeProperty,
-        currentDetailsAdditionStringProperty,
-        currentDetailsSubtractionStringProperty,
-        currentDetailsNegationStringProperty
-      ],
-      ( equationType, additionString, subtractionString, negationString ) =>
-        ( equationType === 'addition' ) ? additionString :
-        ( equationType === 'subtraction' ) ? subtractionString :
-        ( equationType === 'negation' ) ? negationString :
-        ( () => { throw new Error( `unknown equationType: ${equationType}` ); } )() );
+    } );
 
     super( {
       playAreaContent: VectorAdditionFluent.a11y.equationsScreen.screenSummary.playAreaStringProperty,

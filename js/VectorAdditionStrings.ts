@@ -78,9 +78,7 @@ type StringsType = {
       'screenSummary': {
         'playAreaStringProperty': LocalizedStringProperty;
         'controlAreaStringProperty': LocalizedStringProperty;
-        'currentDetailsAdditionStringProperty': LocalizedStringProperty;
-        'currentDetailsSubtractionStringProperty': LocalizedStringProperty;
-        'currentDetailsNegationStringProperty': LocalizedStringProperty;
+        'currentDetailsStringProperty': LocalizedStringProperty;
         'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
@@ -234,10 +232,7 @@ type StringsType = {
       'tip': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
-        'accessibleObjectResponseCartesianStringProperty': LocalizedStringProperty;
-        'accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty': LocalizedStringProperty;
-        'accessibleObjectResponsePolarStringProperty': LocalizedStringProperty;
-        'accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       }
     };
     'equationsVectorNode': {

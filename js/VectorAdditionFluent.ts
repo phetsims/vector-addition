@@ -5,6 +5,7 @@
 /* eslint-disable */
 /* @formatter:off */
 
+import { TReadOnlyProperty } from '../../axon/js/TReadOnlyProperty.js';
 import FluentLibrary from '../../chipper/js/browser-and-node/FluentLibrary.js';
 import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
 import FluentContainer from '../../chipper/js/browser/FluentContainer.js';
@@ -69,9 +70,7 @@ addToMapIfDefined( 'a11y_labScreen_screenSummary_interactionHint', 'a11y.labScre
 addToMapIfDefined( 'a11y_equationsScreen_screenButtonsHelpText', 'a11y.equationsScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_equationsScreen_screenSummary_playArea', 'a11y.equationsScreen.screenSummary.playAreaStringProperty' );
 addToMapIfDefined( 'a11y_equationsScreen_screenSummary_controlArea', 'a11y.equationsScreen.screenSummary.controlAreaStringProperty' );
-addToMapIfDefined( 'a11y_equationsScreen_screenSummary_currentDetailsAddition', 'a11y.equationsScreen.screenSummary.currentDetailsAdditionStringProperty' );
-addToMapIfDefined( 'a11y_equationsScreen_screenSummary_currentDetailsSubtraction', 'a11y.equationsScreen.screenSummary.currentDetailsSubtractionStringProperty' );
-addToMapIfDefined( 'a11y_equationsScreen_screenSummary_currentDetailsNegation', 'a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty' );
+addToMapIfDefined( 'a11y_equationsScreen_screenSummary_currentDetails', 'a11y.equationsScreen.screenSummary.currentDetailsStringProperty' );
 addToMapIfDefined( 'a11y_equationsScreen_screenSummary_interactionHint', 'a11y.equationsScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_accessibleHeadings_availableVectors', 'a11y.accessibleHeadings.availableVectorsStringProperty' );
 addToMapIfDefined( 'a11y_accessibleHeadings_graphAreaHeading', 'a11y.accessibleHeadings.graphAreaHeadingStringProperty' );
@@ -149,10 +148,7 @@ addToMapIfDefined( 'a11y_vectorNode_body_accessibleObjectResponse', 'a11y.vector
 addToMapIfDefined( 'a11y_vectorNode_body_accessibleObjectResponseTipOutsideGraphArea', 'a11y.vectorNode.body.accessibleObjectResponseTipOutsideGraphAreaStringProperty' );
 addToMapIfDefined( 'a11y_vectorNode_tip_accessibleName', 'a11y.vectorNode.tip.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_vectorNode_tip_accessibleHelpText', 'a11y.vectorNode.tip.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_vectorNode_tip_accessibleObjectResponseCartesian', 'a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty' );
-addToMapIfDefined( 'a11y_vectorNode_tip_accessibleObjectResponseCartesianTipReturnedToGraphArea', 'a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty' );
-addToMapIfDefined( 'a11y_vectorNode_tip_accessibleObjectResponsePolar', 'a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty' );
-addToMapIfDefined( 'a11y_vectorNode_tip_accessibleObjectResponsePolarTipReturnedToGraphArea', 'a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty' );
+addToMapIfDefined( 'a11y_vectorNode_tip_accessibleObjectResponse', 'a11y.vectorNode.tip.accessibleObjectResponseStringProperty' );
 addToMapIfDefined( 'a11y_equationsVectorNode_accessibleName', 'a11y.equationsVectorNode.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_baseVectorNode_accessibleName', 'a11y.baseVectorNode.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_vectorAddedToGraphArea', 'a11y.vectorAddedToGraphAreaStringProperty' );
@@ -236,9 +232,7 @@ const VectorAdditionFluent = {
       screenSummary: {
         playAreaStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_equationsScreen_screenSummary_playArea', _.get( VectorAdditionStrings, 'a11y.equationsScreen.screenSummary.playAreaStringProperty' ) ),
         controlArea: new FluentPattern<{ symbol1: FluentVariable, symbol2: FluentVariable, symbol3: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_equationsScreen_screenSummary_controlArea', _.get( VectorAdditionStrings, 'a11y.equationsScreen.screenSummary.controlAreaStringProperty' ), [{"name":"symbol1"},{"name":"symbol2"},{"name":"symbol3"}] ),
-        currentDetailsAddition: new FluentPattern<{ coefficient1: FluentVariable, coefficient2: FluentVariable, symbol1: FluentVariable, symbol2: FluentVariable, symbol3: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_equationsScreen_screenSummary_currentDetailsAddition', _.get( VectorAdditionStrings, 'a11y.equationsScreen.screenSummary.currentDetailsAdditionStringProperty' ), [{"name":"coefficient1"},{"name":"coefficient2"},{"name":"symbol1"},{"name":"symbol2"},{"name":"symbol3"}] ),
-        currentDetailsSubtraction: new FluentPattern<{ coefficient1: FluentVariable, coefficient2: FluentVariable, symbol1: FluentVariable, symbol2: FluentVariable, symbol3: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_equationsScreen_screenSummary_currentDetailsSubtraction', _.get( VectorAdditionStrings, 'a11y.equationsScreen.screenSummary.currentDetailsSubtractionStringProperty' ), [{"name":"coefficient1"},{"name":"coefficient2"},{"name":"symbol1"},{"name":"symbol2"},{"name":"symbol3"}] ),
-        currentDetailsNegation: new FluentPattern<{ coefficient1: FluentVariable, coefficient2: FluentVariable, symbol1: FluentVariable, symbol2: FluentVariable, symbol3: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_equationsScreen_screenSummary_currentDetailsNegation', _.get( VectorAdditionStrings, 'a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty' ), [{"name":"coefficient1"},{"name":"coefficient2"},{"name":"symbol1"},{"name":"symbol2"},{"name":"symbol3"}] ),
+        currentDetails: new FluentPattern<{ coefficient1: FluentVariable, coefficient2: FluentVariable, equationType: 'addition' | 'subtraction' | 'negation' | TReadOnlyProperty<'addition' | 'subtraction' | 'negation'>, symbol1: FluentVariable, symbol2: FluentVariable, symbol3: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_equationsScreen_screenSummary_currentDetails', _.get( VectorAdditionStrings, 'a11y.equationsScreen.screenSummary.currentDetailsStringProperty' ), [{"name":"coefficient1"},{"name":"coefficient2"},{"name":"equationType","variants":["addition","subtraction","negation"]},{"name":"symbol1"},{"name":"symbol2"},{"name":"symbol3"}] ),
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_equationsScreen_screenSummary_interactionHint', _.get( VectorAdditionStrings, 'a11y.equationsScreen.screenSummary.interactionHintStringProperty' ) )
       }
     },
@@ -392,10 +386,7 @@ const VectorAdditionFluent = {
       tip: {
         accessibleName: new FluentPattern<{ symbol: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_vectorNode_tip_accessibleName', _.get( VectorAdditionStrings, 'a11y.vectorNode.tip.accessibleNameStringProperty' ), [{"name":"symbol"}] ),
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_vectorNode_tip_accessibleHelpText', _.get( VectorAdditionStrings, 'a11y.vectorNode.tip.accessibleHelpTextStringProperty' ) ),
-        accessibleObjectResponseCartesian: new FluentPattern<{ tipX: FluentVariable, tipY: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_vectorNode_tip_accessibleObjectResponseCartesian', _.get( VectorAdditionStrings, 'a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty' ), [{"name":"tipX"},{"name":"tipY"}] ),
-        accessibleObjectResponseCartesianTipReturnedToGraphArea: new FluentPattern<{ tipX: FluentVariable, tipY: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_vectorNode_tip_accessibleObjectResponseCartesianTipReturnedToGraphArea', _.get( VectorAdditionStrings, 'a11y.vectorNode.tip.accessibleObjectResponseCartesianTipReturnedToGraphAreaStringProperty' ), [{"name":"tipX"},{"name":"tipY"}] ),
-        accessibleObjectResponsePolar: new FluentPattern<{ angle: FluentVariable, magnitude: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_vectorNode_tip_accessibleObjectResponsePolar', _.get( VectorAdditionStrings, 'a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty' ), [{"name":"angle"},{"name":"magnitude"}] ),
-        accessibleObjectResponsePolarTipReturnedToGraphArea: new FluentPattern<{ angle: FluentVariable, magnitude: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_vectorNode_tip_accessibleObjectResponsePolarTipReturnedToGraphArea', _.get( VectorAdditionStrings, 'a11y.vectorNode.tip.accessibleObjectResponsePolarTipReturnedToGraphAreaStringProperty' ), [{"name":"angle"},{"name":"magnitude"}] )
+        accessibleObjectResponse: new FluentPattern<{ angle: FluentVariable, coordinateSnapMode: 'cartesian' | 'polar' | TReadOnlyProperty<'cartesian' | 'polar'>, magnitude: FluentVariable, tipReturnedToGraphArea: 'true' | 'false' | TReadOnlyProperty<'true' | 'false'>, tipX: FluentVariable, tipY: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_vectorNode_tip_accessibleObjectResponse', _.get( VectorAdditionStrings, 'a11y.vectorNode.tip.accessibleObjectResponseStringProperty' ), [{"name":"angle"},{"name":"coordinateSnapMode","variants":["cartesian","polar"]},{"name":"magnitude"},{"name":"tipReturnedToGraphArea","variants":["true","false"]},{"name":"tipX"},{"name":"tipY"}] )
       }
     },
     equationsVectorNode: {
